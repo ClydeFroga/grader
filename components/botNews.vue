@@ -8,80 +8,24 @@
     <div class="row field">
       <div class="col-12 col-lg">
 
-
         <div class="row-cols-1 row-cols-md-2 row">
-          <a class="col field__blockFull" href="#">
+          <nuxt-link v-for="post of posts" :key="post.id" class="col field__blockFull" :to="{name: 'post-slug', params: {slug: post.slug}}">
 
             <div class="field__block">
               <div class="field__imgBlc">
-                <img src="https://picsum.photos/800/600/?random=6">
-                <p class="field__text">
-                  Nuclear flux at the bridge was the resistance of pressure, handled to a small girl.
+                <img :alt="post.alt" :src="post.x_featured_media_large">
+                <p class="field__text" v-html="post.title.rendered">
                 </p>
               </div>
             </div>
 
             <div class="field__botText">
-              <p>
-                Vogons view on mystery at astral city!Wobble without adventure, and we won’t observe a transformator.
+              <p v-html="post.excerpt.rendered.slice(0, 120) + ' ...'">
               </p>
             </div>
 
-          </a>
-          <a class="col field__blockFull" href="#">
+          </nuxt-link>
 
-            <div class="field__block">
-              <div class="field__imgBlc">
-                <img src="https://picsum.photos/800/600/?random=6">
-                <p class="field__text">
-                  Nuclear flux at the bridge was the resistance of pressure, handled to a small girl.
-                </p>
-              </div>
-            </div>
-
-            <div class="field__botText">
-              <p>
-                Vogons view on mystery at astral city!Wobble without adventure, and we won’t observe a transformator.
-              </p>
-            </div>
-
-          </a>
-          <a class="col field__blockFull" href="#">
-
-            <div class="field__block">
-              <div class="field__imgBlc">
-                <img src="https://picsum.photos/800/600/?random=6">
-                <p class="field__text">
-                  Nuclear flux at the bridge was the resistance of pressure, handled to a small girl.
-                </p>
-              </div>
-            </div>
-
-            <div class="field__botText">
-              <p>
-                Vogons view on mystery at astral city!Wobble without adventure, and we won’t observe a transformator.
-              </p>
-            </div>
-
-          </a>
-          <a class="col field__blockFull" href="#">
-
-            <div class="field__block">
-              <div class="field__imgBlc">
-                <img src="https://picsum.photos/800/600/?random=6">
-                <p class="field__text">
-                  Nuclear flux at the bridge was the resistance of pressure, handled to a small girl.
-                </p>
-              </div>
-            </div>
-
-            <div class="field__botText">
-              <p>
-                Vogons view on mystery at astral city!Wobble without adventure, and we won’t observe a transformator.
-              </p>
-            </div>
-
-          </a>
         </div>
       </div>
 
@@ -102,7 +46,26 @@
 </template>
 
 <script>
-	export default {
+  import rand from 'lodash/random'
 
+	export default {
+    data() {
+      return {
+        posts: []
+      }
+    },
+    mounted() {
+      let r = rand(0, 100)
+      this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes_exclude=1599&per_page=4&offset=' + r)
+      .then(responce => {
+        this.posts = responce
+      })
+    },
 	}
 </script>
+
+<style scoped>
+  .field {
+    margin-top: 1rem;
+  }
+</style>

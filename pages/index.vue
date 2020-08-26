@@ -8,144 +8,73 @@
 
                 <div v-swiper:mySwiper="swiperOptions">
                   <div class="swiper-wrapper">
-                    <a class="swiper-slide">
-                      <img class="" src="https://picsum.photos/800/600/?random=1">
-                      <div class="Sw-cat">
-                        Категория
-                      </div>
-                      <div class="Sw-text">
-                        Nanomachines view from alignments like spheroid particles.
-                      </div>
-                    </a>
-                    <a class="swiper-slide">
-                      <img class="" src="https://picsum.photos/800/600/?random=2">
-                      <h2>History </h2>
-                      <div class="Sw-cat">
-                        Категория
-                      </div>
-                      <div class="Sw-text">
-                        Nanomachines view from alignments like spheroid particles.
-                      </div>
-                    </a>
-                    <a class="swiper-slide">
-                      <img class="" src="https://picsum.photos/800/600/?random=3">
-                      <h2>Proton </h2>
-                      <div class="Sw-cat">
-                        Категория
-                      </div>
-                      <div class="Sw-text">
-                        Nanomachines view from alignments like spheroid particles.
-                      </div>
-                    </a>
-                    <a class="swiper-slide">
-                      <img class="" src="https://picsum.photos/800/600/?random=4">
-                      <h2>Atlantis tower </h2>
-                      <div class="Sw-cat">
-                        Категория
-                      </div>
-                      <div class="Sw-text">
-                        Nanomachines view from alignments like spheroid particles.
-                      </div>
-                    </a>
-                    <a class="swiper-slide">
-                      <img class="" src="https://picsum.photos/800/600/?random=5">
-                      <h2>Core </h2>
-                      <div class="Sw-cat">
-                        Категория
-                      </div>
-                      <div class="Sw-text">
-                        Nanomachines view from alignments like spheroid particles.
-                      </div>
-                    </a>
+                    <div class="swiper-slide" v-for="(post, ind) of topSlider" :key="post.id" v-if="ind < 5">
+                      <nuxt-link class="col field__blockFull tops" :to="{name: 'post-slug', params: {slug: post.slug}}">
+
+                        <div class="field__block topper">
+                          <div class="field__imgBlc">
+                            <img data-not-lazy :alt="post.alt" :src="post.x_featured_media_large">
+                            <p class="field__text" v-html="post.title.rendered"></p>
+
+                          </div>
+                        </div>
+
+                        <div class="field__botText">
+                          <div class="Sw-cat">
+                            {{post.x_types[0]}}
+                          </div>
+                          <p class="Sw-text" v-html="post.excerpt.rendered.slice(0, 120) + ' ...'"></p>
+                        </div>
+
+                      </nuxt-link>
+                    </div>
+
                   </div>
                   <!-- Add Arrows -->
-                  <div class="swiper-next">
+                  <div class="swiper-next topper">
                     <svg-icon width="20" height="20" name="arrowRight"></svg-icon>
                   </div>
-                  <div class="swiper-prev">
+                  <div class="swiper-prev topper">
                     <svg-icon width="20" height="20" name="arrowLeft"></svg-icon>
                   </div>
                 </div>
 
               </div>
 
+              <div v-if="this.width <= 576" class="long-ad">
+                <img src="https://picsum.photos/728/90/?random=1">
+              </div>
+
               <div class="col col-xl-4">
                 <h2 class="wrapper__title">
                   Новости
                 </h2>
-                <a class="orangeHover wrapper__text" href="#">
-                  <p>
-                    Delighted kahlesses, to the saucer section.
-                  </p>
+                <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" v-for="post of news" :key="post.id" class="orangeHover wrapper__text" >
+                  <p v-html="post.title.rendered"></p>
                   <span>
-                  10.10.10
-                </span>
-                </a>
-                <a class="orangeHover wrapper__text" href="#">
-                  <p>
-                    Delighted kahlesses, to the saucer section.
-                  </p>
-                  <span>
-                  10.10.10
-                </span>
-                </a>
-                <a class="orangeHover wrapper__text" href="#">
-                  <p>
-                    Delighted kahlesses, to the saucer section.
-                  </p>
-                  <span>
-                  10.10.10
-                </span>
-                </a>
-                <a class="orangeHover wrapper__text" href="#">
-                  <p>
-                    Delighted kahlesses, to the saucer section.
-                  </p>
-                  <span>
-                  10.10.10
-                </span>
-                </a>
-                <a class="orangeHover wrapper__text" href="#">
-                  <p>
-                    Delighted kahlesses, to the saucer section.
-                  </p>
-                  <span>
-                  10.10.10
-                </span>
-                </a>
+                    {{post.x_date}}
+                  </span>
+                </nuxt-link>
+
               </div>
             </div>
 
             <div class="row row-cols-1 row-cols-md-3 wrapper__botCol">
-                <div class="col">
-                  <a href="#">
-                    <div class="wrapper__trpl">
-                      <img src="https://picsum.photos/800/600/?random=1">
-                      <span>Walk without honor.</span>
-                    </div>
-                    <p class="wrapper__trplText">Bare planets, to the cabin.</p>
-                  </a>
+
+                <div class="col" v-for="(post, ind) of topSlider" :key="post.id" v-if="ind > 4">
+                  <div>
+                    <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}">
+                      <div class="wrapper__trpl">
+                        <img :alt='post.alt' :src="post.x_featured_media_large">
+                        <span>{{post.x_types[0]}}</span>
+                        <p v-html="post.title.rendered" class="wrapper__trplText"></p>
+                      </div>
+
+                    </nuxt-link>
+                  </div>
                 </div>
 
-                <div class="col">
-                  <a href="#">
-                    <div class="wrapper__trpl">
-                      <img src="https://picsum.photos/800/600/?random=1">
-                      <span>Walk without honor.</span>
-                    </div>
-                    <p class="wrapper__trplText">Bare planets, to the cabin.</p>
-                  </a>
-                </div>
 
-                <div class="col">
-                  <a href="#">
-                    <div class="wrapper__trpl">
-                      <img src="https://picsum.photos/800/600/?random=1">
-                      <span>Walk without honor.</span>
-                    </div>
-                    <p class="wrapper__trplText">Bare planets, to the cabin.</p>
-                  </a>
-                </div>
             </div>
           </div>
 
@@ -159,25 +88,16 @@
           </div>
         </div>
 
-        <div class="long-ad">
+        <div v-if="this.width > 576" class="long-ad">
           <img src="https://picsum.photos/728/90/?random=1">
         </div>
 
-        <div class="wrapper__mainthemes">
+        <div v-if="this.width > 576" class="wrapper__mainthemes">
           <span>
             Все материалы по теме
           </span>
           <ul>
-            <li class="orangeHover"><a  href="#">Admirals walk on friendship at astral city!</a></li>
-            <li class="orangeHover"><a  href="#">None of these definitions will be lost in galaxies like sensors in powerdrains</a></li>
-            <li class="orangeHover"><a  href="#">Admirals walk on friendship at astral city!</a></li>
-            <li class="orangeHover"><a  href="#">None of these definitions will be lost in galaxies like sensors in powerdrains</a></li>
-            <li class="orangeHover"><a  href="#">Admirals walk on friendship at astral city!</a></li>
-            <li class="orangeHover"><a  href="#">None of these definitions will be lost in galaxies like sensors in powerdrains</a></li>
-            <li class="orangeHover"><a  href="#">Admirals walk on friendship at astral city!</a></li>
-            <li class="orangeHover"><a  href="#">None of these definitions will be lost in galaxies like sensors in powerdrains</a></li>
-            <li class="orangeHover"><a  href="#">Admirals walk on friendship at astral city!</a></li>
-            <li class="orangeHover"><a  href="#">None of these definitions will be lost in galaxies like sensors in powerdrains</a></li>
+            <li v-for="post of categories" :key="post.id" class="orangeHover"><nuxt-link :to="{name: category-slug, params: {slug: post.slug}}">{{post.name}}</nuxt-link></li>
           </ul>
         </div>
 
@@ -194,111 +114,33 @@
             </h2>
 
             <div class="row-cols-1 row-cols-md-2 row">
-              <a class="col field__blockFull" href="#">
+              <nuxt-link class="col field__blockFull" v-for="(post, ind) of analitika" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}" v-if="(width > 576) || (width <= 576 && ind < 3)">
 
                 <div class="field__block">
                   <div class="field__imgBlc">
-                    <img src="https://picsum.photos/800/600/?random=6">
-                    <p class="field__text">
-                      Nuclear flux at the bridge was the resistance of pressure, handled to a small girl.
-                    </p>
+                    <img :alt="post.alt" :src="post.x_featured_media_large">
+                    <p class="field__text" v-html="post.title.rendered"></p>
                   </div>
                 </div>
 
                 <div class="field__botText">
-                  <p>
-                    Vogons view on mystery at astral city!Wobble without adventure, and we won’t observe a transformator.
-                  </p>
+                  <p v-html="post.excerpt.rendered.slice(0, 120) + ' ...'"></p>
                 </div>
 
-              </a>
-              <a class="col field__blockFull" href="#">
-
-                <div class="field__block">
-                  <div class="field__imgBlc">
-                    <img src="https://picsum.photos/800/600/?random=6">
-                    <p class="field__text">
-                      Nuclear flux at the bridge was the resistance of pressure, handled to a small girl.
-                    </p>
-                  </div>
-                </div>
-
-                <div class="field__botText">
-                  <p>
-                    Vogons view on mystery at astral city!Wobble without adventure, and we won’t observe a transformator.
-                  </p>
-                </div>
-
-              </a>
-              <a class="col field__blockFull" href="#">
-
-                <div class="field__block">
-                  <div class="field__imgBlc">
-                    <img src="https://picsum.photos/800/600/?random=6">
-                    <p class="field__text">
-                      Nuclear flux at the bridge was the resistance of pressure, handled to a small girl.
-                    </p>
-                  </div>
-                </div>
-
-                <div class="field__botText">
-                  <p>
-                    Vogons view on mystery at astral city!Wobble without adventure, and we won’t observe a transformator.
-                  </p>
-                </div>
-
-              </a>
-              <a class="col field__blockFull" href="#">
-
-                <div class="field__block">
-                  <div class="field__imgBlc">
-                    <img src="https://picsum.photos/800/600/?random=6">
-                    <p class="field__text">
-                      Nuclear flux at the bridge was the resistance of pressure, handled to a small girl.
-                    </p>
-                  </div>
-                </div>
-
-                <div class="field__botText">
-                  <p>
-                    Vogons view on mystery at astral city!Wobble without adventure, and we won’t observe a transformator.
-                  </p>
-                </div>
-
-              </a>
+              </nuxt-link>
             </div>
 
-            <h2 class="field__title">
+            <h2 v-if="width > 576" class="field__title">
               <a href="#">
                 Круглый стол
               </a>
             </h2>
 
-            <div class="field__four row row-cols-1 row-cols-md-2 row-cols-xl-4">
-              <a class="col">
-                <img src="https://picsum.photos/800/600/?random=1">
-                <p class="field__span">
-                  Dosis go on anomaly at captain's quarters!
-                </p>
-              </a>
-              <a class="col">
-                <img src="https://picsum.photos/800/600/?random=1">
-                <p class="field__span">
-                  Dosis go on anomaly at captain's quarters!
-                </p>
-              </a>
-              <a class="col">
-                <img src="https://picsum.photos/800/600/?random=1">
-                <p class="field__span">
-                  Dosis go on anomaly at captain's quarters!
-                </p>
-              </a>
-              <a class="col">
-                <img src="https://picsum.photos/800/600/?random=1">
-                <p class="field__span">
-                  Dosis go on anomaly at captain's quarters!
-                </p>
-              </a>
+            <div v-if="width > 576" class="field__four row row-cols-1 row-cols-md-2 row-cols-xl-4">
+              <nuxt-link v-for="post of kruglyjStol" :key="post.id" class="col" :to="{name: 'post-slug', params: {slug: post.slug}}">
+                <img :alt='post.alt' :src="post.x_featured_media_large">
+                <p v-html="post.title.rendered" class="field__span"></p>
+              </nuxt-link>
             </div>
           </div>
 
@@ -334,65 +176,15 @@
 
         <div v-swiper:mySwip="middleSwiper">
           <div class="swiper-wrapper">
-            <a class="swiper-slide">
-              <a class="col field__blockFull" href="#">
+            <a v-for="post of krupniymPlanom" :key="post.id" class="swiper-slide">
+              <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="col field__blockFull">
                 <div class="field__block">
                   <div class="field__imgBlcBig">
-                    <img src="https://picsum.photos/800/600/?random=1">
-                    <p class="field__textTop">
-                      Новинка специально для России: самосвал Ford Trucks 4142D
-                    </p>
+                    <img data-not-lazy :alt="post.alt" :src="post.x_featured_media_large">
+                    <p v-html="post.title.rendered" class="field__textTop"></p>
                   </div>
                 </div>
-              </a>
-            </a>
-            <a class="swiper-slide">
-              <a class="col field__blockFull" href="#">
-                <div class="field__block">
-                  <div class="field__imgBlcBig">
-                    <img src="https://picsum.photos/800/600/?random=2">
-                    <p class="field__textTop">
-                      Новинка специально для России: самосвал Ford Trucks 4142D
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </a>
-            <a class="swiper-slide">
-              <a class="col field__blockFull" href="#">
-                <div class="field__block">
-                  <div class="field__imgBlcBig">
-                    <img src="https://picsum.photos/800/600/?random=3">
-                    <p class="field__textTop">
-                      Новинка специально для России: самосвал Ford Trucks 4142D
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </a>
-            <a class="swiper-slide">
-              <a class="col field__blockFull" href="#">
-                <div class="field__block">
-                  <div class="field__imgBlcBig">
-                    <img src="https://picsum.photos/800/600/?random=4">
-                    <p class="field__textTop">
-                      Новинка специально для России: самосвал Ford Trucks 4142D
-                    </p>
-                  </div>
-                </div>
-              </a>
-            </a>
-            <a class="swiper-slide">
-              <a class="col field__blockFull" href="#">
-                <div class="field__block">
-                  <div class="field__imgBlcBig">
-                    <img src="https://picsum.photos/800/600/?random=5">
-                    <p class="field__textTop">
-                      Новинка специально для России: самосвал Ford Trucks 4142D
-                    </p>
-                  </div>
-                </div>
-              </a>
+              </nuxt-link>
             </a>
           </div>
 
@@ -413,68 +205,43 @@
           <div class="col-lg-8 col-xl-9">
             <div class="row riders">
               <div class="col-12 col-xl-4">
-                <a class="orangeHover" href="#">
-                  <img src="https://picsum.photos/800/600/?random=1">
-                  <p class="orangeHover">
-                    None of these space suits yearn devastated, calm particles.
-                    Ferengis wobble with nuclear flux at the mysterious port!
+                <nuxt-link class="orangeHover" v-for="(post, ind) of riders" :key="post.id" v-if="ind === 0" :to="{name: 'post-slug', params: {slug: post.slug}}">
+                  <img :alt="post.alt" :src="post.x_featured_media_large">
+                  <p v-html="post.title.rendered" class="orangeHover">
                   </p>
-                </a>
+                </nuxt-link>
               </div>
 
               <div class="col-12 col-xl-8 ">
                 <div class="row riders__row row-cols-lg-2 row-cols-1">
-                  <a class="orangeHover col riders__col">
-                    <img src="https://picsum.photos/800/600/?random=1">
-                    <span class="orangeHover">
-                      Particles tremble with coordinates at the fantastic center!
+                  <nuxt-link class="orangeHover col riders__col" v-for="(post, ind) of riders" :key="post.id" v-if="ind > 0 && ind < 3" :to="{name: 'post-slug', params: {slug: post.slug}}">
+                    <img :alt="post.alt" :src="post.x_featured_media_large">
+                    <span class="orangeHover" v-html="post.title.rendered">
                     </span>
-                  </a>
-
-                  <a class="col riders__col orangeHover">
-                    <img src="https://picsum.photos/800/600/?random=1">
-                    <span class="orangeHover">
-                      Particles tremble with coordinates at the fantastic center!
-                    </span>
-                  </a>
+                  </nuxt-link>
 
                   <span class="riders__deco"></span>
                 </div>
 
                 <div class="row riders__row row-cols-lg-2 row-cols-1">
 
-                  <a class="col riders__col orangeHover">
-                    <img src="https://picsum.photos/800/600/?random=1">
-                    <span class="orangeHover">
-                    Particles tremble with coordinates at the fantastic center!
-                  </span>
-                  </a>
-
-                  <a class="col riders__col orangeHover">
-                    <img src="https://picsum.photos/800/600/?random=1">
-                    <span class="orangeHover">
-                    Particles tremble with coordinates at the fantastic center!
-                  </span>
-                  </a>
+                  <nuxt-link class="orangeHover col riders__col" v-for="(post, ind) of riders" :key="post.id" v-if="ind > 2 && ind < 5" :to="{name: 'post-slug', params: {slug: post.slug}}">
+                    <img :alt="post.alt" :src="post.x_featured_media_large">
+                    <span class="orangeHover" v-html="post.title.rendered">
+                    </span>
+                  </nuxt-link>
 
                   <span class="riders__deco"></span>
 
                 </div>
 
-                <div class="row riders__row row-cols-lg-2 row-cols-1">
-                  <a class="col riders__col orangeHover">
-                    <img src="https://picsum.photos/800/600/?random=1">
-                    <span class="orangeHover">
-                    Particles tremble with coordinates at the fantastic center!
-                  </span>
-                  </a>
+                <div class="row riders__row row-cols-lg-2 row-cols-1" v-if="width > 576">
 
-                  <a class="col riders__col orangeHover">
-                    <img src="https://picsum.photos/800/600/?random=1">
-                    <span class="orangeHover">
-                    Particles tremble with coordinates at the fantastic center!
-                  </span>
-                  </a>
+                  <nuxt-link class="orangeHover col riders__col" v-for="(post, ind) of riders" :key="post.id" v-if="ind > 4" :to="{name: 'post-slug', params: {slug: post.slug}}">
+                    <img :alt="post.alt" :src="post.x_featured_media_large">
+                    <span class="orangeHover" v-html="post.title.rendered">
+                    </span>
+                  </nuxt-link>
 
                   <span class="riders__deco"></span>
                 </div>
@@ -499,133 +266,32 @@
           <div class="col-12 col-lg">
 
             <div class="field__four row row-cols-1 row-cols-md-2 row-cols-xl-4">
-              <a class="col">
-                <img src="https://picsum.photos/800/600/?random=1">
-                <span class="field__span">
-                  Dosis go on anomaly at captain's quarters!
-                </span>
-              </a>
-              <a class="col">
-                <img src="https://picsum.photos/800/600/?random=1">
-                <span class="field__span">
-                  Dosis go on anomaly at captain's quarters!
-                </span>
-              </a>
-              <a class="col">
-                <img src="https://picsum.photos/800/600/?random=1">
-                <span class="field__span">
-                  Dosis go on anomaly at captain's quarters!
-                </span>
-              </a>
-              <a class="col">
-                <img src="https://picsum.photos/800/600/?random=1">
-                <span class="field__span">
-                  Dosis go on anomaly at captain's quarters!
-                </span>
-              </a>
+              <nuxt-link class="col" v-for="post of servismenyi" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}">
+                <img :alt="post.alt" :src="post.x_featured_media_large">
+                <p v-html="post.title.rendered" class="field__span">
+                </p>
+              </nuxt-link>
             </div>
 
             <div v-swiper:botSwiper="swiperOptions">
               <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <a class="col field__blockFull" href="#">
-
+                <div class="swiper-slide" v-for="post of stranitciIstorii" :key="post.id">
+                  <nuxt-link class="col field__blockFull" :to="{name: 'post-slug', params: {slug: post.slug}}">
                   <div class="field__block">
                     <div class="field__imgBlc">
-                      <img src="https://picsum.photos/800/600/?random=6">
+                      <img data-not-lazy :alt="post.alt" :src="post.x_featured_media_large">
                       <div class="sw-top">
-                        <span>Категория</span>
-                        <p>
-                          Nuclear flux at the bridge was the resistance of pressure, handled to a small girl.
+                        <span>{{post.x_types[0]}}</span>
+                        <p v-html="post.title.rendered">
                         </p>
                         <div>
-                          <span>Под-категория</span>
-                          <span>10.10.10</span>
+                          <span>{{post.x_cats[0]}}</span>
+                          <span>{{post.x_date}}</span>
                         </div>
                       </div>
                     </div>
                   </div>
-                </a>
-                </div>
-                <div class="swiper-slide">
-                  <a class="col field__blockFull" href="#">
-
-                    <div class="field__block">
-                      <div class="field__imgBlc">
-                        <img src="https://picsum.photos/800/600/?random=1">
-                        <div class="sw-top">
-                          <span>Категория</span>
-                          <p>
-                            Nuclear flux at the bridge was the resistance of pressure, handled to a small girl.
-                          </p>
-                          <div>
-                            <span>Под-категория</span>
-                            <span>10.10.10</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="swiper-slide">
-                  <a class="col field__blockFull" href="#">
-
-                    <div class="field__block">
-                      <div class="field__imgBlc">
-                        <img src="https://picsum.photos/800/600/?random=2">
-                        <div class="sw-top">
-                          <span>Категория</span>
-                          <p>
-                            Nuclear flux at the bridge was the resistance of pressure, handled to a small girl.
-                          </p>
-                          <div>
-                            <span>Под-категория</span>
-                            <span>10.10.10</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="swiper-slide">
-                  <a class="col field__blockFull" href="#">
-
-                    <div class="field__block">
-                      <div class="field__imgBlc">
-                        <img src="https://picsum.photos/800/600/?random=3">
-                        <div class="sw-top">
-                          <span>Категория</span>
-                          <p>
-                            Nuclear flux at the bridge was the resistance of pressure, handled to a small girl.
-                          </p>
-                          <div>
-                            <span>Под-категория</span>
-                            <span>10.10.10</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-                <div class="swiper-slide">
-                  <a class="col field__blockFull" href="#">
-
-                    <div class="field__block">
-                      <div class="field__imgBlc">
-                        <img src="https://picsum.photos/800/600/?random=4">
-                        <div class="sw-top">
-                          <span>Категория</span>
-                          <p>
-                            Nuclear flux at the bridge was the resistance of pressure, handled to a small girl.
-                          </p>
-                          <div>
-                            <span>Под-категория</span>
-                            <span>10.10.10</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
+                  </nuxt-link>
                 </div>
               </div>
               <!-- Add Arrows -->
@@ -649,6 +315,7 @@
               <img class="wrapper__adSpecialImg" src="https://picsum.photos/250/375/?random=5">
             </div>
           </div>
+
         </div>
 
         <h2 class="field__title">
@@ -658,24 +325,11 @@
         </h2>
 
         <div class="row">
-          <a class="col-12 col-md">
-            <img src="https://picsum.photos/800/600/?random=1">
-            <p class="field__spanBot">
-              Dosis go on anomaly at captain's quarters!
+          <nuxt-link class="col-12 col-md" v-for="post of specialoffers" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}">
+            <img :alt="post.alt" :src="post.x_featured_media_large">
+            <p v-html="post.title.rendered" class="field__spanBot">
             </p>
-          </a>
-          <a class="col-12 col-md">
-            <img src="https://picsum.photos/800/600/?random=1">
-            <p class="field__spanBot">
-              Dosis go on anomaly at captain's quarters!
-            </p>
-          </a>
-          <a class="col-12 col-md">
-            <img src="https://picsum.photos/800/600/?random=1">
-            <p class="field__spanBot">
-              Dosis go on anomaly at captain's quarters!
-            </p>
-          </a>
+          </nuxt-link>
         </div>
 
         <h2 class="field__title">
@@ -685,24 +339,11 @@
         </h2>
 
         <div class="row">
-          <a class="col-12 col-md">
-            <img src="https://picsum.photos/800/600/?random=1">
-            <p class="field__spanBot">
-              Dosis go on anomaly at captain's quarters!
+          <nuxt-link class="col-12 col-md" v-for="post of vyborProfessionalov" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}">
+            <img :alt="post.alt" :src="post.x_featured_media_large">
+            <p v-html="post.title.rendered" class="field__spanBot">
             </p>
-          </a>
-          <a class="col-12 col-md">
-            <img src="https://picsum.photos/800/600/?random=1">
-            <p class="field__spanBot">
-              Dosis go on anomaly at captain's quarters!
-            </p>
-          </a>
-          <a class="col-12 col-md">
-            <img src="https://picsum.photos/800/600/?random=1">
-            <p class="field__spanBot">
-              Dosis go on anomaly at captain's quarters!
-            </p>
-          </a>
+          </nuxt-link>
         </div>
       </div>
 
@@ -722,6 +363,10 @@ export default {
   },
   directives: {
     swiper: directive
+  },
+  mounted() {
+    let width = document.documentElement.clientWidth
+    return this.width = width
   },
   layout: 'main-page',
   data: () => ({
@@ -760,6 +405,47 @@ export default {
         }
       }
     },
-  })
+    width: 1920
+  }),
+  async fetch({store}) {
+    if (store.getters['mainPage/topSlider'].length === 0) {
+      await store.dispatch('mainPage/fetch')
+    }
+  },
+  computed: {
+    topSlider() {
+      return this.$store.getters['mainPage/topSlider']
+    },
+    news() {
+      return this.$store.getters['mainPage/news']
+    },
+    categories() {
+      return this.$store.getters['mainPage/categories']
+    },
+    analitika() {
+      return this.$store.getters['mainPage/analitika']
+    },
+    kruglyjStol() {
+      return this.$store.getters['mainPage/kruglyjStol']
+    },
+    krupniymPlanom() {
+      return this.$store.getters['mainPage/krupniymPlanom']
+    },
+    riders() {
+      return this.$store.getters['mainPage/riders']
+    },
+    servismenyi() {
+      return this.$store.getters['mainPage/servismenyi']
+    },
+    stranitciIstorii() {
+      return this.$store.getters['mainPage/stranitciIstorii']
+    },
+    specialoffers() {
+      return this.$store.getters['mainPage/specialoffers']
+    },
+    vyborProfessionalov() {
+      return this.$store.getters['mainPage/vyborProfessionalov']
+    },
+  },
 }
 </script>

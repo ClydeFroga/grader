@@ -9,30 +9,13 @@
           Новости
         </a>
       </h2>
-      <a href="#" class="foxy-news-line">
-        <div class="foxy__text">
-          MAN проводит конкурс среди водителей без отрыва от работы
+      <nuxt-link v-for="post of posts" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}" class="foxy-news-line">
+        <div class="foxy__text" v-html="post.title.rendered.slice(0, 45) + ' ...'">
         </div>
         <div>
-          <img src="https://picsum.photos/800/600/?random=5">
+          <img :alt="post.alt" :src="post.x_featured_media_large">
         </div>
-      </a>
-      <a href="#" class="foxy-news-line">
-        <div class="foxy__text">
-          MAN проводит конкурс среди водителей без отрыва от работы
-        </div>
-        <div>
-          <img src="https://picsum.photos/800/600/?random=5">
-        </div>
-      </a>
-      <a href="#" class="foxy-news-line">
-        <div class="foxy__text">
-          MAN проводит конкурс среди водителей без отрыва от работы
-        </div>
-        <div>
-          <img src="https://picsum.photos/800/600/?random=5">
-        </div>
-      </a>
+      </nuxt-link>
       </div>
     <div class="foxy">
       <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
@@ -58,7 +41,18 @@
 </template>
 
 <script>
-	export default {
 
+  export default {
+    data() {
+      return {
+        posts: []
+      }
+    },
+    mounted() {
+      this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=3')
+      .then(responce => {
+        this.posts = responce
+      })
+    },
 	}
 </script>

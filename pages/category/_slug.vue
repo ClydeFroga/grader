@@ -22,8 +22,8 @@
 
         <div class="col-12 col-sm-7">
           <div>
-            <nuxt-link :to="{name: 'category-slug', params: {slug: post.x_cats_slug[0]}}" class="news__cat">
-              {{post.x_cats[0]}}
+            <nuxt-link to="" class="news__cat">
+              {{post.x_categories}}
             </nuxt-link>
             <span class="news__date">
               {{post.x_date}}
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-	export default {
+  export default {
     data: () => ({
       page: 1,
       titles: [],
@@ -60,7 +60,7 @@
       }
     },
     async asyncData({$axios, params}) {
-      let cat = await $axios.$get('https://igrader.ru/wp-json/wp/v2/mainthemes?search=' + params.slug)
+      let cat = await $axios.$get('https://igrader.ru/wp-json/wp/v2/categories?search=' + params.slug)
       if(cat.length === 0) {
         cat = [{
           name: 'Посты не найдены'
@@ -69,7 +69,7 @@
         let posts = []
         return {cat, posts}
       }
-      const url = 'https://igrader.ru/wp-json/wp/v2/posts?mainthemes=' + cat[0].id;
+      const url = 'https://igrader.ru/wp-json/wp/v2/posts?categories=' + cat[0].id;
       const posts = await $axios.$get(url)
 
       return {posts, url, cat}
@@ -96,5 +96,5 @@
         })
       },
     },
-	}
+  }
 </script>

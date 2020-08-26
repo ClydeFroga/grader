@@ -60,6 +60,21 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/svg-sprite',
+    'nuxt-lazy-load',
+    'cookie-universal-nuxt',
+    '@nuxtjs/component-cache',
+    'nuxt-mobile',
+    [
+      "nuxt-compress",
+      {
+        gzip: {
+          cache: true
+        },
+        brotli: {
+          threshold: 10240
+        }
+      }
+    ],
 
   ],
   /*
