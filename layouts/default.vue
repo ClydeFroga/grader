@@ -28,3 +28,9 @@
     }
   }
 </script>
+
+<style scoped>
+  .row {
+    justify-content: space-between;
+  }
+</style>

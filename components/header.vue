@@ -44,13 +44,13 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Мероприятия</a>
+                <nuxt-link class="nav-link" to="/events">Мероприятия</nuxt-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Comtrans 2019</a>
+                <nuxt-link class="nav-link" to="/comtrans-2019">Comtrans 2019</nuxt-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">🔥 Спецпредложения</a>
+                <nuxt-link class="nav-link" :to="{name: 'news-slug', params: {slug: 'specialoffer'}}">🔥 Спецпредложения</nuxt-link>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Рекламодателям</a>
@@ -72,10 +72,10 @@
 
         <ul class="nav nav-tabs">
           <li class="nav-item">
-            <a class="nav-link active" href="#">Полоса</a>
+            <nuxt-link class="nav-link active" :to="{ name: 'lane'}">Полоса</nuxt-link>
           </li>
           <li class="nav-item">
-            <nuxt-link class="nav-link" to="#">Новости</nuxt-link>
+            <nuxt-link class="nav-link" :to="{ name: 'kratko'}">Новости</nuxt-link>
           </li>
           <li class="nav-item">
             <nuxt-link class="nav-link" :to="{ name: 'news-slug', params: { slug: 'ryinok' } }">Обзор рынка</nuxt-link>
@@ -94,11 +94,11 @@
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ещё рубрики</a>
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ещё рубрики</a>
             <div class="dropdown-menu bot_dropdown">
-              <a class="dropdown-item" href="#">Аналитика</a>
-              <a class="dropdown-item" href="#">Круглый стол</a>
-              <a class="dropdown-item" href="#">Технологии</a>
+              <nuxt-link class="dropdown-item" :to="{ name: 'news-slug', params: { slug: 'analitika' } }">Аналитика</nuxt-link>
+              <nuxt-link class="dropdown-item" :to="{ name: 'news-slug', params: { slug: 'kruglyj-stol' } }">Круглый стол</nuxt-link>
+              <nuxt-link class="dropdown-item" :to="{ name: 'news-slug', params: { slug: 'technology' } }">Технологии</nuxt-link>
             </div>
           </li>
         </ul>

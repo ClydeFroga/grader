@@ -61,7 +61,18 @@
         this.posts = responce
       })
     },
-	}
+    //
+    //  fetch({store}) {
+    //   if (store.getters['botNews/news'].length === 0) {
+    //      store.dispatch('botNews/fetch')
+    //   }
+    // },
+    // computed: {
+    //   posts() {
+    //     return this.$store.getters['botNews/news']
+    //   },
+    // }
+  }
 </script>
 
 <style scoped>

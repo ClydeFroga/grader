@@ -1,21 +1,8 @@
-
 export default {
-  /*
-  ** Nuxt rendering mode
-  ** See https://nuxtjs.org/api/configuration-mode
-  */
   mode: 'universal',
-  /*
-  ** Nuxt target
-  ** See https://nuxtjs.org/api/configuration-target
-  */
   target: 'server',
-  /*
-  ** Headers of the page
-  ** See https://nuxtjs.org/api/configuration-head
-  */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Грейдер -  обзор рынка спецтехники, грузовиков и коммерческого транспорта',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -28,35 +15,24 @@ export default {
       {src: 'https://code.jquery.com/jquery-3.5.1.slim.min.js'},
       {src: 'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'},
       {src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js'},
+      {src: 'https://yastatic.net/pcode/adfox/loader.js', crossorigin: "anonymous" },
     ]
   },
-  /*
-  ** Global CSS
-  */
+
   css: [
     '@assets/style.css',
   ],
-  /*
-  ** Plugins to load before mounting the App
-  ** https://nuxtjs.org/guide/plugins
-  */
+
   plugins: [
     // {src: '~/plugins/collapse.js'},
     // {src: '~/plugins/dropdown.js'},
   ],
-  /*
-  ** Auto import components
-  ** See https://nuxtjs.org/api/configuration-components
-  */
+
   components: true,
-  /*
-  ** Nuxt.js dev-modules
-  */
+
   buildModules: [
   ],
-  /*
-  ** Nuxt.js modules
-  */
+
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/svg-sprite',
@@ -75,12 +51,14 @@ export default {
         }
       }
     ],
+    '@nuxtjs/redirect-module',
 
   ],
-  /*
-  ** Build configuration
-  ** See https://nuxtjs.org/api/configuration-build/
-  */
+  redirect: [
+    { from: '^/news/?$', to: '/kratko' }
+  ],
+  loading: { color: "#ff9900" },
+
   build: {
   }
 }

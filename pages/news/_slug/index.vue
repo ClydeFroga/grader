@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-sm-9 news left">
+  <div class="col-12 col-lg-9 news left">
     <div v-if="this.posts.length === 0">
       <h1>
         Постов в этой категории не найдено
@@ -33,7 +33,7 @@
             <div v-html="post.title.rendered" class="news__title">
 
             </div>
-            <div v-html="post.excerpt.rendered" class="news__excerpt">
+            <div v-html="post.excerpt.rendered.slice(0, 120) + ' ...'" class="news__excerpt">
             </div>
           </nuxt-link>
         </div>
@@ -49,6 +49,18 @@
 
 <script>
 	export default {
+    validate({ params }) {
+      let val = /^\d+$/.test(params.slug)
+      return !val
+    },
+    async fetch ({ params, redirect, store }) {
+      if (params.slug === 'kratko') {
+        redirect(301, `/kratko`)
+      }
+      if (store.getters['lastMag/journal'].length === 0) {
+        await store.dispatch('lastMag/fetch')
+      }
+    },
     data: () => ({
       page: 1,
       titles: [],
@@ -56,18 +68,13 @@
     }),
     head() {
       return {
-        title: this.cat[0].name + ' | Лесной комплекс '
+        title: this.cat[0].name + ' | iGrader.ru'
       }
     },
-    async asyncData({$axios, params}) {
+    async asyncData({$axios, params, redirect}) {
       let cat = await $axios.$get('https://igrader.ru/wp-json/wp/v2/mainthemes?search=' + params.slug)
       if(cat.length === 0) {
-        cat = [{
-          name: 'Посты не найдены'
-        }
-        ]
-        let posts = []
-        return {cat, posts}
+        redirect(301, `/404`)
       }
       const url = 'https://igrader.ru/wp-json/wp/v2/posts?mainthemes=' + cat[0].id;
       const posts = await $axios.$get(url)
@@ -81,20 +88,22 @@
         this.page++
         await this.$axios.$get(this.url + "&page=" + this.page)
         .then(responce => {
-
-          // let z = 0
+          if(responce.length < 10) {
+            let nav =  document.querySelector('.loadmore')
+            nav.innerHTML = `Вы просмотрели все записи`
+            nav.setAttribute('disabled', '')
+          }
           for(let item of responce) {
             this.posts.push(item)
-            // setTimeout(() => this.posts.push(item), z)
-            // z += 300
           }
         })
         .catch(function (e) {
           let nav =  document.querySelector('.loadmore')
-          nav.innerHTML = `<p>Вы просмотрели все записи</p>`
+          nav.innerHTML = `Вы просмотрели все записи`
           document.preventDefault
         })
       },
     },
+
 	}
 </script>

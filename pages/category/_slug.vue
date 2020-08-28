@@ -22,8 +22,8 @@
 
         <div class="col-12 col-sm-7">
           <div>
-            <nuxt-link to="" class="news__cat">
-              {{post.x_categories}}
+            <nuxt-link :to="{name: 'news-slug', params: {slug: post.x_types_slug[0]}}" class="news__cat">
+              {{post.x_types[0]}}
             </nuxt-link>
             <span class="news__date">
               {{post.x_date}}
@@ -49,6 +49,10 @@
 
 <script>
   export default {
+    validate({ params }) {
+      let val = /^\d+$/.test(params.slug)
+      return !val
+    },
     data: () => ({
       page: 1,
       titles: [],
@@ -59,15 +63,10 @@
         title: this.cat[0].name + ' | Лесной комплекс '
       }
     },
-    async asyncData({$axios, params}) {
+    async asyncData({$axios, params, redirect}) {
       let cat = await $axios.$get('https://igrader.ru/wp-json/wp/v2/categories?search=' + params.slug)
       if(cat.length === 0) {
-        cat = [{
-          name: 'Посты не найдены'
-        }
-        ]
-        let posts = []
-        return {cat, posts}
+        redirect(301, `/404`)
       }
       const url = 'https://igrader.ru/wp-json/wp/v2/posts?categories=' + cat[0].id;
       const posts = await $axios.$get(url)
@@ -81,12 +80,13 @@
         this.page++
         await this.$axios.$get(this.url + "&page=" + this.page)
         .then(responce => {
-
-          // let z = 0
+          if(responce.length < 10) {
+            let nav =  document.querySelector('.loadmore')
+            nav.innerHTML = `Вы просмотрели все записи`
+            nav.setAttribute('disabled', '')
+          }
           for(let item of responce) {
             this.posts.push(item)
-            // setTimeout(() => this.posts.push(item), z)
-            // z += 300
           }
         })
         .catch(function (e) {

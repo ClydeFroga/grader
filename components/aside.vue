@@ -1,9 +1,9 @@
 <template>
-  <div class="col-3 side">
+  <div class="col-12 col-lg-3 side">
     <div class="foxy">
       <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
     </div>
-    <div class="foxy foxy-news">
+    <div v-if="this.width > 992" class="foxy foxy-news">
       <h2 class="field__title" >
         <a href="#">
           Новости
@@ -23,19 +23,19 @@
     <div class="foxy">
       <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
     </div>
-    <div class="foxy">
+    <div  v-if="journal.acf !== undefined" class="foxy">
       <h2 class="field__title" >
         <a href="#">
           Свежий номер
         </a>
       </h2>
-      <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
-      <a class="wrapper__adText" href="#">
+      <nuxt-link class="wrapper__adText" :to="{name: 'archive-slug', params: {slug: journal.slug}}">
+      <img class="wrapper__adImg" :src="journal.acf.ssylka_na_oblozhku">
         Online-версия
-      </a>
-      <a class="wrapper__adText" href="#">
+      </nuxt-link>
+      <nuxt-link class="wrapper__adText" to="/about">
         Оформить подписку
-      </a>
+      </nuxt-link>
     </div>
   </div>
 </template>
@@ -45,14 +45,35 @@
   export default {
     data() {
       return {
-        posts: []
+        posts: [],
+        width: 1920,
+        // journal: [],
+        slug: []
       }
     },
     mounted() {
+      let width = document.documentElement.clientWidth
+      this.width = width
       this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=3')
       .then(responce => {
         this.posts = responce
       })
     },
+    computed: {
+      journal() {
+        return this.$store.getters['lastMag/journal']
+      },
+    }
 	}
 </script>
+
+
+<style scoped>
+  @media (max-width: 992px) {
+    h2.field__title {
+      display: none;
+    }
+  }
+
+
+</style>

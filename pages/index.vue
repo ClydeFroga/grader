@@ -46,9 +46,9 @@
               </div>
 
               <div class="col col-xl-4">
-                <h2 class="wrapper__title">
-                  Новости
-                </h2>
+                  <nuxt-link class="wrapper__title" :to="{ name: 'news-slug', params: { slug: 'analitika' } }">
+                    Новости
+                  </nuxt-link>
                 <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" v-for="post of news" :key="post.id" class="orangeHover wrapper__text" >
                   <p v-html="post.title.rendered"></p>
                   <span>
@@ -119,7 +119,7 @@
                 <div class="field__block">
                   <div class="field__imgBlc">
                     <img :alt="post.alt" :src="post.x_featured_media_large">
-                    <p class="field__text" v-html="post.title.rendered"></p>
+                    <p class="field__text textMiddle" v-html="post.title.rendered"></p>
                   </div>
                 </div>
 
@@ -151,14 +151,14 @@
               </a>
 
             </h2>
-            <div class="foxy">
-              <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
-              <a class="wrapper__adText" href="#">
+            <div v-if="journal.acf !== undefined" class="foxy">
+              <nuxt-link class="wrapper__adText" :to="{name: 'archive-slug', params: {slug: journal.slug}}">
+                <img class="wrapper__adImg" :src="journal.acf.ssylka_na_oblozhku">
                 Online-версия
-              </a>
-              <a class="wrapper__adText" href="#">
+              </nuxt-link>
+              <nuxt-link class="wrapper__adText" to="/about">
                 Оформить подписку
-              </a>
+              </nuxt-link>
             </div>
             <div class="foxy">
               <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
@@ -201,7 +201,7 @@
           </a>
         </h2>
 
-        <div class="row">
+        <div class="row lastLoad">
           <div class="col-lg-8 col-xl-9">
             <div class="row riders">
               <div class="col-12 col-xl-4">
@@ -366,6 +366,7 @@ export default {
   },
   mounted() {
     let width = document.documentElement.clientWidth
+    window.addEventListener('scroll', this.loadCategories);
     return this.width = width
   },
   layout: 'main-page',
@@ -405,47 +406,130 @@ export default {
         }
       }
     },
-    width: 1920
+    width: 1920,
+    categories: [],
+    analitika: [],
+    kruglyjStol: [],
+    krupniymPlanom: [],
+    riders: [],
+    servismenyi: [],
+    stranitciIstorii: [],
+    vyborProfessionalov: [],
+    specialoffers: [],
   }),
   async fetch({store}) {
     if (store.getters['mainPage/topSlider'].length === 0) {
       await store.dispatch('mainPage/fetch')
     }
+    if (store.getters['lastMag/journal'].length === 0) {
+      await store.dispatch('lastMag/fetch')
+    }
   },
   computed: {
+    leftBot() {
+      let a =  document.querySelector('.wrapper__topCol');
+      return a.getBoundingClientRect().top;
+    },
     topSlider() {
       return this.$store.getters['mainPage/topSlider']
     },
     news() {
       return this.$store.getters['mainPage/news']
     },
-    categories() {
-      return this.$store.getters['mainPage/categories']
+    journal() {
+      return this.$store.getters['lastMag/journal']
     },
-    analitika() {
-      return this.$store.getters['mainPage/analitika']
-    },
-    kruglyjStol() {
-      return this.$store.getters['mainPage/kruglyjStol']
-    },
-    krupniymPlanom() {
-      return this.$store.getters['mainPage/krupniymPlanom']
-    },
-    riders() {
-      return this.$store.getters['mainPage/riders']
-    },
-    servismenyi() {
-      return this.$store.getters['mainPage/servismenyi']
-    },
-    stranitciIstorii() {
-      return this.$store.getters['mainPage/stranitciIstorii']
-    },
-    specialoffers() {
-      return this.$store.getters['mainPage/specialoffers']
-    },
-    vyborProfessionalov() {
-      return this.$store.getters['mainPage/vyborProfessionalov']
-    },
+    // categories() {
+    //   return this.$store.getters['mainPage/categories']
+    // },
+    // analitika() {
+    //   return this.$store.getters['mainPage/analitika']
+    // },
+    // kruglyjStol() {
+    //   return this.$store.getters['mainPage/kruglyjStol']
+    // },
+    // krupniymPlanom() {
+    //   return this.$store.getters['mainPage/krupniymPlanom']
+    // },
+    // riders() {
+    //   return this.$store.getters['mainPage/riders']
+    // },
+    // servismenyi() {
+    //   return this.$store.getters['mainPage/servismenyi']
+    // },
+    // stranitciIstorii() {
+    //   return this.$store.getters['mainPage/stranitciIstorii']
+    // },
+    // specialoffers() {
+    //   return this.$store.getters['mainPage/specialoffers']
+    // },
+    // vyborProfessionalov() {
+    //   return this.$store.getters['mainPage/vyborProfessionalov']
+    // },
   },
+  methods: {
+    async loadCategories() {
+      if(window.pageYOffset > this.leftBot) {
+        window.removeEventListener('scroll', this.loadCategories);
+        if (this.$store.getters['mainPage/categories'].length === 0) {
+          await this.$store.dispatch('mainPage/load3')
+        }
+        this.categories = this.$store.getters['mainPage/categories']
+        this.analitika = this.$store.getters['mainPage/analitika']
+
+        window.addEventListener('scroll', this.loadKruglyjStol);
+      }
+    },
+    async loadKruglyjStol() {
+      let a =  document.querySelector('.wrapper__mainthemes').getBoundingClientRect().top;
+      if(window.pageYOffset > a) {
+        window.removeEventListener('scroll', this.loadKruglyjStol);
+        if (this.$store.getters['mainPage/kruglyjStol'].length === 0) {
+          await this.$store.dispatch('mainPage/load4')
+        }
+        this.kruglyjStol = this.$store.getters['mainPage/kruglyjStol']
+        this.krupniymPlanom = this.$store.getters['mainPage/krupniymPlanom']
+
+        window.addEventListener('scroll', this.loadRiders);
+      }
+    },
+    async loadRiders() {
+      let a =  document.querySelector('.field__four').getBoundingClientRect().top;
+      if(window.pageYOffset > a) {
+        window.removeEventListener('scroll', this.loadRiders);
+        if (this.$store.getters['mainPage/riders'].length === 0) {
+          await this.$store.dispatch('mainPage/load5')
+        }
+        this.riders = this.$store.getters['mainPage/riders']
+
+
+        window.addEventListener('scroll', this.loadServismenyi);
+      }
+    },
+    async loadServismenyi() {
+      let a =  document.querySelector('.big').getBoundingClientRect().top;
+      if(window.pageYOffset > a) {
+        window.removeEventListener('scroll', this.loadServismenyi);
+        if (this.$store.getters['mainPage/servismenyi'].length === 0) {
+          await this.$store.dispatch('mainPage/load6')
+        }
+        this.servismenyi = this.$store.getters['mainPage/servismenyi']
+        this.stranitciIstorii = this.$store.getters['mainPage/stranitciIstorii']
+
+        window.addEventListener('scroll', this.lastLoad);
+      }
+    },
+    async lastLoad() {
+      let a =  document.querySelector('.lastLoad').getBoundingClientRect().bottom;
+      if(window.pageYOffset > a) {
+        window.removeEventListener('scroll', this.lastLoad);
+        if (this.$store.getters['mainPage/vyborProfessionalov'].length === 0) {
+          await this.$store.dispatch('mainPage/load7')
+        }
+        this.vyborProfessionalov = this.$store.getters['mainPage/vyborProfessionalov']
+        this.specialoffers = this.$store.getters['mainPage/specialoffers']
+      }
+    },
+  }
 }
 </script>
