@@ -24,7 +24,7 @@ export default {
   },
 
   css: [
-    '@assets/style.css',
+    '../assets/style.css',
   ],
 
   plugins: [
