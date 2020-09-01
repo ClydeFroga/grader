@@ -98,7 +98,7 @@
             <img class="wrapper__adImg" :src="journal.acf.ssylka_na_oblozhku">
             Online-версия
           </nuxt-link>
-          <nuxt-link class="wrapper__adText" to="/about">
+          <nuxt-link class="wrapper__adText" :to="{name: 'pages-slug', params: {slug: 'about'}}">
             Оформить подписку
           </nuxt-link>
         </div>

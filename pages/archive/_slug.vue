@@ -77,7 +77,7 @@
       }),
       head() {
         return {
-          title: this.cat[0].name + ' | Лесной комплекс '
+          title: this.cat[0].name + ' | iGrader.ru'
         }
       },
       async asyncData({$axios, params, redirect}) {

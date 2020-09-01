@@ -16,7 +16,7 @@
 	export default {
     head() {
       return {
-        title: this.posts[0].title + ' | iGrader.ru'
+        title: this.posts[0].title.rendered + ' | iGrader.ru'
       }
     },
     async fetch ({ params, redirect, store }) {

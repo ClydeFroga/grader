@@ -35,10 +35,24 @@ export default {
   components: true,
 
   buildModules: [
+    ['@nuxtjs/google-analytics', {
+      id: ''
+    }]
   ],
 
   modules: [
     '@nuxtjs/axios',
+    // [
+    //   '@nuxtjs/yandex-metrika',
+    //   {
+    //     id: 'XXXXXX',
+    //     webvisor: true,
+    //     // clickmap:true,
+    //     // useCDN:false,
+    //     // trackLinks:true,
+    //     // accurateTrackBounce:true,
+    //   }
+    // ],
     '@nuxtjs/svg-sprite',
     'nuxt-lazy-load',
     'cookie-universal-nuxt',

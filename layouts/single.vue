@@ -2,6 +2,7 @@
   <div >
     <header-my/>
     <nuxt/>
+    <scroll-to-top />
     <cookie v-if="cookies" />
     <footer-my/>
   </div>
@@ -11,13 +12,15 @@
   import headerMy from "../components/header"
   import footerMy from "../components/footer"
   import cookie from "../components/cookie";
+  import scrollToTop from "../components/scrollToTop";
 
 
   export default {
     components: {
       headerMy,
       footerMy,
-      cookie
+      cookie,
+      scrollToTop,
     },
 
     computed: {

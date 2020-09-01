@@ -80,6 +80,14 @@
         title: 'Выставка COMTRANS 2019 | iGrader.ru'
       }
     },
+    async fetch ({ params, redirect, store }) {
+      if (store.getters['lastMag/journal'].length === 0) {
+        await store.dispatch('lastMag/fetch')
+      }
+      if (store.getters['botNews/news'].length === 0) {
+        store.dispatch('botNews/fetch')
+      }
+    },
     async asyncData({$axios}) {
       const url = 'https://igrader.ru/wp-json/wp/v2/comtrans?per_page=12';
       const posts = await $axios.$get(url)
@@ -103,6 +111,7 @@
         })
       },
     },
+
   }
 </script>
 

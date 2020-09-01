@@ -53,11 +53,11 @@
     },
     data: () => ({
       page: 1,
-      posts: []
+      posts: [],
     }),
     head() {
       return {
-        title: this.req + ' | iGrader.ru'
+        title: 'Результаты поиска "' + this.req + '" | iGrader.ru'
       }
     },
     async asyncData({$axios, params, redirect}) {
@@ -66,7 +66,12 @@
       let req = params.request
       let posts = await $axios.$get(url)
       if(posts.length === 0) {
-
+        req = ''
+        if(params.request === undefined) {
+          let posts = await $axios.$get('https://igrader.ru/wp-json/wp/v2/posts')
+          return {posts, req}
+        }
+        return {req}
       }
 
       return {posts, url, req}

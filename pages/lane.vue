@@ -9,14 +9,17 @@
         <nuxt-link :to="{name: 'category-slug', params: {slug: post.x_cats_slug[0]}}" class="lane__title">{{post.x_cats[0]}}</nuxt-link>
       </div>
 
-      <p class="lane__excerpt" v-html="post.excerpt.rendered"></p>
+      <div class="lane__excerpt" v-html="post.excerpt.rendered.slice(0, 180) + ' ...'"></div>
 
-      <img class="lane__img" :alt="post.alt" :src="post.x_featured_media_large">
+      <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}">
+        <img class="lane__img" :alt="post.alt" :src="post.x_featured_media_large">
+      </nuxt-link>
+
 
      <div class="lane__bot">
-       <a href="#" class="lane__cont">
+       <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="lane__cont">
          Читать продолжение...
-       </a>
+       </nuxt-link>
        <span class="lane__date">
          {{post.x_date}}
        </span>

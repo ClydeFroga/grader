@@ -67,7 +67,6 @@
     data: () => ({
       page: 1,
       titles: [],
-      MyTypes: []
     }),
     head() {
       return {

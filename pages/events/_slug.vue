@@ -19,6 +19,17 @@
               <div class="single__main">
                 <img class="mainImg" :alt="this.post[0].alt" :src="this.post[0].x_featured_media_large">
               </div>
+              <div class="single__text dates">
+                <p>
+                  <strong>Дата:</strong> {{post[0].acf.from}} - {{post[0].acf.to}}
+                </p>
+                <p>
+                  <strong>Время:</strong> {{post[0].acf.event_start}} - {{post[0].acf.event_end}}
+                </p>
+                <p>
+                  <strong>Адрес:</strong> {{post[0].acf.address}} , {{post[0].acf.city}}
+                </p>
+              </div>
               <div class="single__text" v-html="this.post[0].content.rendered"></div>
             </div>
           </div>
@@ -152,7 +163,7 @@
     },
     head() {
       return {
-        title: this.post[0].title.rendered,
+        title: this.post[0].title.rendered + ' | iGrader.ru',
       }
     },
     layout: 'single',
@@ -174,7 +185,7 @@
       }
     },
     async asyncData({$axios, params, redirect}) {
-      let post = await $axios.$get('https://igrader.ru/wp-json/wp/v2/events?slug=' + params.slug)
+      let post = await $axios.$get('https://igrader.ru/wp-json/wp/v2/activity?slug=' + params.slug)
       if(post.length === 0) {
         redirect(301, `/404`)
       }
@@ -194,8 +205,4 @@
   }
 </script>
 
-<style >
- .single__text p {
-   margin-bottom: .5rem !important;
- }
-</style>
+

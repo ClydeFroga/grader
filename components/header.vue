@@ -27,7 +27,7 @@
           <div class="collapse navbar-collapse expanded" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" @click="openDropdown('.top_drop')">
+                <a class="nav-link dropdown-toggle" href="#">
                   Журнал «Грейдер»
                 </a>
                 <div class="dropdown-menu top_drop hide" aria-labelledby="navbarDropdown">
@@ -86,9 +86,9 @@
             <nuxt-link class="nav-link" :to="{ name: 'news-slug', params: { slug: 'stranitci-istorii' } }">Страницы истории</nuxt-link>
           </li>
 
-          <li @click="openDropdown('.bot_dropdown')" class="nav-item dropdown bot_dropbtn">
+          <li  class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ещё рубрики</a>
-            <div class="dropdown-menu bot_dropdown hide">
+            <div class="dropdown-menu bot_dropdown">
               <nuxt-link class="dropdown-item" :to="{ name: 'news-slug', params: { slug: 'analitika' } }">Аналитика</nuxt-link>
               <nuxt-link class="dropdown-item" :to="{ name: 'news-slug', params: { slug: 'kruglyj-stol' } }">Круглый стол</nuxt-link>
               <nuxt-link class="dropdown-item" :to="{ name: 'news-slug', params: { slug: 'technology' } }">Технологии</nuxt-link>
@@ -134,32 +134,29 @@ export default {
         }
       }
     },
-    openDropdown(dropdownw) {
-      let exp = document.querySelectorAll(dropdownw)
-
-      if(dropdownw == '.expanded') {
-        for (let el of exp) {
-          el.classList.toggle('collapse')
-        }
-      } else {
-        let dropdown = document.querySelector(dropdownw)
-        let item = document.querySelectorAll('.dropdown-item')
-
-        dropdown.classList.toggle('hide')
-
-        document.addEventListener('mouseup', function (e) {
-          const its_menu = e.target == dropdown || dropdown.contains(e.target);
-          const its_item = true
-          console.log(item)
-
-          if (its_item || !its_menu && !dropdown.classList.contains('hide')) {
-            dropdown.classList.add('hide');
-            document.removeEventListener('mouseup', () => {
-
-            })
-          }
-        })
+    openDropdown(dropdown) {
+      let exp = document.querySelectorAll(dropdown)
+      let items = document.querySelectorAll('.nav-link')
+      let drop = document.querySelectorAll('.dropdown-item')
+      for (let el of exp) {
+        el.classList.toggle('collapse')
       }
+      window.addEventListener('click', function(e) {
+        for (let el of items) {
+          if(e.target === el) {
+            for (let ele of exp) {
+              ele.classList.toggle('collapse')
+            }
+          }
+        }
+        for (let el of drop) {
+          if(e.target === el) {
+            for (let ele of exp) {
+              ele.classList.toggle('collapse')
+            }
+          }
+        }
+      })
     },
   }
 };

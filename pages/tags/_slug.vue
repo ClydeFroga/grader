@@ -1,19 +1,18 @@
 <template>
   <div class="col-12 col-lg-9 news left">
-
-    <div v-if="this.events.length === 0">
+    <div v-if="this.posts.length === 0">
       <h1>
-        Ближайших мероприятий нет
+        Постов в этой категории не найдено
       </h1>
     </div>
-
-    <div >
+    <div v-else>
       <div class="news__breadcrumbs">
         <nuxt-link to="/">Главная</nuxt-link>
         <span> / </span>
-        <span>Мероприятия</span>
+        <span>{{this.cat[0].name}}</span>
       </div>
-      <div v-for="(post, ind) of events" :key="post.id" class="row news__one">
+
+      <div v-for="post of posts" :key="post.id" class="row news__one">
         <div class="col-12 col-sm">
           <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}">
             <img :src="post.x_featured_media_large" :alt="post.alt">
@@ -23,12 +22,14 @@
 
         <div class="col-12 col-sm-7">
           <div>
+            <nuxt-link :to="{name: 'category-slug', params: {slug: post.x_cats_slug[0]}}" class="news__cat">
+              {{post.x_cats[0]}}
+            </nuxt-link>
             <span class="news__date">
-              {{post.acf.from}} - {{post.acf.to}}
+              {{post.x_date}}
             </span>
-            <span class="news__cat">{{post.acf.city}}</span>
           </div>
-          <nuxt-link :to="{name: 'events-slug', params: {slug: post.slug}}">
+          <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}">
             <div v-html="post.title.rendered" class="news__title">
 
             </div>
@@ -37,6 +38,7 @@
           </nuxt-link>
         </div>
       </div>
+
       <button @click.prevent="fetchData" class="loadmore" type="button">
         Загрузить еще
       </button>
@@ -47,27 +49,39 @@
 
 <script>
   export default {
-    head() {
-      return {
-        title: 'Ближайшие мероприятия | iGrader.ru'
+    validate({ params }) {
+      let val = /^\d+$/.test(params.slug)
+      return !val
+    },
+    async fetch ({ params, redirect, store }) {
+      if (params.slug === 'kratko') {
+        redirect(301, `/kratko`)
+      }
+      if (store.getters['lastMag/journal'].length === 0) {
+        await store.dispatch('lastMag/fetch')
+      }
+      if (store.getters['botNews/news'].length === 0) {
+        store.dispatch('botNews/fetch')
       }
     },
     data: () => ({
       page: 1,
+      titles: [],
     }),
-    async asyncData({$axios}) {
-      let events = []
-      let url = 'https://igrader.ru/wp-json/wp/v2/activity'
-      await $axios.$get(url)
-      .then(responce => {
-        if (responce.length === 0) {
-          return {events}
-        }
-        for(let item of responce) {
-          events.push(item)
-        }
-      })
-      return {events, url}
+    head() {
+      return {
+        title: this.cat[0].name + ' | iGrader.ru'
+      }
+    },
+    async asyncData({$axios, params, redirect}) {
+      let cat = await $axios.$get('https://igrader.ru/wp-json/wp/v2/tags?search=' + params.slug)
+      if(cat.length === 0) {
+        redirect(301, `/404`)
+      }
+      const url = 'https://igrader.ru/wp-json/wp/v2/posts?tags=' + cat[0].id;
+      const posts = await $axios.$get(url)
+
+      return {posts, url, cat}
     },
     methods: {
       async fetchData() { //загрузить еще
@@ -87,7 +101,6 @@
         })
         .catch(function (e) {
           let nav =  document.querySelector('.loadmore')
-          nav.setAttribute('disabled', '')
           nav.innerHTML = `Вы просмотрели все записи`
           document.preventDefault
         })
@@ -95,7 +108,3 @@
     },
   }
 </script>
-
-<style scoped>
-
-</style>

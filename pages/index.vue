@@ -46,7 +46,7 @@
               </div>
 
               <div class="col col-xl-4">
-                  <nuxt-link class="wrapper__title" :to="{ name: 'news-slug', params: { slug: 'analitika' } }">
+                  <nuxt-link class="wrapper__title title-top" :to="{ name: 'news-slug', params: { slug: 'analitika' } }">
                     Новости
                   </nuxt-link>
                 <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" v-for="post of news" :key="post.id" class="orangeHover wrapper__text" >
@@ -97,7 +97,7 @@
             Все материалы по теме
           </span>
           <ul>
-            <li v-for="post of categories" :key="post.id" class="orangeHover"><nuxt-link :to="{name: category-slug, params: {slug: post.slug}}">{{post.name}}</nuxt-link></li>
+            <li v-for="post of categories" :key="post.id" class="orangeHover"><nuxt-link :to="{name: 'category-slug', params: {slug: post.slug}}">{{post.name}}</nuxt-link></li>
           </ul>
         </div>
 
@@ -108,9 +108,9 @@
         <div class="row field">
           <div class="col-12 col-lg">
             <h2 class="field__title">
-              <a href="#">
+              <nuxt-link :to="{ name: 'news-slug', params: { slug: 'analitika' } }">
                 Аналитика
-              </a>
+              </nuxt-link>
             </h2>
 
             <div class="row-cols-1 row-cols-md-2 row">
@@ -131,9 +131,9 @@
             </div>
 
             <h2 v-if="width > 576" class="field__title">
-              <a href="#">
+              <nuxt-link :to="{ name: 'news-slug', params: { slug: 'kruglyj-stol' } }">
                 Круглый стол
-              </a>
+              </nuxt-link>
             </h2>
 
             <div v-if="width > 576" class="field__four row row-cols-1 row-cols-md-2 row-cols-xl-4">
@@ -156,7 +156,7 @@
                 <img class="wrapper__adImg" :src="journal.acf.ssylka_na_oblozhku">
                 Online-версия
               </nuxt-link>
-              <nuxt-link class="wrapper__adText" to="/about">
+              <nuxt-link class="wrapper__adText" :to="{name: 'pages-slug', params: {slug: 'about'}}">
                 Оформить подписку
               </nuxt-link>
             </div>
@@ -169,7 +169,10 @@
 
     <div class="big container-fluid">
       <h2 class="container-md bigTitle">
-        Крупным планом
+        <nuxt-link :to="{ name: 'news-slug', params: { slug: 'krupniym-planom' } }">
+          Крупным планом
+        </nuxt-link>
+
       </h2>
 
       <div class="bigBlc row">
@@ -196,9 +199,9 @@
 
       <div class="container-md">
         <h2 class="field__title">
-          <a href="#">
+          <nuxt-link :to="{ name: 'tags-slug', params: { slug: 'dorozhniki-2' } }">
             Дорожники
-          </a>
+          </nuxt-link>
         </h2>
 
         <div class="row lastLoad">
@@ -257,9 +260,9 @@
         </div>
 
         <h2 class="field__title">
-          <a href="#">
+          <nuxt-link :to="{ name: 'news-slug', params: { slug: 'servismenyi' } }">
             Сервисмены
-          </a>
+          </nuxt-link>
         </h2>
 
         <div class="row">
@@ -319,9 +322,9 @@
         </div>
 
         <h2 class="field__title">
-          <a href="#">
+          <nuxt-link :to="{name: 'news-slug', params: {slug: 'specialoffer'}}">
             Спецпредложения
-          </a>
+          </nuxt-link>
         </h2>
 
         <div class="row">
@@ -333,9 +336,9 @@
         </div>
 
         <h2 class="field__title">
-          <a href="#">
+          <nuxt-link :to="{name: 'news-slug', params: {slug: 'vybor-professionalov'}}">
             Открытое голосование
-          </a>
+          </nuxt-link>
         </h2>
 
         <div class="row">
