@@ -80,17 +80,13 @@
         this.page++
         await this.$axios.$get(this.url + "&page=" + this.page)
         .then(responce => {
-
-          // let z = 0
           for(let item of responce) {
             this.posts.push(item)
-            // setTimeout(() => this.posts.push(item), z)
-            // z += 300
           }
         })
         .catch(function (e) {
           let nav =  document.querySelector('.loadmore')
-          nav.innerHTML = `<p>Вы просмотрели все записи</p>`
+          nav.innerHTML = `Вы просмотрели все записи`
           document.preventDefault
         })
       },

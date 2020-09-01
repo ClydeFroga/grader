@@ -19,28 +19,21 @@
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
+            @click="openDropdown('.expanded')"
           >
                 <svg-icon width="30" height="30" class="navbar-toggler-icon" name="list"></svg-icon>
               </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse expanded" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
+                <a class="nav-link dropdown-toggle" href="#" @click="openDropdown('.top_drop')">
                   Журнал «Грейдер»
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu top_drop hide" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="https://igrader.promogroupmedia.ru/">О журнале</a>
                   <nuxt-link class="dropdown-item" to="/archive">Архив</nuxt-link>
-                  <nuxt-link class="dropdown-item" to="/about">Подписка на журнал</nuxt-link>
+                  <nuxt-link class="dropdown-item" :to="{name: 'pages-slug', params: {slug: 'about'}}">Подписка на журнал</nuxt-link>
                 </div>
               </li>
               <li class="nav-item">
@@ -53,12 +46,12 @@
                 <nuxt-link class="nav-link" :to="{name: 'news-slug', params: {slug: 'specialoffer'}}">🔥 Спецпредложения</nuxt-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Рекламодателям</a>
+                <nuxt-link class="nav-link" :to="{name: 'pages-slug', params: {slug: 'adv'}}">Рекламодателям</nuxt-link>
               </li>
             </ul>
           </div>
 
-          <span data-toggle="modal" data-target="#search" class="searchIcon">
+          <span  @click="openModal()" class="searchIcon">
             <i>
               <svg-icon name="search" width="15" height="15"></svg-icon>
             </i>
@@ -67,7 +60,7 @@
       </nav>
 
     <nav class="graderHeader__bot navbar navbar-expand-lg">
-      <div class=" collapse navbar-collapse"  id="navbarSupportedContent">
+      <div class=" collapse navbar-collapse expanded"  id="navbarSupportedContent">
         <div class="container-md collapsed-cont">
 
         <ul class="nav nav-tabs">
@@ -93,9 +86,9 @@
             <nuxt-link class="nav-link" :to="{ name: 'news-slug', params: { slug: 'stranitci-istorii' } }">Страницы истории</nuxt-link>
           </li>
 
-          <li class="nav-item dropdown">
+          <li @click="openDropdown('.bot_dropdown')" class="nav-item dropdown bot_dropbtn">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ещё рубрики</a>
-            <div class="dropdown-menu bot_dropdown">
+            <div class="dropdown-menu bot_dropdown hide">
               <nuxt-link class="dropdown-item" :to="{ name: 'news-slug', params: { slug: 'analitika' } }">Аналитика</nuxt-link>
               <nuxt-link class="dropdown-item" :to="{ name: 'news-slug', params: { slug: 'kruglyj-stol' } }">Круглый стол</nuxt-link>
               <nuxt-link class="dropdown-item" :to="{ name: 'news-slug', params: { slug: 'technology' } }">Технологии</nuxt-link>
@@ -107,15 +100,11 @@
       </div>
     </nav>
 
-    <div class="modal fade" id="search" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content modal-search">
-          <div class="input-group">
-            <input type="search" class="form-control" placeholder="Что ищем?" aria-label="Recipient's username" aria-describedby="button-addon2">
-            <div class="input-group-append">
-              <button class="btn" type="submit" id="button-addon2">Поиск</button>
-            </div>
-          </div>
+    <div class="searchBlock" id="search">
+      <div class="input-group">
+        <input @keyup.enter.prevent="allRequests(searchQuery)" v-model="searchQuery" type="search" class="form-control" placeholder="Что ищем?" aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button @click="allRequests(searchQuery)" class="btn" type="submit" id="button-addon2">Поиск</button>
         </div>
       </div>
     </div>
@@ -124,12 +113,54 @@
 
 <script>
 export default {
-  methods: {
-    openMenu() {
-      // let a = document.getElementById('botMenu')
-      // console.log(a.style.display)
-
+  data() {
+    return {
+      searchQuery: '',
     }
+  },
+  methods: {
+    allRequests(request) {
+      let modal = document.querySelector('.searchBlock')
+      modal.style.display = ''
+      this.$router.push('/search/' + request)
+      this.searchQuery = ''
+    },
+    openModal() {
+      let modal = document.querySelector('.searchBlock')
+      modal.style.display = 'block'
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    },
+    openDropdown(dropdownw) {
+      let exp = document.querySelectorAll(dropdownw)
+
+      if(dropdownw == '.expanded') {
+        for (let el of exp) {
+          el.classList.toggle('collapse')
+        }
+      } else {
+        let dropdown = document.querySelector(dropdownw)
+        let item = document.querySelectorAll('.dropdown-item')
+
+        dropdown.classList.toggle('hide')
+
+        document.addEventListener('mouseup', function (e) {
+          const its_menu = e.target == dropdown || dropdown.contains(e.target);
+          const its_item = true
+          console.log(item)
+
+          if (its_item || !its_menu && !dropdown.classList.contains('hide')) {
+            dropdown.classList.add('hide');
+            document.removeEventListener('mouseup', () => {
+
+            })
+          }
+        })
+      }
+    },
   }
 };
 </script>

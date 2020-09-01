@@ -369,6 +369,9 @@ export default {
     window.addEventListener('scroll', this.loadCategories);
     return this.width = width
   },
+  destroyed() {
+    window.removeEventListener('scroll', this.loadCategories);
+  },
   layout: 'main-page',
   data: () => ({
     swiperOptions: {
@@ -439,33 +442,6 @@ export default {
     journal() {
       return this.$store.getters['lastMag/journal']
     },
-    // categories() {
-    //   return this.$store.getters['mainPage/categories']
-    // },
-    // analitika() {
-    //   return this.$store.getters['mainPage/analitika']
-    // },
-    // kruglyjStol() {
-    //   return this.$store.getters['mainPage/kruglyjStol']
-    // },
-    // krupniymPlanom() {
-    //   return this.$store.getters['mainPage/krupniymPlanom']
-    // },
-    // riders() {
-    //   return this.$store.getters['mainPage/riders']
-    // },
-    // servismenyi() {
-    //   return this.$store.getters['mainPage/servismenyi']
-    // },
-    // stranitciIstorii() {
-    //   return this.$store.getters['mainPage/stranitciIstorii']
-    // },
-    // specialoffers() {
-    //   return this.$store.getters['mainPage/specialoffers']
-    // },
-    // vyborProfessionalov() {
-    //   return this.$store.getters['mainPage/vyborProfessionalov']
-    // },
   },
   methods: {
     async loadCategories() {

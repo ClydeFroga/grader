@@ -5,17 +5,17 @@
         <div class="col">
           <div class="foote__line">
             <span class="foote__title">Мы в социальных сетях</span>
-            <a href="#">Вконтакте</a>
-            <a href="#">Facebook</a>
-            <a href="#">Instagram</a>
-            <a href="#">Youtube</a>
-            <a href="#">Ok</a>
+            <a href="https://vk.com/igrader">Вконтакте</a>
+            <a href="https://www.facebook.com/igrader.ru/">Facebook</a>
+            <a href="https://www.instagram.com/igrader.ru/">Instagram</a>
+            <a href="https://www.youtube.com/channel/UC65JCgS9xdHws3qesOXCtLw">Youtube</a>
+            <a href="https://ok.ru/group/57275248017513">Ok</a>
           </div>
           <div class="foote__line">
             <span class="foote__title">Правила</span>
-            <a href="#">Условия использования сайта</a>
-            <a href="#">Политика конфиденциальности</a>
-            <a href="#">Политика обработки персональных данных</a>
+            <nuxt-link :to="{name: 'pages-slug', params: {slug: 'rules'}}">Условия использования сайта</nuxt-link>
+            <nuxt-link :to="{name: 'pages-slug', params: {slug: 'privacy'}}">Политика конфиденциальности</nuxt-link>
+            <nuxt-link :to="{name: 'pages-slug', params: {slug: 'politika-obrabotki-personalnyih-dannyih'}}">Политика обработки персональных данных</nuxt-link>
           </div>
         </div>
         <div class="col-4">

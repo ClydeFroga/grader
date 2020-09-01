@@ -60,6 +60,9 @@
       if (store.getters['lastMag/journal'].length === 0) {
         await store.dispatch('lastMag/fetch')
       }
+      if (store.getters['botNews/news'].length === 0) {
+         store.dispatch('botNews/fetch')
+      }
     },
     data: () => ({
       page: 1,

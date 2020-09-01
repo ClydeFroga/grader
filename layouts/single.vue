@@ -1,7 +1,8 @@
 <template>
   <div >
     <header-my/>
-      <nuxt/>
+    <nuxt/>
+    <cookie v-if="cookies" />
     <footer-my/>
   </div>
 </template>
@@ -9,23 +10,24 @@
 <script>
   import headerMy from "../components/header"
   import footerMy from "../components/footer"
-  // import asideMy from "../components/aside"
+  import cookie from "../components/cookie";
+
 
   export default {
     components: {
       headerMy,
       footerMy,
-      // asideMy,
+      cookie
     },
-    // async fetch({store}) {
-    //   if (store.getters['botNews/news'].length === 0) {
-    //     await store.dispatch('botNews/fetch')
-    //   }
-    // },
+
     computed: {
       posts() {
         return this.$store.getters['botNews/news']
       },
+      cookies() {
+        const cookieRes = this.$cookies.get('cookie')
+        return cookieRes !== 1;
+      }
     },
   }
 </script>

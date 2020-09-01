@@ -46,32 +46,22 @@
 </template>
 
 <script>
-  import rand from 'lodash/random'
+  // import rand from 'lodash/random'
 
 	export default {
     data() {
       return {
-        posts: []
+        // posts: []
       }
     },
     mounted() {
-      let r = rand(0, 100)
-      this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes_exclude=1599&per_page=4&offset=' + r)
-      .then(responce => {
-        this.posts = responce
-      })
+
     },
-    //
-    //  fetch({store}) {
-    //   if (store.getters['botNews/news'].length === 0) {
-    //      store.dispatch('botNews/fetch')
-    //   }
-    // },
-    // computed: {
-    //   posts() {
-    //     return this.$store.getters['botNews/news']
-    //   },
-    // }
+    computed: {
+      posts() {
+        return this.$store.getters['botNews/news']
+      },
+    }
   }
 </script>
 

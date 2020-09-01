@@ -1,6 +1,10 @@
 export default {
   mode: 'universal',
   target: 'server',
+  sitemap: {
+    hostname: 'http://localhost:3000/',
+    gzip: true,
+  },
   head: {
     title: 'Грейдер -  обзор рынка спецтехники, грузовиков и коммерческого транспорта',
     meta: [
@@ -9,12 +13,12 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/faviconMini.png' }
     ],
     script: [
-      {src: 'https://code.jquery.com/jquery-3.5.1.slim.min.js'},
-      {src: 'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'},
-      {src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js'},
+      // {src: 'https://code.jquery.com/jquery-3.5.1.slim.min.js'},
+      // {src: 'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'},
+      // {src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js'},
       {src: 'https://yastatic.net/pcode/adfox/loader.js', crossorigin: "anonymous" },
     ]
   },
@@ -38,8 +42,8 @@ export default {
     '@nuxtjs/svg-sprite',
     'nuxt-lazy-load',
     'cookie-universal-nuxt',
+    '@nuxtjs/sitemap',
     '@nuxtjs/component-cache',
-    'nuxt-mobile',
     [
       "nuxt-compress",
       {
