@@ -16,9 +16,6 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/faviconMini.png' }
     ],
     script: [
-      // {src: 'https://code.jquery.com/jquery-3.5.1.slim.min.js'},
-      // {src: 'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'},
-      // {src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js'},
       {src: 'https://yastatic.net/pcode/adfox/loader.js', crossorigin: "anonymous" },
     ]
   },
@@ -28,8 +25,7 @@ export default {
   ],
 
   plugins: [
-    // {src: '~/plugins/collapse.js'},
-    // {src: '~/plugins/dropdown.js'},
+
   ],
 
   components: true,
@@ -42,17 +38,6 @@ export default {
 
   modules: [
     '@nuxtjs/axios',
-    // [
-    //   '@nuxtjs/yandex-metrika',
-    //   {
-    //     id: 'XXXXXX',
-    //     webvisor: true,
-    //     // clickmap:true,
-    //     // useCDN:false,
-    //     // trackLinks:true,
-    //     // accurateTrackBounce:true,
-    //   }
-    // ],
     '@nuxtjs/svg-sprite',
     'nuxt-lazy-load',
     'cookie-universal-nuxt',
