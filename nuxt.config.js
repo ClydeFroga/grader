@@ -55,8 +55,9 @@ export default {
       }
     ],
     '@nuxtjs/redirect-module',
-
+    'nuxt-fullpage.js',
   ],
+
   redirect: [
     { from: '^/news/?$', to: '/kratko' }
   ],
