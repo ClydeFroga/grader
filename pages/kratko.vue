@@ -54,7 +54,7 @@
 </template>
 
 <script>
-	export default {
+  export default {
     validate({ params }) {
       let val = /^\d+$/.test(params.slug)
       return !val
@@ -66,6 +66,14 @@
     head() {
       return {
         title: 'Новости | iGrader.ru'
+      }
+    },
+    async fetch ({ params, redirect, store }) {
+      if (store.getters['lastMag/journal'].length === 0) {
+        await store.dispatch('lastMag/fetch')
+      }
+      if (store.getters['botNews/news'].length === 0) {
+        store.dispatch('botNews/fetch')
       }
     },
     async asyncData({$axios}) {

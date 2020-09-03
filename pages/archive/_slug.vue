@@ -66,7 +66,7 @@
 </template>
 
 <script>
-	export default {
+  export default {
       validate({ params }) {
         let val = /^\d+$/.test(params.slug)
         return !val

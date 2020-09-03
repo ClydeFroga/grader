@@ -154,7 +154,7 @@
 <script>
   import rand from 'lodash/random'
 
-	export default {
+  export default {
     validate({ params }) {
       let val = /^\d+$/.test(params.slug)
       return !val

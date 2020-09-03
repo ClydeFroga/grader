@@ -24,7 +24,7 @@
 </template>
 
 <script>
-	export default {
+  export default {
     async fetch({store}) {
       if (store.getters['archive/main'].length === 0) {
         await store.dispatch('archive/fetch')

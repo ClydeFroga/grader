@@ -10,13 +10,9 @@
 </template>
 
 <script>
-
-
   export default {
     layout: 'main-page',
     data: () => ({
-
-
      }),
   }
 </script>

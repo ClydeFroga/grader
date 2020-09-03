@@ -20,7 +20,7 @@
 </template>
 
 <script>
-	export default {
+  export default {
 		methods: {
       setCookie() {
         this.$cookies.set('cookie', 1, {

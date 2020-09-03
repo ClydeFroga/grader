@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   mode: 'universal',
   target: 'server',
   sitemap: {
@@ -31,9 +31,7 @@ export default {
   components: true,
 
   buildModules: [
-    ['@nuxtjs/google-analytics', {
-      id: ''
-    }]
+
   ],
 
   modules: [
@@ -43,6 +41,7 @@ export default {
     'cookie-universal-nuxt',
     '@nuxtjs/sitemap',
     '@nuxtjs/component-cache',
+
     [
       "nuxt-compress",
       {
@@ -64,5 +63,8 @@ export default {
   loading: { color: "#ff9900" },
 
   build: {
+    extend(config, ctx) {
+
+    }
   }
 }

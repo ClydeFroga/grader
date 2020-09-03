@@ -48,7 +48,7 @@
 <script>
   // import rand from 'lodash/random'
 
-	export default {
+  export default {
     data() {
       return {
         // posts: []

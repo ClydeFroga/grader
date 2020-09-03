@@ -13,7 +13,7 @@
 </template>
 
 <script>
-	export default {
+  export default {
     head() {
       return {
         title: this.posts[0].title.rendered + ' | iGrader.ru'
