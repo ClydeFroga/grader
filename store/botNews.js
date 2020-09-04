@@ -15,8 +15,8 @@ export const actions = {
   async fetch({commit}) {
     let r = rand(0, 100)
 
-    const news = await this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes_exclude=1599&per_page=4&offset=' + r)
-
+    let news = await fetch('https://igrader.ru/wp-json/wp/v2/posts?mainthemes_exclude=1599&per_page=4&offset=' + r)
+    news = await news.json()
     commit('setNews', news)
   }
 }

@@ -1,19 +1,12 @@
 <template>
   <div class="col-12 col-lg-9 news left">
-
-    <div v-if="this.events.length === 0">
-      <h1>
-        Ближайших мероприятий нет
-      </h1>
-    </div>
-
-    <div >
+    <div>
       <div class="news__breadcrumbs">
         <nuxt-link to="/">Главная</nuxt-link>
         <span> / </span>
         <span>Мероприятия</span>
       </div>
-      <div v-for="(post, ind) of events" :key="post.id" class="row news__one">
+      <div v-for="post of events" :key="post.id" class="row news__one">
         <div class="col-12 col-sm">
           <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}">
             <img :src="post.x_featured_media_large" :alt="post.alt">
@@ -55,15 +48,24 @@
     data: () => ({
       page: 1,
     }),
-    async asyncData({$axios}) {
+    async fetch({store}) {
+      if (store.getters['botNews/news'].length === 0) {
+        await store.dispatch('botNews/fetch')
+      }
+      if (store.getters['lastMag/journal'].length === 0) {
+        await store.dispatch('lastMag/fetch')
+      }
+    },
+    async asyncData({redirect}) {
       let events = []
       let url = 'https://igrader.ru/wp-json/wp/v2/activity'
-      await $axios.$get(url)
-      .then(responce => {
-        if (responce.length === 0) {
-          return {events}
+      fetch(url)
+      .then(responce => responce.json())
+      .then(result => {
+        if (result.length === 0) {
+            redirect(301, `/404`)
         }
-        for(let item of responce) {
+        for(let item of result) {
           events.push(item)
         }
       })

@@ -1,6 +1,6 @@
 <template>
   <div class="about col-12 col-lg-7 left single adv" >
-    <div v-for="post of posts" :key="post.id">
+    <div v-for="post of posts" :key="post.id" v-if="posts.length !== 0">
       <h1>{{post.title.rendered}}</h1>
       <div class="news__breadcrumbs">
         <nuxt-link to="/">Главная</nuxt-link>
@@ -19,16 +19,17 @@
         title: this.posts[0].title.rendered + ' | iGrader.ru'
       }
     },
-    async fetch ({ params, redirect, store }) {
+    async fetch ({ store }) {
       if (store.getters['lastMag/journal'].length === 0) {
         await store.dispatch('lastMag/fetch')
       }
       if (store.getters['botNews/news'].length === 0) {
-        store.dispatch('botNews/fetch')
+        await store.dispatch('botNews/fetch')
       }
     },
     async asyncData({$axios, params, redirect}) {
-      let posts = await $axios.$get('https://igrader.ru/wp-json/wp/v2/pages?slug=' + params.slug)
+      let posts = await fetch('https://igrader.ru/wp-json/wp/v2/pages?slug=' + params.slug)
+      posts = await posts.json()
       if(posts.length === 0) {
         redirect(301, `/404`)
       }

@@ -10,7 +10,8 @@ export const mutations = {
 
 export const actions = {
   async fetch({commit}) {
-    const unsorted = await this.$axios.$get('https://igrader.ru/wp-json/wp/v2/magazins?orderby=slug&order=desc&per_page=12')
+    let unsorted = await fetch('https://igrader.ru/wp-json/wp/v2/magazins?orderby=slug&order=desc&per_page=12')
+    unsorted = await unsorted.json()
     let main = unsorted.sort(function (a, b) {
       if (a.acf.reliz_jrnl > b.acf.reliz_jrnl) {
         return -1;

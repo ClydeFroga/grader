@@ -174,8 +174,9 @@
         await store.dispatch('lastMag/fetch')
       }
     },
-    async asyncData({$axios, params, redirect}) {
-      let post = await $axios.$get('https://igrader.ru/wp-json/wp/v2/comtrans?slug=' + params.slug)
+    async asyncData({params, redirect}) {
+      let post = await fetch('https://igrader.ru/wp-json/wp/v2/comtrans?slug=' + params.slug)
+      post = await post.json()
       if(post.length === 0) {
         redirect(301, `/404`)
       }

@@ -1,8 +1,7 @@
 <template>
   <div class="col-12 col-lg-3 side">
-    <div class="foxy">
-      <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
-    </div>
+    <div class="foxy" id="adfox_15983472592613563"></div>
+
     <div v-if="this.width > 992" class="foxy foxy-news">
       <h2 class="field__title" >
         <a href="#">
@@ -17,13 +16,16 @@
         </div>
       </nuxt-link>
       </div>
+
     <div class="foxy">
       <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
     </div>
+
     <div class="foxy">
       <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
     </div>
-    <div  v-if="journal.acf !== undefined" class="foxy">
+
+    <div v-if="journal.acf !== undefined" class="foxy">
       <h2 class="field__title" >
         <a href="#">
           Свежий номер
@@ -58,11 +60,27 @@
       .then(responce => {
         this.posts = responce
       })
+      this.adfox()
+      return
     },
     computed: {
       journal() {
         return this.$store.getters['lastMag/journal']
       },
+    },
+    methods: {
+      adfox() {
+        window.Ya.adfoxCode.create({
+          ownerId: 299653,
+          containerId: 'adfox_15983472592613563',
+          params: {
+            p1: 'clzeo',
+            p2: 'gxsz',
+            pfc: 'dcwtq',
+            pfb: 'ikavk'
+          }
+        });
+      }
     }
 	}
 </script>

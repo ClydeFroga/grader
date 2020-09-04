@@ -21,12 +21,13 @@ export const actions = {
     let endDates = []
     let startDates = []
     let events = []
-    await this.$axios.$get('https://igrader.ru/wp-json/wp/v2/events')
-    .then(responce => {
-      if (responce.length === 0) {
+    fetch('https://igrader.ru/wp-json/wp/v2/events')
+    .then(responce => responce.json())
+    .then(result => {
+      if (result.length === 0) {
         return
       }
-      for(let item of responce) {
+      for(let item of result) {
         let date = +(item.x_metadata._end_ts + '000');
         if(date > Date.now()) {
           let formDate = new Date(date)

@@ -70,18 +70,7 @@
 
       <div class="col-12 col-lg-3 side">
         <div class="foxy ad" id="adfox_15983472592613563"></div>
-        <script>
-          window.Ya.adfoxCode.create({
-            ownerId: 299653,
-            containerId: 'adfox_15983472592613563',
-            params: {
-              p1: 'clzeo',
-              p2: 'gxsz',
-              pfc: 'dcwtq',
-              pfb: 'ikavk'
-            }
-          });
-        </script>
+
         <div class="foxy ad">
           <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
         </div>
@@ -175,8 +164,10 @@
     mounted: function () {
       setTimeout(() => this.kratko(), 3000)
       if(document.documentElement.clientWidth > 992) {
-        setTimeout(() => window.addEventListener('scroll', this.selectBlc), 10000)
+        setTimeout(() => window.addEventListener('scroll', this.selectBlc), 5000)
       }
+      this.adfox()
+      return
     },
     destroyed() {
       window.removeEventListener('scroll', this.loadPost);
@@ -190,11 +181,12 @@
       }
     },
     async asyncData({$axios, params, redirect}) {
-      let titles = await $axios.$get('https://igrader.ru/wp-json/wp/v2/posts?slug=' + params.slug)
+      let titles = await fetch('https://igrader.ru/wp-json/wp/v2/posts?slug=' + params.slug)
+      titles = await titles.json()
       if(titles.length === 0) {
         redirect(301, `/404`)
       }
-      let urls = ['http://localhost:3000/post/' + params.slug]
+      let urls = ['http://localhost:3000/post/' + params.slug]   //заменить!!!!!!
       let articles = [titles[0].title.rendered.replace(/&#\d+;/g, '')]
       let ids = [titles[0].id]
 
@@ -230,7 +222,7 @@
         return all_height
       },
       num() {
-        let num = rand(0, 2)
+        let num = rand(0, this.ad.length - 1)
         return num
       },
     },
@@ -248,7 +240,7 @@
                 this.articles.push(name)
                 this.ids.push(item.id)
 
-                let url = 'http://localhost:3000/post/' + item.slug
+                let url = 'http://localhost:3000/post/' + item.slug       //заменить!!!
                 this.urls.push(url)
                 history.pushState({page_title: name}, '', url)
                 this.titles.push(item)
@@ -287,9 +279,15 @@
       },
       selectBlc() {
         if(this.leftHeight() > this.right + 500) {
-          if(pageYOffset > this.right + 500) {
+          if(pageYOffset > this.right + 100) {
+            if(this.ad.length === 0) {
+              window.removeEventListener('scroll', this.selectBlc)
+            }
             this.ad[this.num].classList.add('sharing__wrapper')
           } else {
+            if(this.ad.length === 0) {
+              window.removeEventListener('scroll', this.selectBlc)
+            }
             this.ad[this.num].classList.remove('sharing__wrapper')
           }
         }
@@ -304,6 +302,19 @@
             window.addEventListener('scroll', this.loadPost);
           }
         }
+      },
+      adfox() {
+        window.Ya.adfoxCode.create({
+          ownerId: 299653,
+          containerId: 'adfox_15983472592613563',
+          params: {
+            p1: 'clzeo',
+            p2: 'gxsz',
+            pfc: 'dcwtq',
+            pfb: 'ikavk'
+          }
+        });
+
       }
     },
 	}

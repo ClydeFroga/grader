@@ -27,6 +27,7 @@
     "nuxt-fullpage.js": "0.0.3",
     "nuxt-lazy-load": "^1.2.4",
     "nuxt-mobile": "^1.0.1",
+    "nuxt-rfg-icon": "^0.6.4",
     "nuxt-start": "^2.14.4",
     "regenerator-runtime": "^0.12.1",
     "sass-loader": "^10.0.1",

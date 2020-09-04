@@ -47,9 +47,10 @@
         title: 'Полоса | iGrader.ru'
       }
     },
-    async asyncData({$axios, params}) {
+    async asyncData() {
       const url = 'https://igrader.ru/wp-json/wp/v2/posts?tags=2099&per_page=12';
-      const posts = await $axios.$get(url)
+      let posts = await fetch(url)
+      posts = await posts.json()
       return {posts, url}
     },
     methods: {

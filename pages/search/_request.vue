@@ -48,7 +48,7 @@
         await store.dispatch('lastMag/fetch')
       }
       if (store.getters['botNews/news'].length === 0) {
-        store.dispatch('botNews/fetch')
+        await store.dispatch('botNews/fetch')
       }
     },
     data: () => ({
@@ -60,15 +60,17 @@
         title: 'Результаты поиска "' + this.req + '" | iGrader.ru'
       }
     },
-    async asyncData({$axios, params, redirect}) {
+    async asyncData({params}) {
       let ser =  encodeURIComponent(params.request)
       const url = 'https://igrader.ru/wp-json/wp/v2/posts?search=' + ser;
       let req = params.request
-      let posts = await $axios.$get(url)
+      let posts = await fetch(url)
+      posts = await posts.json()
       if(posts.length === 0) {
         req = ''
         if(params.request === undefined) {
-          let posts = await $axios.$get('https://igrader.ru/wp-json/wp/v2/posts')
+          let posts = await fetch('https://igrader.ru/wp-json/wp/v2/posts')
+          posts = await posts.json()
           return {posts, req}
         }
         return {req}

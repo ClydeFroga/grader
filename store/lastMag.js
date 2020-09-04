@@ -11,9 +11,10 @@ export const mutations = {
 export const actions = {
   async fetch({commit}) {
     let journal = []
-    this.$axios.$get('https://igrader.ru/wp-json/wp/v2/magazins?orderby=slug&order=desc&per_page=2')
-    .then(responce => {
-      let journals = responce.sort(function (a, b) {
+    fetch('https://igrader.ru/wp-json/wp/v2/magazins?orderby=slug&order=desc&per_page=2')
+    .then(responce => responce.json())
+    .then(result => {
+      let journals = result.sort(function (a, b) {
         if (a.acf.reliz_jrnl > b.acf.reliz_jrnl) {
           return -1;
         }
@@ -41,7 +42,6 @@ export const actions = {
       }
       commit('setJournal', journal)
     })
-
 
   }
 }

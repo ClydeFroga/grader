@@ -68,7 +68,7 @@
         title: 'Новости | iGrader.ru'
       }
     },
-    async fetch ({ params, redirect, store }) {
+    async fetch ({ params, store }) {
       if (store.getters['lastMag/journal'].length === 0) {
         await store.dispatch('lastMag/fetch')
       }
@@ -76,9 +76,10 @@
         store.dispatch('botNews/fetch')
       }
     },
-    async asyncData({$axios}) {
+    async asyncData() {
       const url = 'https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=12';
-      const posts = await $axios.$get(url)
+      let posts = await fetch(url)
+      posts = await posts.json()
       return {posts, url}
     },
     methods: {

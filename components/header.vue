@@ -6,7 +6,7 @@
           <nuxt-link class="navbar-brand" to="/">
             <img
               class="graderHeader__logo"
-              src="@/static/whiteLogo.png"
+              src="../static/whiteLogo.png"
               alt="logo"
             />
           </nuxt-link>

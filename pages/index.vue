@@ -79,9 +79,8 @@
           </div>
 
           <div class="col-lg-3">
-            <div class="foxy">
-              <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
-            </div>
+            <div class="foxy" id="adfox_15983472592613563"></div>
+
             <div class="foxy">
               <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=4">
             </div>
@@ -107,6 +106,7 @@
 
         <div class="row field">
           <div class="col-12 col-lg">
+
             <h2 class="field__title">
               <nuxt-link :to="{ name: 'news-slug', params: { slug: 'analitika' } }">
                 Аналитика
@@ -123,8 +123,8 @@
                   </div>
                 </div>
 
-                <div class="field__botText">
-                  <p v-html="post.excerpt.rendered.slice(0, 120) + ' ...'"></p>
+                <div class="field__botText" v-html="post.excerpt.rendered.slice(0, 120) + ' ...'">
+
                 </div>
 
               </nuxt-link>
@@ -210,17 +210,18 @@
               <div class="col-12 col-xl-4">
                 <nuxt-link class="orangeHover" v-for="(post, ind) of riders" :key="post.id" v-if="ind === 0" :to="{name: 'post-slug', params: {slug: post.slug}}">
                   <img :alt="post.alt" :src="post.x_featured_media_large">
-                  <p v-html="post.title.rendered" class="orangeHover">
+                  <p v-html="post.title.rendered" class="riders__main orangeHover">
                   </p>
                 </nuxt-link>
               </div>
 
               <div class="col-12 col-xl-8 ">
+
                 <div class="row riders__row row-cols-lg-2 row-cols-1">
                   <nuxt-link class="orangeHover col riders__col" v-for="(post, ind) of riders" :key="post.id" v-if="ind > 0 && ind < 3" :to="{name: 'post-slug', params: {slug: post.slug}}">
                     <img :alt="post.alt" :src="post.x_featured_media_large">
-                    <span class="orangeHover" v-html="post.title.rendered">
-                    </span>
+                    <p class="orangeHover riders__sec" v-html="post.title.rendered">
+                    </p>
                   </nuxt-link>
 
                   <span class="riders__deco"></span>
@@ -230,8 +231,8 @@
 
                   <nuxt-link class="orangeHover col riders__col" v-for="(post, ind) of riders" :key="post.id" v-if="ind > 2 && ind < 5" :to="{name: 'post-slug', params: {slug: post.slug}}">
                     <img :alt="post.alt" :src="post.x_featured_media_large">
-                    <span class="orangeHover" v-html="post.title.rendered">
-                    </span>
+                    <p class="orangeHover riders__sec" v-html="post.title.rendered">
+                    </p>
                   </nuxt-link>
 
                   <span class="riders__deco"></span>
@@ -242,12 +243,13 @@
 
                   <nuxt-link class="orangeHover col riders__col" v-for="(post, ind) of riders" :key="post.id" v-if="ind > 4" :to="{name: 'post-slug', params: {slug: post.slug}}">
                     <img :alt="post.alt" :src="post.x_featured_media_large">
-                    <span class="orangeHover" v-html="post.title.rendered">
-                    </span>
+                    <p class="orangeHover riders__sec" v-html="post.title.rendered">
+                    </p>
                   </nuxt-link>
 
                   <span class="riders__deco"></span>
                 </div>
+
               </div>
             </div>
           </div>
@@ -271,8 +273,8 @@
             <div class="field__four row row-cols-1 row-cols-md-2 row-cols-xl-4">
               <nuxt-link class="col" v-for="post of servismenyi" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}">
                 <img :alt="post.alt" :src="post.x_featured_media_large">
-                <p v-html="post.title.rendered" class="field__span">
-                </p>
+                <p v-html="post.title.rendered" class="field__span"></p>
+                <span class="serv">{{post.x_date}}</span>
               </nuxt-link>
             </div>
 
@@ -289,7 +291,6 @@
                         </p>
                         <div>
                           <span>{{post.x_cats[0]}}</span>
-                          <span>{{post.x_date}}</span>
                         </div>
                       </div>
                     </div>
@@ -370,7 +371,9 @@
   mounted() {
     let width = document.documentElement.clientWidth
     window.addEventListener('scroll', this.loadCategories);
-    return this.width = width
+    this.width = width
+    this.adfox()
+    return
   },
   destroyed() {
     window.removeEventListener('scroll', this.loadCategories);
@@ -424,11 +427,11 @@
     specialoffers: [],
   }),
   async fetch({store}) {
-    if (store.getters['mainPage/topSlider'].length === 0) {
-      await store.dispatch('mainPage/fetch')
-    }
     if (store.getters['lastMag/journal'].length === 0) {
       await store.dispatch('lastMag/fetch')
+    }
+    if (store.getters['mainPage/topSlider'].length === 0) {
+      await store.dispatch('mainPage/fetch')
     }
   },
   computed: {
@@ -460,7 +463,10 @@
       }
     },
     async loadKruglyjStol() {
-      let a =  document.querySelector('.wrapper__mainthemes').getBoundingClientRect().top;
+      let a =  document.querySelector('.grader').getBoundingClientRect().top;
+      console.log('a:' + a)
+      console.log(window.pageYOffset)
+
       if(window.pageYOffset > a) {
         window.removeEventListener('scroll', this.loadKruglyjStol);
         if (this.$store.getters['mainPage/kruglyjStol'].length === 0) {
@@ -509,6 +515,18 @@
         this.specialoffers = this.$store.getters['mainPage/specialoffers']
       }
     },
+    adfox() {
+      window.Ya.adfoxCode.create({
+        ownerId: 299653,
+        containerId: 'adfox_15983472592613563',
+        params: {
+          p1: 'clzeo',
+          p2: 'gxsz',
+          pfc: 'dcwtq',
+          pfb: 'ikavk'
+        }
+      });
+    }
   }
 }
 </script>

@@ -2,7 +2,7 @@ module.exports = {
   mode: 'universal',
   target: 'server',
   sitemap: {
-    hostname: 'http://localhost:3000/',
+    hostname: 'http://hahlek3u.beget.tech/',
     gzip: true,
   },
   head: {
@@ -13,7 +13,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/faviconMini.png' }
+      // { rel: 'icon', type: 'image/png', href: 'favicon2.png' }
     ],
     script: [
       {src: 'https://yastatic.net/pcode/adfox/loader.js', crossorigin: "anonymous" },
@@ -35,13 +35,16 @@ module.exports = {
   ],
 
   modules: [
+    ['nuxt-rfg-icon', {
+    masterPicture: 'static/favicon.png'
+  }],
+    '@nuxtjs/manifest',
     '@nuxtjs/axios',
     '@nuxtjs/svg-sprite',
     'nuxt-lazy-load',
     'cookie-universal-nuxt',
     '@nuxtjs/sitemap',
     '@nuxtjs/component-cache',
-
     [
       "nuxt-compress",
       {
@@ -54,8 +57,9 @@ module.exports = {
       }
     ],
     '@nuxtjs/redirect-module',
-    'nuxt-fullpage.js',
+    // 'nuxt-fullpage.js',
   ],
+
 
   redirect: [
     { from: '^/news/?$', to: '/kratko' }

@@ -29,6 +29,9 @@
       if (store.getters['archive/main'].length === 0) {
         await store.dispatch('archive/fetch')
       }
+      if (store.getters['botNews/news'].length === 0) {
+        await store.dispatch('botNews/fetch')
+      }
     },
     data: () => ({
       page: 1,
@@ -57,7 +60,7 @@
         })
         .catch(function (e) {
           let nav =  document.querySelector('.loadmore')
-          nav.innerHTML = `<p>Вы просмотрели все записи</p>`
+          nav.innerHTML = `Вы просмотрели все записи`
           document.preventDefault
         })
       },
