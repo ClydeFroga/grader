@@ -79,14 +79,21 @@
           </div>
 
           <div class="col-lg-3">
-            <div class="foxy" id="adfox_159374506763656431"></div>
+            <div class="foxy">
+              <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
+            </div>
+            <div class="foxy">
+              <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
+            </div>
+<!--            <div class="foxy" id="adfox_159374506763656431"></div>-->
 
-            <div class="foxy" id="adfox_159480168913443656"></div>
+<!--            <div class="foxy" id="adfox_159480168913443656"></div>-->
           </div>
         </div>
 
         <div v-if="this.width > 576" class="long-ad">
-          <img src="https://picsum.photos/728/90/?random=1">
+            <img src="https://picsum.photos/728/90/?random=5">
+<!--          <div class="foxy" id="adfox_159374525659365226"></div>-->
         </div>
 
         <div v-if="this.width > 576" class="wrapper__mainthemes">
@@ -158,9 +165,7 @@
                 Оформить подписку
               </nuxt-link>
             </div>
-            <div class="foxy">
-              <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
-            </div>
+
           </div>
         </div>
     </div>
@@ -254,7 +259,15 @@
 
           <div class="col-3">
             <div class="foxy">
-              <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
+              <nuxt-link v-if="golos === 0" :to="{ name: 'post-slug', params: { slug: 'luchshij-avtogrejder' } }">
+                <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/03/golosuem_2-01.jpg">
+              </nuxt-link>
+              <nuxt-link v-if="golos === 1" :to="{ name: 'post-slug', params: { slug: 'luchshij-ekskavator-pogruzchik-vybor-professionalov' } }">
+                <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/05/golosuem_1-01.jpg">
+              </nuxt-link>
+              <nuxt-link v-if="golos === 2" :to="{ name: 'post-slug', params: { slug: 'https://igrader.ru/liftingequipment/luchshij-teleskopicheskij-pogruzchik' } }">
+                <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/05/golosuem_3-01.jpg">
+              </nuxt-link>
             </div>
           </div>
         </div>
@@ -316,6 +329,9 @@
             <div class="foxy">
               <img class="wrapper__adSpecialImg" src="https://picsum.photos/250/375/?random=5">
             </div>
+<!--            <div class="foxy" id="adfox_159374935502579870"></div>-->
+<!--            <div class="foxy" id="adfox_159374952133726391"></div>-->
+<!--            <div class="foxy" id="adfox_159712112538951246"></div>-->
           </div>
 
         </div>
@@ -357,6 +373,7 @@
   import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
   import 'swiper/swiper-bundle.esm'
   import 'swiper/swiper-bundle.css'
+  import rand from 'lodash/random'
 
   export default {
   components: {
@@ -370,7 +387,7 @@
     let width = document.documentElement.clientWidth
     window.addEventListener('scroll', this.loadCategories);
     this.width = width
-    return
+
   },
   destroyed() {
     window.removeEventListener('scroll', this.loadCategories);
@@ -445,6 +462,9 @@
     journal() {
       return this.$store.getters['lastMag/journal']
     },
+    golos() {
+      return rand(0, 2)
+    }
   },
   methods: {
     async loadCategories() {
@@ -461,9 +481,6 @@
     },
     async loadKruglyjStol() {
       let a =  document.querySelector('.grader').getBoundingClientRect().top;
-      console.log('a:' + a)
-      console.log(window.pageYOffset)
-
       if(window.pageYOffset > a) {
         window.removeEventListener('scroll', this.loadKruglyjStol);
         if (this.$store.getters['mainPage/kruglyjStol'].length === 0) {
@@ -483,7 +500,6 @@
           await this.$store.dispatch('mainPage/load5')
         }
         this.riders = this.$store.getters['mainPage/riders']
-
 
         window.addEventListener('scroll', this.loadServismenyi);
       }

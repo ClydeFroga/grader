@@ -32,7 +32,8 @@
     "regenerator-runtime": "^0.12.1",
     "sass-loader": "^10.0.1",
     "swiper": "^6.1.2",
-    "vue-awesome-swiper": "^4.1.1"
+    "vue-awesome-swiper": "^4.1.1",
+    "vue-disqus": "^4.0.1"
   },
   "devDependencies": {
     "@ava/babel": "^1.0.1",

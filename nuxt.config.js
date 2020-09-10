@@ -25,14 +25,17 @@ module.exports = {
   ],
 
   plugins: [
-
+    '~/plugins/disqus'
   ],
 
   components: true,
 
   buildModules: [
-
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-71349912-1'
+    }]
   ],
+
   layoutTransition: {
     name: 'layout',
     mode: ''
@@ -43,10 +46,20 @@ module.exports = {
     mode: ''
   },
 
+  // yandexMetrika: {
+  //   id: '23728024',
+  //   webvisor: true,
+  //   clickmap:true,
+  //   trackHash:true,
+  //   trackLinks:true,
+  //   accurateTrackBounce:true,
+  // },
+
   modules: [
+    // '@nuxtjs/yandex-metrika',
     ['nuxt-rfg-icon', {
     masterPicture: 'static/favicon.png'
-  }],
+     }],
     '@nuxtjs/manifest',
     '@nuxtjs/axios',
     '@nuxtjs/svg-sprite',

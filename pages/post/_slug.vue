@@ -4,7 +4,7 @@
 
       <div class="post col-12 col-lg-7 left single">
 
-          <div class="loaded" v-for="post of titles" :key="post.id">
+          <div class="loaded" v-for="(post, ind) of titles" :key="post.id">
           <h1 class="single__title" :id="post.id" v-html="post.title.rendered"></h1>
           <div class="single__date">
             {{post.x_date}}
@@ -20,23 +20,62 @@
                 <img class="mainImg" :alt="post.alt" :src="post.x_featured_media_large">
               </div>
               <div class="single__text" v-html="post.content.rendered"></div>
+              <div v-if="disq === 1599" class="sharing__wrapper static">
+                <a :href="'http://vk.com/share.php?url=https://igrader.ru' + $route.path + '&title=' + articles[ind] + '&description=' + cleanText(post.excerpt.rendered) + '&image=' + post.x_featured_media" class="sharing__item vk">
+                  <svg width="25" height="25" fill="white">
+                    <use xlink:href="@/static/svgsprite.svg#vk_logo"></use>
+                  </svg>
+                </a>
+
+                <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=https://igrader.ru' + $route.path + '&p[title]=' + articles[ind] + '&p[summary]=' + cleanText(post.excerpt.rendered) + '&p[images][0]=' + post.x_featured_media" class="sharing__item fb">
+                  <svg width="25" height="25" fill="white">
+                    <use xlink:href="@/static/svgsprite.svg#fb_logo"></use>
+                  </svg>
+                </a>
+
+                <a :href="'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=https://igrader.ru'+ $route.path +'&st.comments=' + articles[ind]" class="sharing__item od">
+                  <svg width="25" height="25" fill="white">
+                    <use xlink:href="@/static/svgsprite.svg#classmates_logo"></use>
+                  </svg>
+                </a>
+
+                <a :href="'https://telegram.me/share/url?url=https://igrader.ru'+  $route.path +'&amp;text=' + articles[ind]" class="sharing__item telegram">
+                  <svg width="25" height="25" fill="white">
+                    <use xlink:href="@/static/svgsprite.svg#pocket_logo"></use>
+                  </svg>
+                </a>
+
+                <a :href="'viber://forward?text=' + articles[ind]" class="sharing__item viber">
+                  <svg width="25" height="25" fill="white">
+                    <use xlink:href="@/static/svgsprite.svg#viber_logo"></use>
+                  </svg>
+                </a>
+
+                <a :href="'whatsapp://send?text=https://igrader.ru' + $route.path" class="sharing__item wApp">
+                  <svg width="25" height="25" fill="white">
+                    <use xlink:href="@/static/svgsprite.svg#wApp_logo"></use>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
+        <div class="long-ad">
+          <img src="https://picsum.photos/728/90/?random=1">
+        </div>
       </div>
 
       <div class="col-12 col-md-1 col-lg-2">
+        <div v-if="this.disq !== 1599" class="sharing__wrapper">
 
-        <div class=" sharing__wrapper">
-
-          <a :href="'http://vk.com/share.php?url=https://igrader.ru' + $route.path + '&title=' + this.titles[0].title.rendered + '&description=' + cleanText + '&image=' + this.titles[0].x_featured_media" class="sharing__item vk">
+          <a :href="'http://vk.com/share.php?url=https://igrader.ru' + $route.path + '&title=' + this.titles[0].title.rendered + '&description=' + cleanText(this.titles[0].excerpt.rendered) + '&image=' + this.titles[0].x_featured_media" class="sharing__item vk">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#vk_logo"></use>
             </svg>
           </a>
 
-          <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=https://igrader.ru' + $route.path + '&p[title]=' + this.titles[0].title.rendered + '&p[summary]=' + cleanText + '&p[images][0]=' + this.titles[0].x_featured_media" class="sharing__item fb">
+          <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=https://igrader.ru' + $route.path + '&p[title]=' + this.titles[0].title.rendered + '&p[summary]=' + cleanText(this.titles[0].excerpt.rendered) + '&p[images][0]=' + this.titles[0].x_featured_media" class="sharing__item fb">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#fb_logo"></use>
             </svg>
@@ -69,15 +108,36 @@
       </div>
 
       <div class="col-12 col-lg-3 side">
-        <div class="foxy ad" id="adfox_15983472592613563"></div>
 
         <div class="foxy ad">
           <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
         </div>
+
+<!--        <div class="foxy ad" id="adfox_159374506763656431"></div>-->
+
+        <div v-if="this.width > 992 && this.disq !== 1599" class="foxy foxy-news">
+          <h2 class="field__title" >
+            <a href="#">
+              Новости
+            </a>
+          </h2>
+
+          <nuxt-link v-for="post of postsRight" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}" class="foxy-news-line">
+            <div class="foxy__text" v-html="post.title.rendered.slice(0, 45) + ' ...'">
+            </div>
+            <div>
+              <img :alt="post.alt" :src="post.x_featured_media_large">
+            </div>
+          </nuxt-link>
+        </div>
+
         <div class="foxy ad">
           <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
         </div>
-        <div  v-if="journal.acf !== undefined" class="foxy fresh">
+
+<!--        <div class="foxy ad" id="adfox_159480168913443656"></div>-->
+
+        <div v-if="journal.acf !== undefined" class="foxy fresh">
           <h2 class="field__title" >
             <a href="#">
               Свежий номер
@@ -92,6 +152,9 @@
           </nuxt-link>
         </div>
       </div>
+    </div>
+    <div v-if="this.disq !== 1599" class="comments">
+      <Disqus />
     </div>
     <div>
       <h2 class="field__title">
@@ -133,6 +196,9 @@
           <div class="foxy">
             <img class="wrapper__adSpecialImg" src="https://picsum.photos/250/375/?random=5">
           </div>
+<!--          <div class="foxy" id="adfox_159374935502579870"></div>-->
+<!--          <div class="foxy" id="adfox_159374952133726391"></div>-->
+<!--          <div class="foxy" id="adfox_159712112538951246"></div>-->
         </div>
       </div>
     </div>
@@ -147,24 +213,31 @@
     head() {
       return {
         title: this.titles[0].title.rendered.replace(/&#\d+;/g, ''),
+        meta: [
+          { hid: 'description', name: 'description', content: this.titles[0].excerpt.rendered.replace(/&#\d+;/g, '').slice(0, 180) + ' ...' }
+        ],
       }
     },
     layout: 'single',
     data() {
       return {
+        width: 1920,
         offset: 0,
         loaded: [],
         news: [],
         i: 0,
-        golos: null
+        golos: null,
+        disq: 1599,
+        postsRight: []
       }
     },
     mounted: function () {
+      let width = document.documentElement.clientWidth
+      this.width = width
       setTimeout(() => this.kratko(), 3000)
       if(document.documentElement.clientWidth > 992) {
         setTimeout(() => window.addEventListener('scroll', this.selectBlc), 5000)
       }
-      this.adfox()
       this.findOpr()
     },
     destroyed() {
@@ -172,11 +245,11 @@
       window.removeEventListener('scroll', this.selectBlc);
     },
     async fetch({store}) {
-      // if (store.getters['botNews/news'].length === 0) {
-      //   await store.dispatch('botNews/fetch')
-      // }
       if (store.getters['lastMag/journal'].length === 0) {
         await store.dispatch('lastMag/fetch')
+      }
+      if (store.getters['botNews/news'].length === 0) {
+        await store.dispatch('botNews/fetch')
       }
     },
     async asyncData({params, redirect}) {
@@ -185,15 +258,12 @@
       if(titles.length === 0) {
         redirect(301, `/404`)
       }
-      let urls = ['https://hahlek3u.beget.tech/post/' + params.slug]   //заменить!!!!!!
+      let urls = ['http://hahlek3u.beget.tech/post/' + params.slug]   //заменить!!!!!!
       let articles = [titles[0].title.rendered.replace(/&#\d+;/g, '')]
       let ids = [titles[0].id]
       return {titles, urls, articles, ids}
     },
     computed: {
-      cleanText() {
-        return this.titles[0].title.rendered.replace(/<\/?[^>]+(>|$)/g, "");
-      },
       posts() {
         return this.$store.getters['botNews/news']
       },
@@ -225,6 +295,9 @@
       },
     },
     methods: {
+      cleanText(text) {
+        return text.replace(/<\/?[^>]+(>|$)/g, "");
+      },
       loadPost() {
         if(this.leftBot() < 1000 && this.offset < 5) {
           if(!this.body.classList.contains('loading')) {
@@ -238,7 +311,7 @@
                 this.articles.push(name)
                 this.ids.push(item.id)
 
-                let url = 'https://hahlek3u.beget.tech/post/' + item.slug       //заменить!!!
+                let url = 'http://hahlek3u.beget.tech/post/' + item.slug       //заменить!!!
                 this.urls.push(url)
                 history.pushState({page_title: name}, '', url)
                 this.titles.push(item)
@@ -296,22 +369,13 @@
       },
       kratko() {
         for(let item of this.titles[0].mainthemes) {
+          this.disq = item
           if (item === 1599) {
             window.addEventListener('scroll', this.loadPost);
+            return
           }
         }
-      },
-      adfox() {
-        window.Ya.adfoxCode.create({
-          ownerId: 299653,
-          containerId: 'adfox_15983472592613563',
-          params: {
-            p1: 'clzeo',
-            p2: 'gxsz',
-            pfc: 'dcwtq',
-            pfb: 'ikavk'
-          }
-        });
+        this.loadRightNews()
       },
       oprosFunc(id, opros) {
         let spisok = document.getElementsByName('poll_' + id)
@@ -389,6 +453,26 @@
           })
 
         }
+      },
+      loadRightNews() {
+        let a = null
+        switch(this.disq){
+          case 1600:
+          case 1604:a = '1600,1604';break;
+          case 1603:a = '1033,1638,1605';break;
+          case 1601:a = '1599';break;
+          case 1599:a = '1601,1033,1602';break;
+          case 1605:
+          case 1638:
+          case 1033:
+          case 1602:a = '1601';break;
+          case 1606:a = '1599';break;
+          default:a = '1599';break;
+        };
+        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=3&exclude=' + this.titles[0].id)
+        .then(responce => {
+          this.postsRight = responce
+        })
       }
     },
 	}

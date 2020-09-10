@@ -1,6 +1,8 @@
 <template>
   <div class="col-12 col-lg-3 side">
-    <div class="foxy" id="adfox_15983472592613563"></div>
+    <div class="foxy">
+      <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
+    </div>
 
     <div v-if="this.width > 992" class="foxy foxy-news">
       <h2 class="field__title" >
@@ -21,10 +23,6 @@
       <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
     </div>
 
-    <div class="foxy">
-      <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
-    </div>
-
     <div v-if="journal.acf !== undefined" class="foxy">
       <h2 class="field__title" >
         <a href="#">
@@ -39,6 +37,41 @@
         Оформить подписку
       </nuxt-link>
     </div>
+
+
+<!--    <div class="foxy" id="adfox_159374506763656431"></div>-->
+
+<!--    <div v-if="this.width > 992" class="foxy foxy-news">-->
+<!--      <h2 class="field__title" >-->
+<!--        <a href="#">-->
+<!--          Новости-->
+<!--        </a>-->
+<!--      </h2>-->
+<!--      <nuxt-link v-for="post of posts" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}" class="foxy-news-line">-->
+<!--        <div class="foxy__text" v-html="post.title.rendered.slice(0, 45) + ' ...'">-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <img :alt="post.alt" :src="post.x_featured_media_large">-->
+<!--        </div>-->
+<!--      </nuxt-link>-->
+<!--    </div>-->
+
+<!--    <div class="foxy" id="adfox_159480168913443656"></div>-->
+
+<!--    <div v-if="journal.acf !== undefined" class="foxy">-->
+<!--      <h2 class="field__title" >-->
+<!--        <a href="#">-->
+<!--          Свежий номер-->
+<!--        </a>-->
+<!--      </h2>-->
+<!--      <nuxt-link class="wrapper__adText" :to="{name: 'archive-slug', params: {slug: journal.slug}}">-->
+<!--        <img class="wrapper__adImg" :src="journal.acf.ssylka_na_oblozhku">-->
+<!--        Online-версия-->
+<!--      </nuxt-link>-->
+<!--      <nuxt-link class="wrapper__adText" :to="{name: 'pages-slug', params: {slug: 'about'}}">-->
+<!--        Оформить подписку-->
+<!--      </nuxt-link>-->
+<!--    </div>-->
   </div>
 </template>
 
