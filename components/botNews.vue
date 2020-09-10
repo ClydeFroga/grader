@@ -46,17 +46,9 @@
 </template>
 
 <script>
-  // import rand from 'lodash/random'
+
 
   export default {
-    data() {
-      return {
-        // posts: []
-      }
-    },
-    mounted() {
-
-    },
     computed: {
       posts() {
         return this.$store.getters['botNews/news']

@@ -5,6 +5,7 @@
         Постов в этой категории не найдено
       </h1>
     </div>
+
     <div v-else>
       <div class="news__breadcrumbs">
         <nuxt-link to="/">Главная</nuxt-link>

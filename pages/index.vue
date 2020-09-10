@@ -79,11 +79,9 @@
           </div>
 
           <div class="col-lg-3">
-            <div class="foxy" id="adfox_15983472592613563"></div>
+            <div class="foxy" id="adfox_159374506763656431"></div>
 
-            <div class="foxy">
-              <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=4">
-            </div>
+            <div class="foxy" id="adfox_159480168913443656"></div>
           </div>
         </div>
 
@@ -372,7 +370,6 @@
     let width = document.documentElement.clientWidth
     window.addEventListener('scroll', this.loadCategories);
     this.width = width
-    this.adfox()
     return
   },
   destroyed() {
@@ -515,18 +512,6 @@
         this.specialoffers = this.$store.getters['mainPage/specialoffers']
       }
     },
-    adfox() {
-      window.Ya.adfoxCode.create({
-        ownerId: 299653,
-        containerId: 'adfox_15983472592613563',
-        params: {
-          p1: 'clzeo',
-          p2: 'gxsz',
-          pfc: 'dcwtq',
-          pfb: 'ikavk'
-        }
-      });
-    }
   }
 }
 </script>

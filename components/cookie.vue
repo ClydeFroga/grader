@@ -25,7 +25,7 @@
       setCookie() {
         this.$cookies.set('cookie', 1, {
           path: '/',
-          maxAge: 60 * 60 * 24 * 7,
+          maxAge: 60 * 60 * 24 * 30,
           sameSite: 'Lax'
         })
         let a = document.querySelector('.cookie')

@@ -60,28 +60,13 @@
       .then(responce => {
         this.posts = responce
       })
-      this.adfox()
-      return
+
     },
     computed: {
       journal() {
         return this.$store.getters['lastMag/journal']
       },
     },
-    methods: {
-      adfox() {
-        window.Ya.adfoxCode.create({
-          ownerId: 299653,
-          containerId: 'adfox_15983472592613563',
-          params: {
-            p1: 'clzeo',
-            p2: 'gxsz',
-            pfc: 'dcwtq',
-            pfb: 'ikavk'
-          }
-        });
-      }
-    }
 	}
 </script>
 

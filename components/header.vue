@@ -26,27 +26,27 @@
 
           <div class="collapse navbar-collapse expanded" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown" @click="openDrop('.top_drop')">
                 <a class="nav-link dropdown-toggle" href="#">
                   Журнал «Грейдер»
                 </a>
                 <div class="dropdown-menu top_drop hide" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="https://igrader.promogroupmedia.ru/">О журнале</a>
-                  <nuxt-link class="dropdown-item" to="/archive">Архив</nuxt-link>
-                  <nuxt-link class="dropdown-item" :to="{name: 'pages-slug', params: {slug: 'about'}}">Подписка на журнал</nuxt-link>
+                  <a class="dropdown-item nav-m" href="https://igrader.promogroupmedia.ru/">О журнале</a>
+                  <nuxt-link class="dropdown-item nav-m" to="/archive">Архив</nuxt-link>
+                  <nuxt-link class="dropdown-item nav-m" :to="{name: 'pages-slug', params: {slug: 'about'}}">Подписка на журнал</nuxt-link>
                 </div>
               </li>
-              <li class="nav-item">
-                <nuxt-link class="nav-link" to="/events">Мероприятия</nuxt-link>
+              <li class="nav-item ">
+                <nuxt-link class="nav-link nav-m" to="/events">Мероприятия</nuxt-link>
               </li>
-              <li class="nav-item">
-                <nuxt-link class="nav-link" to="/comtrans-2019">Comtrans 2019</nuxt-link>
+              <li class="nav-item ">
+                <nuxt-link class="nav-link nav-m" to="/comtrans-2019">Comtrans 2019</nuxt-link>
               </li>
-              <li class="nav-item">
-                <nuxt-link class="nav-link" :to="{name: 'news-slug', params: {slug: 'specialoffer'}}">🔥 Спецпредложения</nuxt-link>
+              <li class="nav-item ">
+                <nuxt-link class="nav-link nav-m" :to="{name: 'news-slug', params: {slug: 'specialoffer'}}">🔥 Спецпредложения</nuxt-link>
               </li>
-              <li class="nav-item">
-                <nuxt-link class="nav-link" :to="{name: 'pages-slug', params: {slug: 'adv'}}">Рекламодателям</nuxt-link>
+              <li class="nav-item ">
+                <nuxt-link class="nav-link nav-m" :to="{name: 'pages-slug', params: {slug: 'adv'}}">Рекламодателям</nuxt-link>
               </li>
             </ul>
           </div>
@@ -64,34 +64,34 @@
         <div class="container-md collapsed-cont">
 
         <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <nuxt-link class="nav-link active" :to="{ name: 'lane'}">Полоса</nuxt-link>
+          <li class="nav-item ">
+            <nuxt-link class="nav-link nav-m lane_read" :to="{ name: 'lane'}">Полоса</nuxt-link>
+          </li>
+          <li class="nav-item ">
+            <nuxt-link class="nav-link nav-m news_read" :to="{ name: 'kratko'}">Новости</nuxt-link>
+          </li>
+          <li class="nav-item ">
+            <nuxt-link class="nav-link nav-m" :to="{ name: 'news-slug', params: { slug: 'ryinok' } }">Обзор рынка</nuxt-link>
+          </li>
+          <li class="nav-item ">
+            <nuxt-link class="nav-link nav-m" :to="{ name: 'news-slug', params: { slug: 'ispyitateli' } }">Испытатели</nuxt-link>
+          </li>
+          <li class="nav-item ">
+            <nuxt-link class="nav-link nav-m" :to="{ name: 'news-slug', params: { slug: 'krupniym-planom' } }">Крупным планом</nuxt-link>
+          </li>
+          <li class="nav-item ">
+            <nuxt-link class="nav-link nav-m" :to="{ name: 'news-slug', params: { slug: 'servismenyi' } }">Сервисмены</nuxt-link>
           </li>
           <li class="nav-item">
-            <nuxt-link class="nav-link" :to="{ name: 'kratko'}">Новости</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link class="nav-link" :to="{ name: 'news-slug', params: { slug: 'ryinok' } }">Обзор рынка</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link class="nav-link" :to="{ name: 'news-slug', params: { slug: 'ispyitateli' } }">Испытатели</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link class="nav-link" :to="{ name: 'news-slug', params: { slug: 'krupniym-planom' } }">Крупным планом</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link class="nav-link" :to="{ name: 'news-slug', params: { slug: 'servismenyi' } }">Сервисмены</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link class="nav-link" :to="{ name: 'news-slug', params: { slug: 'stranitci-istorii' } }">Страницы истории</nuxt-link>
+            <nuxt-link class="nav-link " :to="{ name: 'news-slug', params: { slug: 'stranitci-istorii' } }">Страницы истории</nuxt-link>
           </li>
 
-          <li  class="nav-item dropdown">
+          <li  class="nav-item dropdown" @click="openDrop('.bot_dropdown')">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ещё рубрики</a>
             <div class="dropdown-menu bot_dropdown">
-              <nuxt-link class="dropdown-item" :to="{ name: 'news-slug', params: { slug: 'analitika' } }">Аналитика</nuxt-link>
-              <nuxt-link class="dropdown-item" :to="{ name: 'news-slug', params: { slug: 'kruglyj-stol' } }">Круглый стол</nuxt-link>
-              <nuxt-link class="dropdown-item" :to="{ name: 'news-slug', params: { slug: 'technology' } }">Технологии</nuxt-link>
+              <nuxt-link class="dropdown-item nav-m" :to="{ name: 'news-slug', params: { slug: 'analitika' } }">Аналитика</nuxt-link>
+              <nuxt-link class="dropdown-item nav-m" :to="{ name: 'news-slug', params: { slug: 'kruglyj-stol' } }">Круглый стол</nuxt-link>
+              <nuxt-link class="dropdown-item nav-m" :to="{ name: 'news-slug', params: { slug: 'technology' } }">Технологии</nuxt-link>
             </div>
           </li>
         </ul>
@@ -113,12 +113,27 @@
 
 <script>
   export default {
-  data() {
-    return {
-      searchQuery: '',
-    }
-  },
-  methods: {
+    data() {
+      return {
+        searchQuery: '',
+        open: 0
+      }
+    },
+    mounted() {
+      this.$nextTick(() => {
+        fetch('https://igrader.ru/wp-json/last_news/v1/last-news')
+        .then(responce => responce.json())
+        .then(result => {
+          this.latestNews(result.last_id)
+        })
+        fetch('https://igrader.ru/wp-json/last_news/v1/last-polosa')
+        .then(responce => responce.json())
+        .then(result => {
+          this.latestLane(result.last_id)
+        })
+      })
+    },
+    methods: {
     allRequests(request) {
       let modal = document.querySelector('.searchBlock')
       modal.style.display = ''
@@ -136,28 +151,51 @@
     },
     openDropdown(dropdown) {
       let exp = document.querySelectorAll(dropdown)
-      let items = document.querySelectorAll('.nav-link')
-      let drop = document.querySelectorAll('.dropdown-item')
+      let items = document.querySelectorAll('.nav-m')
+
       for (let el of exp) {
         el.classList.toggle('collapse')
       }
-      window.addEventListener('click', function(e) {
-        for (let el of items) {
-          if(e.target === el) {
-            for (let ele of exp) {
-              ele.classList.toggle('collapse')
+
+      if(this.open === 0) {
+        window.addEventListener('click', function(e) {
+          for (let el of items) {
+            if(e.target === el) {
+              for (let ele of exp) {
+                ele.classList.toggle('collapse')
+              }
             }
           }
+        })
+        if(this.open === 0) {
+          this.open++
         }
-        for (let el of drop) {
-          if(e.target === el) {
-            for (let ele of exp) {
-              ele.classList.toggle('collapse')
-            }
-          }
-        }
-      })
+      }
     },
+    openDrop(menu) {
+      let el = document.querySelector(menu)
+      el.classList.toggle('open')
+    },
+    latestNews(id) {
+      let a = this.$cookies.get('latestNews')
+      if (a !== id) {
+        let b = document.querySelector('.news_read')
+        b.classList.add('read')
+      }
+    },
+    latestLane(id) {
+      let a = this.$cookies.get('latestLane')
+      if (a !== id) {
+        let b = document.querySelector('.lane_read')
+        b.classList.add('read')
+      }
+    }
   }
 };
 </script>
+
+<style scoped>
+  .open {
+    display: block;
+  }
+</style>

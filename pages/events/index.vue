@@ -8,7 +8,7 @@
       </div>
       <div v-for="post of events" :key="post.id" class="row news__one">
         <div class="col-12 col-sm">
-          <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}">
+          <nuxt-link :to="{name: 'events-slug', params: {slug: post.slug}}">
             <img :src="post.x_featured_media_large" :alt="post.alt">
           </nuxt-link>
 

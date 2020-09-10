@@ -14,7 +14,6 @@
   import cookie from "../components/cookie";
   import scrollToTop from "../components/scrollToTop";
 
-
   export default {
     components: {
       headerMy,
@@ -22,7 +21,6 @@
       cookie,
       scrollToTop,
     },
-
     computed: {
       posts() {
         return this.$store.getters['botNews/news']
@@ -32,5 +30,6 @@
         return cookieRes !== 1;
       }
     },
+
   }
 </script>

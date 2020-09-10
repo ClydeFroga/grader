@@ -21,36 +21,19 @@
               </div>
               <div class="single__text dates">
                 <p>
-                  <strong>Дата:</strong> {{post[0].acf.from}} - {{post[0].acf.to}}
+                  <strong>Дата:</strong> {{this.post[0].acf.from}} - {{this.post[0].acf.to}}
                 </p>
                 <p>
-                  <strong>Время:</strong> {{post[0].acf.event_start}} - {{post[0].acf.event_end}}
+                  <strong>Время:</strong> {{this.post[0].acf.event_start}} - {{this.post[0].acf.event_end}}
                 </p>
                 <p>
-                  <strong>Адрес:</strong> {{post[0].acf.address}} , {{post[0].acf.city}}
+                  <strong>Адрес:</strong> {{this.post[0].acf.address}} , {{this.post[0].acf.city}}
                 </p>
               </div>
               <div class="single__text" v-html="this.post[0].content.rendered"></div>
             </div>
           </div>
         </div>
-
-        <div class="loaded" v-for="post of titles" :key="post.id">
-          <nuxt-link class="tag" v-for="(tag, ind) of post.x_tags" :key="tag" :to="{ name: 'tag-slug', params: { slug: post.x_tags_slug[ind] } }">
-            {{ tag }}
-          </nuxt-link>
-          <h1 :id="post.id" v-html="post.title.rendered"></h1>
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="main">
-                <img class="mainImg" :alt="post.alt" :src="post.x_featured_media_large">
-              </div>
-              <div class="text" v-html="post.content.rendered.slice">
-              </div>
-            </div>
-          </div>
-        </div>
-
 
       </div>
 
@@ -60,18 +43,6 @@
 
       <div class="col-12 col-lg-3 side">
         <div class="foxy" id="adfox_15983472592613563"></div>
-        <script>
-          window.Ya.adfoxCode.create({
-            ownerId: 299653,
-            containerId: 'adfox_15983472592613563',
-            params: {
-              p1: 'clzeo',
-              p2: 'gxsz',
-              pfc: 'dcwtq',
-              pfb: 'ikavk'
-            }
-          });
-        </script>
         <div v-if="this.width > 992" class="foxy foxy-news">
           <h2 class="field__title" >
             <a href="#">
@@ -108,6 +79,7 @@
         </div>
       </div>
     </div>
+
     <div>
       <h2 class="field__title">
         <a href="#">
@@ -171,10 +143,15 @@
       return {
         offset: 0,
         loaded: [],
-        titles: [],
         news: [],
         articles: [],
+        width: 1920,
       }
+    },
+    mounted() {
+      let width = document.documentElement.clientWidth
+      this.width = width
+      this.adfox()
     },
     async fetch({store}) {
       if (store.getters['botNews/news'].length === 0) {
@@ -193,9 +170,6 @@
       return {post}
     },
     computed: {
-      cleanText() {
-        return this.post[0].title.rendered.replace(/<\/?[^>]+(>|$)/g, "");
-      },
       posts() {
         return this.$store.getters['botNews/news']
       },
@@ -203,6 +177,20 @@
         return this.$store.getters['lastMag/journal']
       },
     },
+    methods: {
+      adfox() {
+        window.Ya.adfoxCode.create({
+          ownerId: 299653,
+          containerId: 'adfox_15983472592613563',
+          params: {
+            p1: 'clzeo',
+            p2: 'gxsz',
+            pfc: 'dcwtq',
+            pfb: 'ikavk'
+          }
+        });
+      }
+    }
   }
 </script>
 

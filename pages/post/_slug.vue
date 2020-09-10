@@ -30,25 +30,25 @@
 
         <div class=" sharing__wrapper">
 
-          <a :href="'http://vk.com/share.php?url=http://localhost:3000' + $route.path + '&title=' + this.titles[0].title.rendered + '&description=' + cleanText + '&image=' + this.titles[0].x_featured_media" class="sharing__item vk">
+          <a :href="'http://vk.com/share.php?url=https://igrader.ru' + $route.path + '&title=' + this.titles[0].title.rendered + '&description=' + cleanText + '&image=' + this.titles[0].x_featured_media" class="sharing__item vk">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#vk_logo"></use>
             </svg>
           </a>
 
-          <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=http://localhost:3000' + $route.path + '&p[title]=' + this.titles[0].title.rendered + '&p[summary]=' + cleanText + '&p[images][0]=' + this.titles[0].x_featured_media" class="sharing__item fb">
+          <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=https://igrader.ru' + $route.path + '&p[title]=' + this.titles[0].title.rendered + '&p[summary]=' + cleanText + '&p[images][0]=' + this.titles[0].x_featured_media" class="sharing__item fb">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#fb_logo"></use>
             </svg>
           </a>
 
-          <a :href="'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=http://localhost:3000'+ $route.path +'&st.comments=' + this.titles[0].title.rendered" class="sharing__item od">
+          <a :href="'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=https://igrader.ru'+ $route.path +'&st.comments=' + this.titles[0].title.rendered" class="sharing__item od">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#classmates_logo"></use>
             </svg>
           </a>
 
-          <a :href="'https://telegram.me/share/url?url=http://localhost:3000'+  $route.path +'&amp;text=' + this.titles[0].title.rendered" class="sharing__item telegram">
+          <a :href="'https://telegram.me/share/url?url=https://igrader.ru'+  $route.path +'&amp;text=' + this.titles[0].title.rendered" class="sharing__item telegram">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#pocket_logo"></use>
             </svg>
@@ -60,7 +60,7 @@
             </svg>
           </a>
 
-          <a :href="'whatsapp://send?text=http://localhost:3000' + $route.path" class="sharing__item wApp">
+          <a :href="'whatsapp://send?text=https://igrader.ru' + $route.path" class="sharing__item wApp">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#wApp_logo"></use>
             </svg>
@@ -144,10 +144,6 @@
   import rand from 'lodash/random'
 
   export default {
-    validate({ params }) {
-      let val = /^\d+$/.test(params.slug)
-      return !val
-    },
     head() {
       return {
         title: this.titles[0].title.rendered.replace(/&#\d+;/g, ''),
@@ -159,6 +155,8 @@
         offset: 0,
         loaded: [],
         news: [],
+        i: 0,
+        golos: null
       }
     },
     mounted: function () {
@@ -167,29 +165,29 @@
         setTimeout(() => window.addEventListener('scroll', this.selectBlc), 5000)
       }
       this.adfox()
-      return
+      this.findOpr()
     },
     destroyed() {
       window.removeEventListener('scroll', this.loadPost);
+      window.removeEventListener('scroll', this.selectBlc);
     },
     async fetch({store}) {
-      if (store.getters['botNews/news'].length === 0) {
-        await store.dispatch('botNews/fetch')
-      }
+      // if (store.getters['botNews/news'].length === 0) {
+      //   await store.dispatch('botNews/fetch')
+      // }
       if (store.getters['lastMag/journal'].length === 0) {
         await store.dispatch('lastMag/fetch')
       }
     },
-    async asyncData({$axios, params, redirect}) {
+    async asyncData({params, redirect}) {
       let titles = await fetch('https://igrader.ru/wp-json/wp/v2/posts?slug=' + params.slug)
       titles = await titles.json()
       if(titles.length === 0) {
         redirect(301, `/404`)
       }
-      let urls = ['http://localhost:3000/post/' + params.slug]   //заменить!!!!!!
+      let urls = ['https://hahlek3u.beget.tech/post/' + params.slug]   //заменить!!!!!!
       let articles = [titles[0].title.rendered.replace(/&#\d+;/g, '')]
       let ids = [titles[0].id]
-
       return {titles, urls, articles, ids}
     },
     computed: {
@@ -240,7 +238,7 @@
                 this.articles.push(name)
                 this.ids.push(item.id)
 
-                let url = 'http://localhost:3000/post/' + item.slug       //заменить!!!
+                let url = 'https://hahlek3u.beget.tech/post/' + item.slug       //заменить!!!
                 this.urls.push(url)
                 history.pushState({page_title: name}, '', url)
                 this.titles.push(item)
@@ -314,8 +312,90 @@
             pfb: 'ikavk'
           }
         });
+      },
+      oprosFunc(id, opros) {
+        let spisok = document.getElementsByName('poll_' + id)
+        let vote = document.getElementsByName('vote')[0]
+        let results = opros.result.data
+        const voted = this.$cookies.get('voted_'+ id)
+        let labels = document.querySelectorAll('.wp-polls-ul > li > label')
 
+        if(voted == 1) {
+          vote.outerHTML = 'Вы уже проголосовали'
+          del()
+          return
+        }
+
+        function del() {
+          for(let item of spisok) {
+            item.remove()
+          }
+          let ul = document.querySelector('.wp-polls-ul')
+          let li = document.querySelectorAll('.wp-polls-ul > li')
+          for(let item of li) {
+            item.remove()
+          }
+
+          for(let item of results) {
+            ul.insertAdjacentHTML('beforeend', `<span class="res__name">` + item.polla_answers + `</span>` +
+              `<span class="res__res"> (`+  item.pourcent +`%, `+ item.polla_votes +` Голосов) </span>` +
+              `<div class="res__bar" style="height: 15px; width:` + item.pourcent + `%;"></div>`)
+          }
+        }
+
+        function cook() {
+          window.$nuxt.$cookies.set('voted_' + id, 1, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 365,
+          })
+        }
+
+        let gg = null
+        window.addEventListener('mouseup', function (e) {
+          if(e.target == vote) {
+            if (gg !== null) {
+              fetch('https://igrader.ru/wp-json/wp/v2/add_vote?id=' + id + '&vote_id=' + gg, {
+                method: 'POST'
+              }).then(() => {
+                vote.outerHTML = 'Спасибо за ваш голос'
+                cook()
+                vote.setAttribute('disabled', '')
+                del()
+              });
+            }
+            return
+          }
+          for(let item of spisok) {
+            if(e.target == item) {
+              gg = e.target.value
+            }
+          }
+          for(let item of labels) {
+            if(e.target == item) {
+              gg = e.target.control.attributes[3].nodeValue
+            }
+          }
+        })
+      },
+      findOpr() {
+        let a = document.querySelector('.wp-polls')
+        let b = ''
+        if (a !== null) {
+          b = a.id.match(/\d+/)
+          fetch('https://igrader.ru/wp-json/wp/v2/poll?id=' + b)
+          .then(responce => responce.json())
+          .then(result => {
+            this.oprosFunc(b, result)
+          })
+
+        }
       }
     },
 	}
 </script>
+
+<style scoped>
+  .wp-polls-loading {
+    display: none;
+  }
+</style>

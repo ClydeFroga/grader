@@ -43,6 +43,7 @@
     cursor: pointer;
     width: 40px;
     height: 45px;
+    z-index: 100;
   }
   .arrow svg {
     width: 40px;

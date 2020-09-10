@@ -2,7 +2,7 @@ module.exports = {
   mode: 'universal',
   target: 'server',
   sitemap: {
-    hostname: 'http://hahlek3u.beget.tech/',
+    hostname: 'https://igrader.ru/',
     gzip: true,
   },
   head: {
@@ -33,6 +33,15 @@ module.exports = {
   buildModules: [
 
   ],
+  layoutTransition: {
+    name: 'layout',
+    mode: ''
+  },
+
+  pageTransition: {
+    name: 'page',
+    mode: ''
+  },
 
   modules: [
     ['nuxt-rfg-icon', {
@@ -60,6 +69,9 @@ module.exports = {
     // 'nuxt-fullpage.js',
   ],
 
+  router: {
+    linkExactActiveClass: 'active' // tailwind class with custom color
+  },
 
   redirect: [
     { from: '^/news/?$', to: '/kratko' }

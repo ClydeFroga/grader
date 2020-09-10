@@ -41,7 +41,13 @@
     data: () => ({
       page: 1,
       titles: [],
+
     }),
+    mounted() {
+      this.$nextTick(() => {
+        this.checkLatest()
+      })
+    },
     head() {
       return {
         title: 'Полоса | iGrader.ru'
@@ -51,7 +57,8 @@
       const url = 'https://igrader.ru/wp-json/wp/v2/posts?tags=2099&per_page=12';
       let posts = await fetch(url)
       posts = await posts.json()
-      return {posts, url}
+      let latest = posts[0].id
+      return {posts, url, latest}
     },
     methods: {
       async fetchData() { //загрузить еще
@@ -70,6 +77,18 @@
           document.preventDefault
         })
       },
+      checkLatest() {
+        let a = this.$cookies.get('latestLane')
+        if (a !== this.latest) {
+          this.$cookies.set('latestLane', this.latest, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7,
+            sameSite: 'Lax'
+          })
+          let c = document.querySelector('.lane_read')
+          c.classList.remove('read' )
+        }
+      }
     },
   }
 </script>

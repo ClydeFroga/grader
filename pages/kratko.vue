@@ -68,6 +68,11 @@
         title: 'Новости | iGrader.ru'
       }
     },
+    mounted() {
+      this.$nextTick(() => {
+        this.checkLatest()
+      })
+    },
     async fetch ({ params, store }) {
       if (store.getters['lastMag/journal'].length === 0) {
         await store.dispatch('lastMag/fetch')
@@ -80,7 +85,8 @@
       const url = 'https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=12';
       let posts = await fetch(url)
       posts = await posts.json()
-      return {posts, url}
+      let latest = posts[0].id
+      return {posts, url, latest}
     },
     methods: {
       async fetchData() { //загрузить еще
@@ -99,6 +105,18 @@
           document.preventDefault
         })
       },
+      checkLatest() {
+        let a = this.$cookies.get('latestNews')
+        if (a !== this.latest) {
+          this.$cookies.set('latestNews', this.latest, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7,
+            sameSite: 'Lax'
+          })
+          let c = document.querySelector('.news_read')
+          c.classList.remove('read' )
+        }
+      }
     },
 	}
 </script>
