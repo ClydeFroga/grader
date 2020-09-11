@@ -11,7 +11,8 @@
           </div>
           <div class="single__breadcrumbs">
             <nuxt-link to="/">Главная</nuxt-link>
-            <span class="single__separator"> / </span>
+            <span  class="single__separator"> / </span>
+            <nuxt-link to="/comtrans-2019">COMTRANS 2019</nuxt-link>            <span class="single__separator"> / </span>
             <nuxt-link :to="{name: 'category-slug', params: {slug: post.x_cats_slug[0]}}">{{post.x_cats[0]}}</nuxt-link>
           </div>
           <div class="row">
@@ -116,8 +117,8 @@
 
         <div v-if="this.width > 992" class="foxy foxy-news">
           <h2 class="field__title" >
-            <a href="#">
-              Новости
+            <a>
+              Читайте также
             </a>
           </h2>
 
@@ -152,17 +153,42 @@
         </div>
       </div>
     </div>
+
     <div>
       <h2 class="field__title">
-        <a href="#">
-          Новые материалы на портале
-        </a>
+        <nuxt-link :to="{name: 'news-slug', params: {slug: this.titles[0].x_types_slug[0]}}">
+          {{this.titles[0].x_types[0]}}
+        </nuxt-link>
+      </h2>
+
+      <div class="kratko row row-cols-2 row-cols-md-4">
+        <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="col" v-for="(post, ind) of postsSame" :key="post.id" v-if="ind < 6">
+          <div class="kratko__imgBlc">
+            <img :alt="post.alt" :src="post.x_featured_media_large" class="kratko__img">
+          </div>
+          <div class="kratko__text">
+          <span class="kratko__date">
+            {{post.x_date}}
+          </span>
+            <p class="kratko__title" v-html="post.title.rendered"></p>
+            <span class="kratko__cat">
+            {{post.x_cats[0]}}
+          </span>
+          </div>
+        </nuxt-link>
+
+      </div>
+
+      <h2 class="field__title">
+        <nuxt-link :to="{name: 'news-slug', params: {slug: 'ryinok'}}">
+          Рынок
+        </nuxt-link>
       </h2>
       <div class="row field">
         <div class="col-12 col-lg">
 
           <div class="row-cols-1 row-cols-md-2 row">
-            <nuxt-link v-for="post of posts" :key="post.id" class="col field__blockFull" :to="{name: 'post-slug', params: {slug: post.slug}}">
+            <nuxt-link v-for="post of postsBot" :key="post.id" class="col field__blockFull" :to="{name: 'post-slug', params: {slug: post.slug}}">
 
               <div class="field__block">
                 <div class="field__imgBlc">
@@ -172,10 +198,7 @@
                 </div>
               </div>
 
-              <div class="field__botText">
-                <p v-html="post.excerpt.rendered.slice(0, 120) + ' ...'">
-                </p>
-              </div>
+              <div class="field__botText" v-html="post.excerpt.rendered.slice(0, 120) + ' ...'"></div>
 
             </nuxt-link>
 
@@ -192,6 +215,7 @@
           <div class="foxy">
             <img class="wrapper__adSpecialImg" src="https://picsum.photos/250/375/?random=5">
           </div>
+
 <!--          <div class="foxy" id="adfox_159374935502579870"></div>-->
 <!--          <div class="foxy" id="adfox_159374952133726391"></div>-->
 <!--          <div class="foxy" id="adfox_159712112538951246"></div>-->
@@ -203,6 +227,8 @@
 </template>
 
 <script>
+  import rand from "lodash/random";
+
   export default {
     head() {
       return {
@@ -216,7 +242,9 @@
     data() {
       return {
         width: 1920,
-        postsRight: []
+        postsRight: [],
+        postsBot: [],
+        postsSame: [],
       }
     },
     mounted() {
@@ -224,12 +252,10 @@
       this.width = width
       this.$nextTick(() => {
         this.loadRightNews()
+        window.addEventListener('scroll', this.loadbot)
       })
     },
     async fetch({store}) {
-      if (store.getters['botNews/news'].length === 0) {
-        await store.dispatch('botNews/fetch')
-      }
       if (store.getters['lastMag/journal'].length === 0) {
         await store.dispatch('lastMag/fetch')
       }
@@ -243,11 +269,11 @@
       return {titles}
     },
     computed: {
-      posts() {
-        return this.$store.getters['botNews/news']
-      },
       journal() {
         return this.$store.getters['lastMag/journal']
+      },
+      longAd() {
+        return document.querySelector('.long-ad')
       },
     },
     methods: {
@@ -259,7 +285,25 @@
         .then(responce => {
           this.postsRight = responce
         })
-      }
+      },
+      loadbot() {
+        let adTop = this.longAd.getBoundingClientRect().top
+        if(adTop < 500) {
+          window.removeEventListener('scroll', this.loadbot)
+          this.botNews()
+        }
+      },
+      botNews() {
+        let r = rand(0, 30)
+        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/comtrans?per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
+        .then(responce => {
+          this.postsSame = responce
+        })
+        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1601&per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
+        .then(responce => {
+          this.postsBot = responce
+        })
+      },
     }
   }
 </script>

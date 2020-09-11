@@ -9,11 +9,15 @@
           <div class="single__date">
             {{post.x_date}}
           </div>
+
           <div class="single__breadcrumbs">
             <nuxt-link to="/">Главная</nuxt-link>
+            <span v-if="post.x_types_slug[0]" class="single__separator"> / </span>
+            <nuxt-link v-if="post.x_types_slug[0]" :to="{name: 'news-slug', params: {slug: post.x_types_slug[0]}}">{{post.x_types[0]}}</nuxt-link>
             <span class="single__separator"> / </span>
             <nuxt-link :to="{name: 'category-slug', params: {slug: post.x_cats_slug[0]}}">{{post.x_cats[0]}}</nuxt-link>
           </div>
+
           <div class="row">
             <div class="col-lg-12">
               <div class="single__main">
@@ -117,8 +121,8 @@
 
         <div v-if="this.width > 992 && this.disq !== 1599" class="foxy foxy-news">
           <h2 class="field__title" >
-            <a href="#">
-              Новости
+            <a>
+              Читайте также
             </a>
           </h2>
 
@@ -153,20 +157,46 @@
         </div>
       </div>
     </div>
+
     <div v-if="this.disq !== 1599" class="comments">
       <Disqus />
     </div>
+
     <div>
       <h2 class="field__title">
-        <a href="#">
-          Новые материалы на портале
+        <nuxt-link :to="{name: 'news-slug', params: {slug: this.titles[0].x_types_slug[0]}}">
+          {{this.titles[0].x_types[0]}}
+        </nuxt-link>
+      </h2>
+
+      <div class="kratko row row-cols-2 row-cols-md-4">
+        <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="col" v-for="(post, ind) of postsSame" :key="post.id" v-if="ind < 6">
+          <div class="kratko__imgBlc">
+            <img :alt="post.alt" :src="post.x_featured_media_large" class="kratko__img">
+          </div>
+          <div class="kratko__text">
+          <span class="kratko__date">
+            {{post.x_date}}
+          </span>
+            <p class="kratko__title" v-html="post.title.rendered"></p>
+            <span class="kratko__cat">
+            {{post.x_cats[0]}}
+          </span>
+          </div>
+        </nuxt-link>
+
+      </div>
+
+      <h2 class="field__title">
+        <a>
+          Ещё по теме
         </a>
       </h2>
       <div class="row field">
         <div class="col-12 col-lg">
 
           <div class="row-cols-1 row-cols-md-2 row">
-            <nuxt-link v-for="post of posts" :key="post.id" class="col field__blockFull" :to="{name: 'post-slug', params: {slug: post.slug}}">
+            <nuxt-link v-for="post of postsBot" :key="post.id" class="col field__blockFull" :to="{name: 'post-slug', params: {slug: post.slug}}">
 
               <div class="field__block">
                 <div class="field__imgBlc">
@@ -176,10 +206,7 @@
                 </div>
               </div>
 
-              <div class="field__botText">
-                <p v-html="post.excerpt.rendered.slice(0, 120) + ' ...'">
-                </p>
-              </div>
+              <div class="field__botText" v-html="post.excerpt.rendered.slice(0, 120) + ' ...'"></div>
 
             </nuxt-link>
 
@@ -196,6 +223,7 @@
           <div class="foxy">
             <img class="wrapper__adSpecialImg" src="https://picsum.photos/250/375/?random=5">
           </div>
+
 <!--          <div class="foxy" id="adfox_159374935502579870"></div>-->
 <!--          <div class="foxy" id="adfox_159374952133726391"></div>-->
 <!--          <div class="foxy" id="adfox_159712112538951246"></div>-->
@@ -228,7 +256,9 @@
         i: 0,
         golos: null,
         disq: 1599,
-        postsRight: []
+        postsRight: [],
+        postsBot: [],
+        postsSame: [],
       }
     },
     mounted: function () {
@@ -248,9 +278,6 @@
       if (store.getters['lastMag/journal'].length === 0) {
         await store.dispatch('lastMag/fetch')
       }
-      if (store.getters['botNews/news'].length === 0) {
-        await store.dispatch('botNews/fetch')
-      }
     },
     async asyncData({params, redirect}) {
       let titles = await fetch('https://igrader.ru/wp-json/wp/v2/posts?slug=' + params.slug)
@@ -258,15 +285,12 @@
       if(titles.length === 0) {
         redirect(301, `/404`)
       }
-      let urls = ['http://hahlek3u.beget.tech/post/' + params.slug]   //заменить!!!!!!
+      let urls = ['http://localhost:3000/post/' + params.slug]   //заменить!!!!!!
       let articles = [titles[0].title.rendered.replace(/&#\d+;/g, '')]
       let ids = [titles[0].id]
       return {titles, urls, articles, ids}
     },
     computed: {
-      posts() {
-        return this.$store.getters['botNews/news']
-      },
       journal() {
         return this.$store.getters['lastMag/journal']
       },
@@ -293,6 +317,9 @@
         let num = rand(0, this.ad.length - 1)
         return num
       },
+      longAd() {
+        return document.querySelector('.long-ad')
+      },
     },
     methods: {
       cleanText(text) {
@@ -311,7 +338,7 @@
                 this.articles.push(name)
                 this.ids.push(item.id)
 
-                let url = 'http://hahlek3u.beget.tech/post/' + item.slug       //заменить!!!
+                let url = 'http://localhost:3000/post/' + item.slug       //заменить!!!
                 this.urls.push(url)
                 history.pushState({page_title: name}, '', url)
                 this.titles.push(item)
@@ -350,7 +377,7 @@
       },
       selectBlc() {
         if(this.leftHeight() > this.right + 500) {
-          if(pageYOffset > this.right + 100) {
+          if(pageYOffset > this.right + 500) {
             if(this.ad.length === 0) {
               window.removeEventListener('scroll', this.selectBlc)
             }
@@ -372,10 +399,13 @@
           this.disq = item
           if (item === 1599) {
             window.addEventListener('scroll', this.loadPost);
-            return
+            break
           }
         }
-        this.loadRightNews()
+        window.addEventListener('scroll', this.loadbot)
+        if(this.disq !== 1599) {
+          this.loadRightNews()
+        }
       },
       oprosFunc(id, opros) {
         let spisok = document.getElementsByName('poll_' + id)
@@ -451,7 +481,6 @@
           .then(result => {
             this.oprosFunc(b, result)
           })
-
         }
       },
       loadRightNews() {
@@ -460,20 +489,54 @@
           case 1600:
           case 1604:a = '1600,1604';break;
           case 1603:a = '1033,1638,1605';break;
-          case 1601:a = '1599';break;
           case 1599:a = '1601,1033,1602';break;
           case 1605:
           case 1638:
           case 1033:
           case 1602:a = '1601';break;
-          case 1606:a = '1599';break;
+          case 1601:
+          case 1606:
           default:a = '1599';break;
         };
         this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=3&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsRight = responce
         })
-      }
+      },
+      loadbot() {
+        let adTop = this.longAd.getBoundingClientRect().top
+        if(adTop < 500) {
+          window.removeEventListener('scroll', this.loadbot)
+          this.botNews()
+        }
+      },
+      botNews() {
+        let r = rand(0, 30)
+        let a = ''
+        let b = ''
+        switch(this.disq){
+          case 1603:a='1601,1602,1605';break;
+          case 1601:
+          case 1606:
+          case 1599:a='1603';break;
+          case 1605:
+          case 1638:
+          case 1033:a='1602';break;
+          case 1602:a='1605,1638,1033';break;
+          case 1600:
+          case 2110:
+          case 1604:
+          default:a='1601';break;
+        }
+        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=' + this.disq + '&per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
+        .then(responce => {
+          this.postsSame = responce
+        })
+        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
+        .then(responce => {
+          this.postsBot = responce
+        })
+      },
     },
 	}
 </script>

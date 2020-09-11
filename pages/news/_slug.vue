@@ -1,12 +1,6 @@
 <template>
   <div class="col-12 col-lg-9 news left">
-    <div v-if="this.posts.length === 0">
-      <h1>
-        Постов в этой категории не найдено
-      </h1>
-    </div>
 
-    <div v-else>
       <div class="news__breadcrumbs">
         <nuxt-link to="/">Главная</nuxt-link>
         <span> / </span>
@@ -43,7 +37,7 @@
       <button @click.prevent="fetchData" class="loadmore" type="button">
         Загрузить еще
       </button>
-    </div>
+
 
   </div>
 </template>

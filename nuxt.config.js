@@ -31,9 +31,9 @@ module.exports = {
   components: true,
 
   buildModules: [
-    ['@nuxtjs/google-analytics', {
-      id: 'UA-71349912-1'
-    }]
+    // ['@nuxtjs/google-analytics', {
+    //   id: 'UA-71349912-1'
+    // }]
   ],
 
   layoutTransition: {

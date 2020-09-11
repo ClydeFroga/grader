@@ -23,7 +23,7 @@
                           <div class="Sw-cat">
                             {{post.x_types[0]}}
                           </div>
-                          <p class="Sw-text" v-html="post.excerpt.rendered.slice(0, 120) + ' ...'"></p>
+                          <div class="Sw-text" v-html="post.excerpt.rendered.slice(0, 120) + ' ...'"></div>
                         </div>
 
                       </nuxt-link>
@@ -128,9 +128,7 @@
                   </div>
                 </div>
 
-                <div class="field__botText" v-html="post.excerpt.rendered.slice(0, 120) + ' ...'">
-
-                </div>
+                <div class="field__botText" v-html="post.excerpt.rendered.slice(0, 120) + ' ...'"></div>
 
               </nuxt-link>
             </div>
@@ -262,10 +260,10 @@
               <nuxt-link v-if="golos === 0" :to="{ name: 'post-slug', params: { slug: 'luchshij-avtogrejder' } }">
                 <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/03/golosuem_2-01.jpg">
               </nuxt-link>
-              <nuxt-link v-if="golos === 1" :to="{ name: 'post-slug', params: { slug: 'luchshij-ekskavator-pogruzchik-vybor-professionalov' } }">
+              <nuxt-link v-else-if="golos === 1" :to="{ name: 'post-slug', params: { slug: 'luchshij-ekskavator-pogruzchik-vybor-professionalov' } }">
                 <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/05/golosuem_1-01.jpg">
               </nuxt-link>
-              <nuxt-link v-if="golos === 2" :to="{ name: 'post-slug', params: { slug: 'https://igrader.ru/liftingequipment/luchshij-teleskopicheskij-pogruzchik' } }">
+              <nuxt-link v-else-if="golos === 2" :to="{ name: 'post-slug', params: { slug: 'https://igrader.ru/liftingequipment/luchshij-teleskopicheskij-pogruzchik' } }">
                 <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/05/golosuem_3-01.jpg">
               </nuxt-link>
             </div>
@@ -387,7 +385,6 @@
     let width = document.documentElement.clientWidth
     window.addEventListener('scroll', this.loadCategories);
     this.width = width
-
   },
   destroyed() {
     window.removeEventListener('scroll', this.loadCategories);
