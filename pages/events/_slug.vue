@@ -1,13 +1,12 @@
 <template>
-
-  <div class="container-md">
+  <div class="col-12">
     <div class="row">
       <div  class="post col-12 col-lg-7 left single">
 
         <div class="loaded">
-          <h1 class="single__title" :id="this.post[0].id" v-html="this.post[0].title.rendered"></h1>
+          <h1 class="single__title" :id="this.titles[0].id" v-html="this.titles[0].title.rendered"></h1>
           <div class="single__date">
-            {{this.post[0].x_date}}
+            {{this.titles[0].x_date}}
           </div>
           <div class="single__breadcrumbs">
             <nuxt-link to="/">Главная</nuxt-link>
@@ -17,53 +16,103 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="single__main">
-                <img class="mainImg" :alt="this.post[0].alt" :src="this.post[0].x_featured_media_large">
+                <img class="mainImg" :alt="this.titles[0].alt" :src="this.titles[0].x_featured_media_large">
               </div>
               <div class="single__text dates">
                 <p>
-                  <strong>Дата:</strong> {{this.post[0].acf.from}} - {{this.post[0].acf.to}}
+                  <strong>Дата:</strong> {{this.titles[0].acf.from}} - {{this.titles[0].acf.to}}
                 </p>
                 <p>
-                  <strong>Время:</strong> {{this.post[0].acf.event_start}} - {{this.post[0].acf.event_end}}
+                  <strong>Время:</strong> {{this.titles[0].acf.event_start}} - {{this.titles[0].acf.event_end}}
                 </p>
                 <p>
-                  <strong>Адрес:</strong> {{this.post[0].acf.address}} , {{this.post[0].acf.city}}
+                  <strong>Адрес:</strong> {{this.titles[0].acf.address}} , {{this.titles[0].acf.city}}
                 </p>
               </div>
-              <div class="single__text" v-html="this.post[0].content.rendered"></div>
+              <div class="single__text" v-html="this.titles[0].content.rendered"></div>
             </div>
           </div>
         </div>
 
+        <div class="long-ad">
+          <img src="https://picsum.photos/728/90/?random=1">
+        </div>
       </div>
 
-      <div class="col-lg-2">
+      <div class="col-12 col-md-1 col-lg-2">
+        <div class="sharing__wrapper">
 
+          <a :href="'http://vk.com/share.php?url=https://igrader.ru' + $route.path + '&title=' + this.titles[0].title.rendered + '&description=' + cleanText(this.titles[0].excerpt.rendered) + '&image=' + this.titles[0].x_featured_media" class="sharing__item vk">
+            <svg width="25" height="25" fill="white">
+              <use xlink:href="@/static/svgsprite.svg#vk_logo"></use>
+            </svg>
+          </a>
+
+          <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=https://igrader.ru' + $route.path + '&p[title]=' + this.titles[0].title.rendered + '&p[summary]=' + cleanText(this.titles[0].excerpt.rendered) + '&p[images][0]=' + this.titles[0].x_featured_media" class="sharing__item fb">
+            <svg width="25" height="25" fill="white">
+              <use xlink:href="@/static/svgsprite.svg#fb_logo"></use>
+            </svg>
+          </a>
+
+          <a :href="'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=https://igrader.ru'+ $route.path +'&st.comments=' + this.titles[0].title.rendered" class="sharing__item od">
+            <svg width="25" height="25" fill="white">
+              <use xlink:href="@/static/svgsprite.svg#classmates_logo"></use>
+            </svg>
+          </a>
+
+          <a :href="'https://telegram.me/share/url?url=https://igrader.ru'+  $route.path +'&amp;text=' + this.titles[0].title.rendered" class="sharing__item telegram">
+            <svg width="25" height="25" fill="white">
+              <use xlink:href="@/static/svgsprite.svg#pocket_logo"></use>
+            </svg>
+          </a>
+
+          <a :href="'viber://forward?text=' + this.titles[0].title.rendered" class="sharing__item viber">
+            <svg width="25" height="25" fill="white">
+              <use xlink:href="@/static/svgsprite.svg#viber_logo"></use>
+            </svg>
+          </a>
+
+          <a :href="'whatsapp://send?text=https://igrader.ru' + $route.path" class="sharing__item wApp">
+            <svg width="25" height="25" fill="white">
+              <use xlink:href="@/static/svgsprite.svg#wApp_logo"></use>
+            </svg>
+          </a>
+        </div>
       </div>
 
       <div class="col-12 col-lg-3 side">
-        <div class="foxy" id="adfox_15983472592613563"></div>
-        <div v-if="this.width > 992" class="foxy foxy-news">
-          <h2 class="field__title" >
-            <a href="#">
-              Новости
-            </a>
-          </h2>
-          <nuxt-link v-for="post of posts" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}" class="foxy-news-line">
-            <div class="foxy__text" v-html="post.title.rendered.slice(0, 45) + ' ...'">
-            </div>
-            <div>
-              <img :alt="post.alt" :src="post.x_featured_media_large">
-            </div>
-          </nuxt-link>
-        </div>
-        <div class="foxy">
+
+        <div class="foxy ad">
           <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
         </div>
-        <div class="foxy">
+
+        <!--        <div class="foxy ad" id="adfox_159374506763656431"></div>-->
+
+        <transition name="sideNews">
+          <div v-if="this.width > 992" class="foxy foxy-news">
+            <h2 class="field__title" >
+              <a>
+                Читайте также
+              </a>
+            </h2>
+
+            <nuxt-link v-if="ind < 3" v-for="(post, ind) of postsRight" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}" class="foxy-news-line">
+              <div class="foxy__text" v-html="post.title.rendered.slice(0, 45) + ' ...'">
+              </div>
+              <div>
+                <img :alt="post.alt" :src="post.x_featured_media_large">
+              </div>
+            </nuxt-link>
+          </div>
+        </transition>
+
+        <div class="foxy ad">
           <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
         </div>
-        <div v-if="journal.acf !== undefined" class="foxy">
+
+        <!--        <div class="foxy ad" id="adfox_159480168913443656"></div>-->
+
+        <div v-if="journal.acf !== undefined" class="foxy fresh">
           <h2 class="field__title" >
             <a href="#">
               Свежий номер
@@ -73,7 +122,7 @@
             <img class="wrapper__adImg" :src="journal.acf.ssylka_na_oblozhku">
             Online-версия
           </nuxt-link>
-          <nuxt-link class="wrapper__adText" to="/about">
+          <nuxt-link class="wrapper__adText" :to="{name: 'pages-slug', params: {slug: 'about'}}">
             Оформить подписку
           </nuxt-link>
         </div>
@@ -82,39 +131,26 @@
 
     <div>
       <h2 class="field__title">
-        <a href="#">
-          Новые материалы на портале
-        </a>
+        <nuxt-link to="/kratko">
+          Новости
+        </nuxt-link>
       </h2>
-      <div class="row field">
-        <div class="col-12 col-lg">
 
-          <div class="row-cols-1 row-cols-md-2 row">
-            <nuxt-link v-for="post of posts" :key="post.id" class="col field__blockFull" :to="{name: 'post-slug', params: {slug: post.slug}}">
-
-              <div class="field__block">
-                <div class="field__imgBlc">
-                  <img :alt="post.alt" :src="post.x_featured_media_large">
-                  <p class="field__text" v-html="post.title.rendered">
-                  </p>
-                </div>
-              </div>
-
-              <div class="field__botText">
-                <p v-html="post.excerpt.rendered.slice(0, 120) + ' ...'">
-                </p>
-              </div>
-
-            </nuxt-link>
-
+      <div class="kratko row row-cols-2 row-cols-md-4">
+        <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="col" v-for="(post, ind) of postsRight" :key="post.id" v-if="ind < 6">
+          <div class="kratko__imgBlc">
+            <img :alt="post.alt" :src="post.x_featured_media_large" class="kratko__img">
           </div>
-        </div>
-
-        <div class="col-12 col-lg-3">
-          <div class="foxy" id="adfox_159374935502579870"></div>
-          <div class="foxy" id="adfox_159374952133726391"></div>
-          <div class="foxy" id="adfox_159712112538951246"></div>
-        </div>
+          <div class="kratko__text">
+          <span class="kratko__date">
+            {{post.x_date}}
+          </span>
+            <p class="kratko__title" v-html="post.title.rendered"></p>
+            <span class="kratko__cat">
+            {{post.x_cats[0]}}
+          </span>
+          </div>
+        </nuxt-link>
       </div>
     </div>
   </div>
@@ -122,6 +158,8 @@
 </template>
 
 <script>
+  import rand from "lodash/random";
+
   export default {
     validate({ params }) {
       let val = /^\d+$/.test(params.slug)
@@ -129,10 +167,9 @@
     },
     head() {
       return {
-        title: this.post[0].title.rendered + ' | iGrader.ru',
+        title: this.titles[0].title.rendered + ' | iGrader.ru',
       }
     },
-    layout: 'single',
     data() {
       return {
         offset: 0,
@@ -140,51 +177,48 @@
         news: [],
         articles: [],
         width: 1920,
+        postsRight: [],
       }
     },
     mounted() {
       let width = document.documentElement.clientWidth
       this.width = width
-      this.adfox()
+      this.$nextTick(() => {
+        this.loadRightNews()
+      })
     },
     async fetch({store}) {
-      if (store.getters['botNews/news'].length === 0) {
-        await store.dispatch('botNews/fetch')
-      }
       if (store.getters['lastMag/journal'].length === 0) {
         await store.dispatch('lastMag/fetch')
       }
     },
     async asyncData({params, redirect}) {
-      let post = await fetch('https://igrader.ru/wp-json/wp/v2/activity?slug=' + params.slug)
-      post = await post.json()
-      if(post.length === 0) {
+      let titles = await fetch('https://igrader.ru/wp-json/wp/v2/activity?slug=' + params.slug)
+      titles = await titles.json()
+      if(titles.length === 0) {
         redirect(301, `/404`)
       }
-      return {post}
+      return {titles}
     },
     computed: {
-      posts() {
-        return this.$store.getters['botNews/news']
-      },
       journal() {
         return this.$store.getters['lastMag/journal']
       },
+      longAd() {
+        return document.querySelector('.long-ad')
+      },
     },
     methods: {
-      adfox() {
-        window.Ya.adfoxCode.create({
-          ownerId: 299653,
-          containerId: 'adfox_15983472592613563',
-          params: {
-            p1: 'clzeo',
-            p2: 'gxsz',
-            pfc: 'dcwtq',
-            pfb: 'ikavk'
-          }
-        });
-      }
-    }
+      cleanText(text) {
+        return text.replace(/<\/?[^>]+(>|$)/g, "");
+      },
+      loadRightNews() {
+        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=4&exclude=' + this.titles[0].id)
+        .then(responce => {
+          this.postsRight = responce
+        })
+      },
+    },
   }
 </script>
 

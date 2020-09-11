@@ -33,7 +33,7 @@
             <div v-html="post.title.rendered" class="news__title">
 
             </div>
-            <div v-html="post.excerpt.rendered.slice(0, 120) + ' ...'" class="news__excerpt">
+            <div v-html="post.excerpt.rendered.slice(0, 180) + ' ...'" class="news__excerpt">
             </div>
           </nuxt-link>
         </div>
@@ -53,10 +53,7 @@
       let val = /^\d+$/.test(params.slug)
       return !val
     },
-    async fetch ({ params, redirect, store }) {
-      if (params.slug === 'kratko') {
-        redirect(301, `/kratko`)
-      }
+    async fetch ({store }) {
       if (store.getters['lastMag/journal'].length === 0) {
         await store.dispatch('lastMag/fetch')
       }

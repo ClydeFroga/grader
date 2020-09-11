@@ -1,4 +1,5 @@
 <template>
+
   <div class="col-12 col-lg-9 news left">
 
     <div class="news__breadcrumbs">
@@ -67,55 +68,63 @@
 
 <script>
   export default {
-      validate({ params }) {
-        let val = /^\d+$/.test(params.slug)
-        return !val
-      },
-      data: () => ({
-        page: 1,
-        titles: [],
-      }),
-      head() {
-        return {
-          title: this.cat[0].name + ' | iGrader.ru'
-        }
-      },
-      async asyncData({params, redirect}) {
-        let cat = await fetch('https://igrader.ru/wp-json/wp/v2/magazins?slug=' + params.slug)
-        cat = await cat.json()
-        if(cat.length === 0) {
-          redirect(301, `/404`)
-        }
-        const url = 'https://igrader.ru/wp-json/wp/v2/posts?magazins=' + cat[0].id;
-        let posts = await fetch(url)
-        posts = await posts.json()
+    validate({ params }) {
+      let val = /^\d+$/.test(params.slug)
+      return !val
+    },
+    data: () => ({
+      page: 1,
+      titles: [],
+    }),
+    head() {
+      return {
+        title: this.cat[0].name + ' | iGrader.ru'
+      }
+    },
+    async fetch ({store }) {
+      if (store.getters['lastMag/journal'].length === 0) {
+        await store.dispatch('lastMag/fetch')
+      }
+      if (store.getters['botNews/news'].length === 0) {
+        await store.dispatch('botNews/fetch')
+      }
+    },
+    async asyncData({params, redirect}) {
+      let cat = await fetch('https://igrader.ru/wp-json/wp/v2/magazins?slug=' + params.slug)
+      cat = await cat.json()
+      if(cat.length === 0) {
+        redirect(301, `/404`)
+      }
+      const url = 'https://igrader.ru/wp-json/wp/v2/posts?magazins=' + cat[0].id;
+      let posts = await fetch(url)
+      posts = await posts.json()
 
-        return {posts, url, cat}
-      },
-      methods: {
-        async fetchData() { //загрузить еще
-          let a = document.querySelector('.loadmore')
-          a.blur()
-          this.page++
-          await this.$axios.$get(this.url + "&page=" + this.page)
-          .then(responce => {
-            if(responce.length < 10) {
-              let nav =  document.querySelector('.loadmore')
-              nav.innerHTML = `Вы просмотрели все записи`
-              nav.setAttribute('disabled', '')
-            }
-            for(let item of responce) {
-              this.posts.push(item)
-            }
-          })
-          .catch(function (e) {
+      return {posts, url, cat}
+    },
+    methods: {
+      async fetchData() { //загрузить еще
+        let a = document.querySelector('.loadmore')
+        a.blur()
+        this.page++
+        await this.$axios.$get(this.url + "&page=" + this.page)
+        .then(responce => {
+          if(responce.length < 10) {
             let nav =  document.querySelector('.loadmore')
             nav.innerHTML = `Вы просмотрели все записи`
             nav.setAttribute('disabled', '')
-            document.preventDefault
-          })
-        },
+          }
+          for(let item of responce) {
+            this.posts.push(item)
+          }
+        })
+        .catch(function (e) {
+          let nav =  document.querySelector('.loadmore')
+          nav.innerHTML = `Вы просмотрели все записи`
+          nav.setAttribute('disabled', '')
+          document.preventDefault
+        })
       },
+    },
 	}
 </script>
 

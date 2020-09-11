@@ -1,7 +1,6 @@
 <template>
-  <div class="container-md">
+  <div class="col-12">
     <div class="row">
-
       <div class="post col-12 col-lg-7 left single">
 
           <div class="loaded" v-for="(post, ind) of titles" :key="post.id">
@@ -113,27 +112,31 @@
 
       <div class="col-12 col-lg-3 side">
 
+<!--        <div class="foxy ad" id="adfox_15983472592613563"></div>    ТЕСТОВЫЙ-->
         <div class="foxy ad">
           <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
         </div>
 
 <!--        <div class="foxy ad" id="adfox_159374506763656431"></div>-->
 
-        <div v-if="this.width > 992 && this.disq !== 1599" class="foxy foxy-news">
-          <h2 class="field__title" >
-            <a>
-              Читайте также
-            </a>
-          </h2>
+        <transition name="sideNews">
+          <div v-if="this.width > 992 && this.disq !== 1599" class="foxy foxy-news">
+            <h2 class="field__title" >
+              <a>
+                Читайте также
+              </a>
+            </h2>
 
-          <nuxt-link v-for="post of postsRight" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}" class="foxy-news-line">
-            <div class="foxy__text" v-html="post.title.rendered.slice(0, 45) + ' ...'">
-            </div>
-            <div>
-              <img :alt="post.alt" :src="post.x_featured_media_large">
-            </div>
-          </nuxt-link>
-        </div>
+            <nuxt-link v-for="post of postsRight" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}" class="foxy-news-line">
+              <div class="foxy__text" v-html="post.title.rendered.slice(0, 45) + ' ...'">
+              </div>
+              <div>
+                <img :alt="post.alt" :src="post.x_featured_media_large">
+              </div>
+            </nuxt-link>
+          </div>
+        </transition>
+
 
         <div class="foxy ad">
           <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
@@ -169,7 +172,7 @@
         </nuxt-link>
       </h2>
 
-      <div class="kratko row row-cols-2 row-cols-md-4">
+      <div class="kratko row row-cols-1 row-cols-sm-2 row-cols-md-4">
         <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="col" v-for="(post, ind) of postsSame" :key="post.id" v-if="ind < 6">
           <div class="kratko__imgBlc">
             <img :alt="post.alt" :src="post.x_featured_media_large" class="kratko__img">
@@ -184,7 +187,6 @@
           </span>
           </div>
         </nuxt-link>
-
       </div>
 
       <h2 class="field__title">
@@ -205,11 +207,9 @@
                   </p>
                 </div>
               </div>
-
               <div class="field__botText" v-html="post.excerpt.rendered.slice(0, 120) + ' ...'"></div>
 
             </nuxt-link>
-
           </div>
         </div>
 
@@ -246,7 +246,7 @@
         ],
       }
     },
-    layout: 'single',
+    // layout: 'single',
     data() {
       return {
         width: 1920,
@@ -269,6 +269,7 @@
         setTimeout(() => window.addEventListener('scroll', this.selectBlc), 5000)
       }
       this.findOpr()
+      // this.test()
     },
     destroyed() {
       window.removeEventListener('scroll', this.loadPost);
@@ -285,7 +286,7 @@
       if(titles.length === 0) {
         redirect(301, `/404`)
       }
-      let urls = ['http://localhost:3000/post/' + params.slug]   //заменить!!!!!!
+      let urls = ['http://hahlek3u.beget.tech/post/' + params.slug]   //заменить!!!!!!
       let articles = [titles[0].title.rendered.replace(/&#\d+;/g, '')]
       let ids = [titles[0].id]
       return {titles, urls, articles, ids}
@@ -338,7 +339,7 @@
                 this.articles.push(name)
                 this.ids.push(item.id)
 
-                let url = 'http://localhost:3000/post/' + item.slug       //заменить!!!
+                let url = 'http://hahlek3u.beget.tech/post/' + item.slug       //заменить!!!
                 this.urls.push(url)
                 history.pushState({page_title: name}, '', url)
                 this.titles.push(item)
@@ -511,7 +512,7 @@
         }
       },
       botNews() {
-        let r = rand(0, 30)
+        let r = rand(0, 21)
         let a = ''
         let b = ''
         switch(this.disq){
@@ -537,6 +538,18 @@
           this.postsBot = responce
         })
       },
+      test() {
+        window.Ya.adfoxCode.create({
+          ownerId: 299653,
+          containerId: 'adfox_15983472592613563',
+          params: {
+            p1: 'clzeo',
+            p2: 'gxsz',
+            pfc: 'dcwtq',
+            pfb: 'ikavk'
+          }
+        });
+      }
     },
 	}
 </script>

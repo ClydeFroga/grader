@@ -263,7 +263,7 @@
               <nuxt-link v-else-if="golos === 1" :to="{ name: 'post-slug', params: { slug: 'luchshij-ekskavator-pogruzchik-vybor-professionalov' } }">
                 <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/05/golosuem_1-01.jpg">
               </nuxt-link>
-              <nuxt-link v-else-if="golos === 2" :to="{ name: 'post-slug', params: { slug: 'https://igrader.ru/liftingequipment/luchshij-teleskopicheskij-pogruzchik' } }">
+              <nuxt-link v-else-if="golos === 2" :to="{ name: 'post-slug', params: { slug: 'luchshij-teleskopicheskij-pogruzchik' } }">
                 <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/05/golosuem_3-01.jpg">
               </nuxt-link>
             </div>

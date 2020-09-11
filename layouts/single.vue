@@ -31,6 +31,7 @@
       }
     },
     mounted() {
+      this.test()
       // this.adfox()
     },
     methods: {
@@ -83,6 +84,18 @@
           });
         }
       },
+      test() {
+        window.Ya.adfoxCode.create({
+          ownerId: 299653,
+          containerId: 'adfox_15983472592613563',
+          params: {
+            p1: 'clzeo',
+            p2: 'gxsz',
+            pfc: 'dcwtq',
+            pfb: 'ikavk'
+          }
+        });
+      }
     }
 
   }

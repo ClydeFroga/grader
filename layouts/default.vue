@@ -4,9 +4,9 @@
     <div class="container-md">
       <div class="row">
         <nuxt/>
-        <aside-my/>
+        <aside-my v-if="$route.name !== 'post-slug' && $route.name !== 'comtrans-2019-slug' && $route.name !== 'events-slug'"/>
       </div>
-      <bot-news/>
+      <bot-news v-if="$route.name !== 'lane' && $route.name !== 'post-slug' && $route.name !== 'comtrans-2019-slug' && $route.name !== 'events-slug'"/>
     </div>
     <scroll-to-top />
     <cookie v-if="cookies" />
@@ -38,7 +38,13 @@
       }
     },
     mounted() {
+      // this.test()
       // this.adfox()
+    },
+    updated() {
+      // setTimeout(() => {
+      //   this.test()
+      // }, 100)
     },
     methods: {
       adfox() {
@@ -89,6 +95,18 @@
             }
           });
         }
+      },
+      test() {
+        window.Ya.adfoxCode.create({
+          ownerId: 299653,
+          containerId: 'adfox_15983472592613563',
+          params: {
+            p1: 'clzeo',
+            p2: 'gxsz',
+            pfc: 'dcwtq',
+            pfb: 'ikavk'
+          }
+        });
       }
     }
   }

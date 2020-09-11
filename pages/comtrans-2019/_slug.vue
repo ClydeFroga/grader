@@ -1,5 +1,5 @@
 <template>
-  <div class="container-md">
+  <div class="col-12">
     <div class="row">
 
       <div  class="post col-12 col-lg-7 left single">
@@ -12,7 +12,8 @@
           <div class="single__breadcrumbs">
             <nuxt-link to="/">Главная</nuxt-link>
             <span  class="single__separator"> / </span>
-            <nuxt-link to="/comtrans-2019">COMTRANS 2019</nuxt-link>            <span class="single__separator"> / </span>
+            <nuxt-link to="/comtrans-2019">COMTRANS 2019</nuxt-link>
+            <span class="single__separator"> / </span>
             <nuxt-link :to="{name: 'category-slug', params: {slug: post.x_cats_slug[0]}}">{{post.x_cats[0]}}</nuxt-link>
           </div>
           <div class="row">
@@ -21,32 +22,32 @@
                 <img class="mainImg" :alt="post.alt" :src="post.x_featured_media_large">
               </div>
               <div class="single__text" v-html="post.content.rendered"></div>
-              <div v-if="disq === 1599" class="sharing__wrapper static">
-                <a :href="'http://vk.com/share.php?url=https://igrader.ru' + $route.path + '&title=' + articles[ind] + '&description=' + cleanText(post.excerpt.rendered) + '&image=' + post.x_featured_media" class="sharing__item vk">
+              <div class="sharing__wrapper static">
+                <a :href="'http://vk.com/share.php?url=https://igrader.ru' + $route.path + '&title=' + post.title.rendered + '&description=' + cleanText(post.excerpt.rendered) + '&image=' + post.x_featured_media" class="sharing__item vk">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#vk_logo"></use>
                   </svg>
                 </a>
 
-                <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=https://igrader.ru' + $route.path + '&p[title]=' + articles[ind] + '&p[summary]=' + cleanText(post.excerpt.rendered) + '&p[images][0]=' + post.x_featured_media" class="sharing__item fb">
+                <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=https://igrader.ru' + $route.path + '&p[title]=' + post.title.rendered + '&p[summary]=' + cleanText(post.excerpt.rendered) + '&p[images][0]=' + post.x_featured_media" class="sharing__item fb">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#fb_logo"></use>
                   </svg>
                 </a>
 
-                <a :href="'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=https://igrader.ru'+ $route.path +'&st.comments=' + articles[ind]" class="sharing__item od">
+                <a :href="'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=https://igrader.ru'+ $route.path +'&st.comments=' + post.title.rendered" class="sharing__item od">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#classmates_logo"></use>
                   </svg>
                 </a>
 
-                <a :href="'https://telegram.me/share/url?url=https://igrader.ru'+  $route.path +'&amp;text=' + articles[ind]" class="sharing__item telegram">
+                <a :href="'https://telegram.me/share/url?url=https://igrader.ru'+  $route.path +'&amp;text=' + post.title.rendered" class="sharing__item telegram">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#pocket_logo"></use>
                   </svg>
                 </a>
 
-                <a :href="'viber://forward?text=' + articles[ind]" class="sharing__item viber">
+                <a :href="'viber://forward?text=' + post.title.rendered" class="sharing__item viber">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#viber_logo"></use>
                   </svg>
@@ -113,6 +114,7 @@
         <div class="foxy ad">
           <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
         </div>
+
 <!--        <div class="foxy ad" id="adfox_159374506763656431"></div>-->
 
         <div v-if="this.width > 992" class="foxy foxy-news">
@@ -156,13 +158,13 @@
 
     <div>
       <h2 class="field__title">
-        <nuxt-link :to="{name: 'news-slug', params: {slug: this.titles[0].x_types_slug[0]}}">
+        <nuxt-link to="/comtrans-2019">
           {{this.titles[0].x_types[0]}}
         </nuxt-link>
       </h2>
 
       <div class="kratko row row-cols-2 row-cols-md-4">
-        <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="col" v-for="(post, ind) of postsSame" :key="post.id" v-if="ind < 6">
+        <nuxt-link :to="{name: 'comtrans-2019-slug', params: {slug: post.slug}}" class="col" v-for="(post, ind) of postsSame" :key="post.id" v-if="ind < 6">
           <div class="kratko__imgBlc">
             <img :alt="post.alt" :src="post.x_featured_media_large" class="kratko__img">
           </div>
@@ -223,13 +225,12 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
-  import rand from "lodash/random";
+import rand from "lodash/random";
 
-  export default {
+export default {
     head() {
       return {
         title: this.titles[0].title.rendered,
@@ -238,7 +239,6 @@
         ],
       }
     },
-    layout: 'single',
     data() {
       return {
         width: 1920,
@@ -248,8 +248,7 @@
       }
     },
     mounted() {
-      let width = document.documentElement.clientWidth
-      this.width = width
+      this.width = document.documentElement.clientWidth
       this.$nextTick(() => {
         this.loadRightNews()
         window.addEventListener('scroll', this.loadbot)
@@ -294,7 +293,7 @@
         }
       },
       botNews() {
-        let r = rand(0, 30)
+        let r = rand(0, 21)
         this.$axios.$get('https://igrader.ru/wp-json/wp/v2/comtrans?per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
         .then(responce => {
           this.postsSame = responce

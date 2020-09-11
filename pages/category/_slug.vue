@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-sm-9 news left">
+  <div class="col-12 col-lg-9 news left">
     <div v-if="this.posts.length === 0">
       <h1>
         Постов в этой категории не найдено
@@ -33,7 +33,7 @@
             <div v-html="post.title.rendered" class="news__title">
 
             </div>
-            <div v-html="post.excerpt.rendered" class="news__excerpt">
+            <div v-html="post.excerpt.rendered.slice(0, 180) + ' ...'" class="news__excerpt">
             </div>
           </nuxt-link>
         </div>
@@ -58,6 +58,14 @@
       titles: [],
       MyTypes: []
     }),
+    async fetch ({store }) {
+      if (store.getters['lastMag/journal'].length === 0) {
+        await store.dispatch('lastMag/fetch')
+      }
+      if (store.getters['botNews/news'].length === 0) {
+        store.dispatch('botNews/fetch')
+      }
+    },
     head() {
       return {
         title: this.cat[0].name + ' | Лесной комплекс '
