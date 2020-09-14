@@ -67,6 +67,56 @@
         <div class="long-ad">
           <img src="https://picsum.photos/728/90/?random=1">
         </div>
+
+        <div class="sp-form-outer">
+          <div
+            id="sp-form-143557"
+            sp-id="143557"
+            class="sp-form sp-form-regular sp-form-embed"
+          >
+            <div class="sp-form-fields-wrapper">
+              <div class="sp-message"><div></div></div>
+              <form novalidate="" name="subscribe" class="sp-element-container ui-sortable ui-droppable sp-field-nolabel">
+                <div class="sp-field sp-field-full-width" sp-id="sp-ef5d6dd8-f452-4ebe-820a-7d3f23b8184f">
+                  <div style="line-height: 1.2;">
+                    <p style="text-align: center;">
+                            <span style="color: #000000; font-size: 1.15rem;">
+                                <strong style="font-size: 1.15rem;">Понравился материал? Подпишитесь</strong><br />
+                                на отраслевой дайджест и получайте подборку статей каждый месяц
+                            </span>
+                      <span style="color: #000000; font-size: 1.15rem;">.<br /></span>
+                    </p>
+                  </div>
+                </div>
+                <div class="sp-field" sp-id="sp-9b1f4896-bb7c-48d0-8a16-a8b63c1c4034">
+                  <label class="sp-control-label"><span></span><strong class="req">*</strong></label>
+                  <input
+                    type="text"
+                    v-model="pname"
+                    class="sp-form-control"
+                    placeholder="Имя Отчество"
+                  />
+                </div>
+                <div class="sp-field" sp-id="sp-ab2f8b4a-4327-4589-aaf7-2372221b18db">
+                  <label class="sp-control-label"><span></span><strong class="req">*</strong></label>
+                  <input
+                    type="email"
+                    v-model="email"
+                    class="sp-form-control"
+                    placeholder="Email"
+                  />
+                </div>
+                <div class="sp-field" id="result">
+                </div>
+                <div class="sp-field sp-button-container" sp-id="sp-a910838d-0d6b-4604-8734-a9cccc8e2dcc">
+                  <button @click.prevent="sendMail" id="sp-a910838d-0d6b-4604-8734-a9cccc8e2dcc" class="sp-button">Подписаться</button>
+                </div>
+              </form>
+              <div class="sp-link-wrapper sp-brandname__left"></div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div class="col-12 col-md-1 col-lg-2">
@@ -113,6 +163,7 @@
       <div class="col-12 col-lg-3 side">
 
 <!--        <div class="foxy ad" id="adfox_15983472592613563"></div>    ТЕСТОВЫЙ-->
+
         <div class="foxy ad">
           <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
         </div>
@@ -120,7 +171,7 @@
 <!--        <div class="foxy ad" id="adfox_159374506763656431"></div>-->
 
         <transition name="sideNews">
-          <div v-if="this.width > 992 && this.disq !== 1599" class="foxy foxy-news">
+          <div v-if="this.width > 992 && this.postsRight.length > 0" class="foxy foxy-news">
             <h2 class="field__title" >
               <a>
                 Читайте также
@@ -194,6 +245,7 @@
           Ещё по теме
         </a>
       </h2>
+
       <div class="row field">
         <div class="col-12 col-lg">
 
@@ -235,9 +287,9 @@
 </template>
 
 <script>
-  import rand from 'lodash/random'
+import rand from 'lodash/random'
 
-  export default {
+export default {
     head() {
       return {
         title: this.titles[0].title.rendered.replace(/&#\d+;/g, ''),
@@ -246,7 +298,6 @@
         ],
       }
     },
-    // layout: 'single',
     data() {
       return {
         width: 1920,
@@ -259,17 +310,17 @@
         postsRight: [],
         postsBot: [],
         postsSame: [],
+        pname: '',
+        email: '',
       }
     },
     mounted: function () {
-      let width = document.documentElement.clientWidth
-      this.width = width
+      this.width = document.documentElement.clientWidth
       setTimeout(() => this.kratko(), 3000)
       if(document.documentElement.clientWidth > 992) {
         setTimeout(() => window.addEventListener('scroll', this.selectBlc), 5000)
       }
       this.findOpr()
-      // this.test()
     },
     destroyed() {
       window.removeEventListener('scroll', this.loadPost);
@@ -538,17 +589,22 @@
           this.postsBot = responce
         })
       },
-      test() {
-        window.Ya.adfoxCode.create({
-          ownerId: 299653,
-          containerId: 'adfox_15983472592613563',
-          params: {
-            p1: 'clzeo',
-            p2: 'gxsz',
-            pfc: 'dcwtq',
-            pfb: 'ikavk'
+      sendMail() {
+        let form = new FormData()
+        let butt = document.querySelector('.sp-button')
+        form.append('pname', this.pname);
+        form.append('email', this.email);
+        let res = document.querySelector('#result')
+        fetch('https://igrader.ru/wp-json/contact-form-7/v1/contact-forms/16560/feedback', {
+          method: 'POST',
+          body: form
+        }).then(responce => responce.json())
+        .then(result => {
+          res.textContent = result.message
+          if(result.status === 'mail_sent') {
+            butt.remove()
           }
-        });
+        })
       }
     },
 	}
