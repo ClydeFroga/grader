@@ -467,8 +467,6 @@ export default {
         let labels = document.querySelectorAll('.wp-polls-ul > li > label')
 
         if(voted == 1) {
-          vote.outerHTML = 'Вы уже проголосовали'
-          del()
           return
         }
 
@@ -485,7 +483,7 @@ export default {
           for(let item of results) {
             ul.insertAdjacentHTML('beforeend', `<span class="res__name">` + item.polla_answers + `</span>` +
               `<span class="res__res"> (`+  item.pourcent +`%, `+ item.polla_votes +` Голосов) </span>` +
-              `<div class="res__bar" style="height: 15px; width:` + item.pourcent + `%;"></div>`)
+              `<div class="res__bar" style="width:` + item.pourcent + `%;"></div>`)
           }
         }
 

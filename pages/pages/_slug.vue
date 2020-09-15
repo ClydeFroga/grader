@@ -44,7 +44,6 @@
     methods: {
       listener() {
         let button = document.querySelector('.wpcf7 .wpcf7-submit')
-        let acc = document.querySelector('.acceptance')
         document.addEventListener('click', function (e) {
           if(e.target === button) {
             e.preventDefault()
@@ -54,16 +53,6 @@
             let inputs = document.querySelectorAll('.wpcf7 .form-input')
             for(let item of inputs) {
               form.set(item.name, item.value);
-            }
-            if(acc) {
-              console.log(acc)
-              if(!acc.checked) {
-                console.log(acc)
-                output.textContent = 'Необходимо согласие'
-                output.classList.add('alert')
-                output.classList.add('alert-danger')
-                return
-              }
             }
             button.setAttribute('disabled', 'disabled')
             fetch('https://igrader.ru/wp-json/contact-form-7/v1/contact-forms/'+ formId +'/feedback', {
