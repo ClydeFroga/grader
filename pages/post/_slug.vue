@@ -70,14 +70,12 @@
 
         <div class="sp-form-outer">
           <div
-            id="sp-form-143557"
-            sp-id="143557"
             class="sp-form sp-form-regular sp-form-embed"
           >
             <div class="sp-form-fields-wrapper">
               <div class="sp-message"><div></div></div>
-              <form novalidate="" name="subscribe" class="sp-element-container ui-sortable ui-droppable sp-field-nolabel">
-                <div class="sp-field sp-field-full-width" sp-id="sp-ef5d6dd8-f452-4ebe-820a-7d3f23b8184f">
+              <form @submit.prevent="sendMail" name="subscribe" class="sp-element-container ui-sortable ui-droppable sp-field-nolabel">
+                <div class="sp-field sp-field-full-width">
                   <div style="line-height: 1.2;">
                     <p style="text-align: center;">
                             <span style="color: #000000; font-size: 1.15rem;">
@@ -88,28 +86,30 @@
                     </p>
                   </div>
                 </div>
-                <div class="sp-field" sp-id="sp-9b1f4896-bb7c-48d0-8a16-a8b63c1c4034">
+                <div class="sp-field">
                   <label class="sp-control-label"><span></span><strong class="req">*</strong></label>
                   <input
                     type="text"
                     v-model="pname"
                     class="sp-form-control"
                     placeholder="Имя Отчество"
+                    required
                   />
                 </div>
-                <div class="sp-field" sp-id="sp-ab2f8b4a-4327-4589-aaf7-2372221b18db">
+                <div class="sp-field">
                   <label class="sp-control-label"><span></span><strong class="req">*</strong></label>
                   <input
                     type="email"
                     v-model="email"
                     class="sp-form-control"
                     placeholder="Email"
+                    required
                   />
                 </div>
                 <div class="sp-field" id="result">
                 </div>
-                <div class="sp-field sp-button-container" sp-id="sp-a910838d-0d6b-4604-8734-a9cccc8e2dcc">
-                  <button @click.prevent="sendMail" id="sp-a910838d-0d6b-4604-8734-a9cccc8e2dcc" class="sp-button">Подписаться</button>
+                <div class="sp-field sp-button-container" >
+                  <button  class="sp-button">Подписаться</button>
                 </div>
               </form>
               <div class="sp-link-wrapper sp-brandname__left"></div>
@@ -383,8 +383,8 @@ export default {
       if(titles.length === 0) {
         redirect(301, `/404`)
       }
-      let urls = ['http://localhost:3000/post/' + params.slug]
-      // let urls = ['http://hahlek3u.beget.tech/post/' + params.slug]   //заменить!!!!!!
+      // let urls = ['http://localhost:3000/post/' + params.slug]
+      let urls = ['http://hahlek3u.beget.tech/post/' + params.slug]   //заменить!!!!!!
       let articles = [titles[0].title.rendered.replace(/&#\d+;/g, '')]
       let ids = [titles[0].id]
       return {titles, urls, articles, ids}
@@ -439,8 +439,8 @@ export default {
                 document.title = name
                 this.articles.push(name)
                 this.ids.push(item.id)
-                let url = 'http://localhost:3000/post/' + item.slug
-                // let url = 'http://hahlek3u.beget.tech/post/' + item.slug       //заменить!!!
+                // let url = 'http://localhost:3000/post/' + item.slug
+                let url = 'http://hahlek3u.beget.tech/post/' + item.slug       //заменить!!!
                 this.urls.push(url)
                 history.pushState({page_title: name}, '', url)
                 this.titles.push(item)
@@ -638,19 +638,17 @@ export default {
         })
       },
       sendMail() {
-        let form = new FormData()
         let butt = document.querySelector('.sp-button')
-        form.append('pname', this.pname);
-        form.append('email', this.email);
         let res = document.querySelector('#result')
-        fetch('https://igrader.ru/wp-json/contact-form-7/v1/contact-forms/16560/feedback', {
-          method: 'POST',
-          body: form
-        }).then(responce => responce.json())
+
+        fetch('http://localhost/igrader/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email)
+        .then(responce => responce.json())
         .then(result => {
-          res.textContent = result.message
-          if(result.status === 'mail_sent') {
+          if(result.result === true) {
             butt.remove()
+            res.textContent = 'Спасибо за вашу подписку'
+          } else {
+            res.textContent = result.result
           }
         })
       },

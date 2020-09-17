@@ -9,7 +9,7 @@
       <bot-news v-if="$route.name !== 'lane' && $route.name !== 'post-slug' && $route.name !== 'comtrans-2019-slug' && $route.name !== 'events-slug'"/>
     </div>
     <scroll-to-top />
-    <cookie v-if="cookies" />
+    <cookie />
     <footer-my/>
   </div>
 </template>
@@ -31,12 +31,12 @@
       scrollToTop,
       cookie,
     },
-    computed: {
-      cookies() {
-        const cookieRes = this.$cookies.get('cookie')
-        return cookieRes !== 1;
-      }
-    },
+    // computed: {
+    //   cookies() {
+    //     const cookieRes = this.$cookies.get('cookie')
+    //     return cookieRes !== 1;
+    //   }
+    // },
     mounted() {
       // this.test()
       // this.adfox()

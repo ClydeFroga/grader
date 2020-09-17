@@ -1,5 +1,5 @@
 <template>
-	<div class="cookie">
+	<div v-show="cookies" class="cookie">
     <div class="container-md">
       <div class="row cookie__mid">
         <div class="col-12 col-xl cookie__text">
@@ -30,6 +30,12 @@
         let a = document.querySelector('.cookie')
         a.style.display = 'none'
       }
-    }
+    },
+    computed: {
+      cookies() {
+        const cookieRes = this.$cookies.get('cookie')
+        return cookieRes !== 1;
+      }
+    },
 	}
 </script>

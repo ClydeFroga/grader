@@ -2,7 +2,7 @@
   <div>
     <header-my />
     <Nuxt />
-    <cookie v-if="cookies" />
+    <cookie />
     <footer-my/>
   </div>
 </template>
@@ -21,12 +21,12 @@
     mounted() {
       // this.adfox()
     },
-    computed: {
-      cookies() {
-        const cookieRes = this.$cookies.get('cookie')
-        return cookieRes !== 1;
-      }
-    },
+    // computed: {
+    //   cookies() {
+    //     const cookieRes = this.$cookies.get('cookie')
+    //     return cookieRes !== 1;
+    //   }
+    // },
     methods: {
       adfox() {
         if(window.Ya) {

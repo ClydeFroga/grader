@@ -30,6 +30,7 @@
     "nuxt-mobile": "^1.0.1",
     "nuxt-rfg-icon": "^0.6.4",
     "nuxt-start": "^2.14.5",
+    "nuxt-validate": "^1.0.1",
     "purgecss": "^2.3.0",
     "regenerator-runtime": "^0.12.1",
     "swiper": "^6.2.0",
@@ -51,6 +52,8 @@
     "require-extension-hooks": "^0.3.3",
     "require-extension-hooks-babel": "^1.0.0",
     "require-extension-hooks-vue": "^3.0.0",
-    "sass-loader": "^10.0.2"
+    "sass-loader": "^10.0.2",
+    "vue-server-renderer": "^2.6.12",
+    "vue-template-compiler": "^2.6.12"
   }
 }

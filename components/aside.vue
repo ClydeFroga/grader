@@ -38,7 +38,6 @@
       </nuxt-link>
     </div>
 
-
 <!--    <div class="foxy" id="adfox_159374506763656431"></div>-->
 
 <!--    <div class="foxy" id="adfox_159480168913443656"></div>-->

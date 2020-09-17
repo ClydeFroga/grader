@@ -381,12 +381,16 @@ export default {
     swiper: directive
   },
   mounted() {
+    this.golos = rand(0, 2);
     this.width = document.documentElement.clientWidth
-    window.addEventListener('scroll', this.loadCategories);
+    this.$nextTick(() => {
+      window.addEventListener('scroll', this.loadCategories);
+    })
   },
   destroyed() {
     window.removeEventListener('scroll', this.loadCategories);
   },
+
   layout: 'main-page',
   data: () => ({
     swiperOptions: {
@@ -427,6 +431,7 @@ export default {
     width: 1920,
     categories: [],
     analitika: [],
+    golos: null,
     kruglyjStol: [],
     krupniymPlanom: [],
     riders: [],
@@ -457,9 +462,6 @@ export default {
     },
     journal() {
       return this.$store.getters['lastMag/journal']
-    },
-    golos() {
-      return rand(0, 2)
     },
     sticky() {
       return this.$store.getters['mainPage/sticky']

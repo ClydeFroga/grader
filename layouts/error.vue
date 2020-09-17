@@ -2,10 +2,7 @@
   <div class="wrapper">
     <div class="container-md">
       <img class="img404" src="@/static/404.png">
-
-
     </div>
-
   </div>
 </template>
 

@@ -27,7 +27,6 @@ module.exports = {
   plugins: [
     '~/plugins/disqus',
     { src: "~/plugins/AOS", mode: 'client'},
-    // { src: '~/plugins/fullpage', mode: 'client' }
   ],
   components: true,
 
@@ -80,8 +79,13 @@ module.exports = {
       }
     ],
     '@nuxtjs/redirect-module',
-    'nuxt-fullpage.js'
+    'nuxt-fullpage.js',
+    'nuxt-validate',
   ],
+
+  nuxtValidate: {
+    lang: 'ru',
+  },
 
   router: {
     linkExactActiveClass: 'active' // tailwind class with custom color
