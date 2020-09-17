@@ -26,7 +26,6 @@ module.exports = {
 
   plugins: [
     '~/plugins/disqus',
-    { src: "~/plugins/AOS", mode: 'client'},
   ],
   components: true,
 

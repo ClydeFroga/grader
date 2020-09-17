@@ -641,14 +641,14 @@ export default {
         let butt = document.querySelector('.sp-button')
         let res = document.querySelector('#result')
 
-        fetch('http://localhost/igrader/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email)
+        fetch('https://igrader.ru/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email)
         .then(responce => responce.json())
         .then(result => {
           if(result.result === true) {
             butt.remove()
             res.textContent = 'Спасибо за вашу подписку'
           } else {
-            res.textContent = result.result
+            res.textContent = 'Произошла ошибка, пожалуйста, сообщите нам'
           }
         })
       },
