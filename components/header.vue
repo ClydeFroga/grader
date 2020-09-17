@@ -1,10 +1,11 @@
 <template>
   <header class="graderHeader">
 
-      <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-md">
           <nuxt-link class="navbar-brand" to="/">
             <img
+              data-not-lazy
               class="graderHeader__logo"
               src="../static/whiteLogo.png"
               alt="logo"

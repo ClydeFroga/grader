@@ -217,6 +217,23 @@
     </div>
 
     <div>
+
+      <div v-swiper:mySwip="middleSwiper">
+        <div class="swiper-wrapper">
+          <a v-for="post of sticky" :key="post.id" class="swiper-slide single">
+            <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="col field__blockFull">
+              <div class="field__block">
+                <div class="field__imgBlcBig">
+                  <img data-not-lazy :alt="post.alt" :src="post.x_featured_media_large">
+                  <p v-html="post.title.rendered" class="singleSticky__text"></p>
+                </div>
+              </div>
+            </nuxt-link>
+          </a>
+        </div>
+
+      </div>
+
       <h2 class="field__title">
         <nuxt-link :to="{name: 'news-slug', params: {slug: this.titles[0].x_types_slug[0]}}">
           {{this.titles[0].x_types[0]}}
@@ -287,9 +304,19 @@
 </template>
 
 <script>
+import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
+import 'swiper/swiper-bundle.esm'
+import 'swiper/swiper-bundle.css'
 import rand from 'lodash/random'
 
 export default {
+  components: {
+    Swiper,
+    SwiperSlide
+  },
+  directives: {
+    swiper: directive
+  },
     head() {
       return {
         title: this.titles[0].title.rendered.replace(/&#\d+;/g, ''),
@@ -312,6 +339,22 @@ export default {
         postsSame: [],
         pname: '',
         email: '',
+        middleSwiper: {
+          loop: true,
+          slidesPerView: 1,
+          spaceBetween: 15,
+          autoplay: {
+            delay: 5000,
+          },
+          breakpoints: {
+            476: {
+              slidesPerView: 2,
+            },
+            768: {
+              slidesPerView: 3,
+            }
+          }
+        },
       }
     },
     mounted: function () {
@@ -330,6 +373,9 @@ export default {
       if (store.getters['lastMag/journal'].length === 0) {
         await store.dispatch('lastMag/fetch')
       }
+      if (store.getters['mainPage/sticky'].length === 0) {
+        await store.dispatch('mainPage/sticky')
+      }
     },
     async asyncData({params, redirect}) {
       let titles = await fetch('https://igrader.ru/wp-json/wp/v2/posts?slug=' + params.slug)
@@ -337,7 +383,8 @@ export default {
       if(titles.length === 0) {
         redirect(301, `/404`)
       }
-      let urls = ['http://hahlek3u.beget.tech/post/' + params.slug]   //заменить!!!!!!
+      let urls = ['http://localhost:3000/post/' + params.slug]
+      // let urls = ['http://hahlek3u.beget.tech/post/' + params.slug]   //заменить!!!!!!
       let articles = [titles[0].title.rendered.replace(/&#\d+;/g, '')]
       let ids = [titles[0].id]
       return {titles, urls, articles, ids}
@@ -372,6 +419,9 @@ export default {
       longAd() {
         return document.querySelector('.long-ad')
       },
+      sticky() {
+        return this.$store.getters['mainPage/sticky']
+      }
     },
     methods: {
       cleanText(text) {
@@ -389,8 +439,8 @@ export default {
                 document.title = name
                 this.articles.push(name)
                 this.ids.push(item.id)
-
-                let url = 'http://hahlek3u.beget.tech/post/' + item.slug       //заменить!!!
+                let url = 'http://localhost:3000/post/' + item.slug
+                // let url = 'http://hahlek3u.beget.tech/post/' + item.slug       //заменить!!!
                 this.urls.push(url)
                 history.pushState({page_title: name}, '', url)
                 this.titles.push(item)
@@ -603,7 +653,7 @@ export default {
             butt.remove()
           }
         })
-      }
+      },
     },
 	}
 </script>

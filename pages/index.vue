@@ -8,7 +8,7 @@
 
                 <div v-swiper:mySwiper="swiperOptions">
                   <div class="swiper-wrapper">
-                    <div class="swiper-slide" v-for="(post, ind) of topSlider" :key="post.id" v-if="ind < 5">
+                    <div class="swiper-slide" v-for="post of topSlider" :key="post.id">
                       <nuxt-link class="col field__blockFull tops" :to="{name: 'post-slug', params: {slug: post.slug}}">
 
                         <div class="field__block topper">
@@ -61,7 +61,7 @@
 
             <div class="row row-cols-1 row-cols-md-3 wrapper__botCol">
 
-                <div class="col" v-for="(post, ind) of topSlider" :key="post.id" v-if="ind > 4">
+                <div class="col" v-for="(post, ind) of sticky" :key="post.id" v-if="ind < 3">
                   <div>
                     <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}">
                       <div class="wrapper__trpl">
@@ -73,7 +73,6 @@
                     </nuxt-link>
                   </div>
                 </div>
-
 
             </div>
           </div>
@@ -368,12 +367,12 @@
 
 
 <script>
-  import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
-  import 'swiper/swiper-bundle.esm'
-  import 'swiper/swiper-bundle.css'
-  import rand from 'lodash/random'
+import {directive, Swiper, SwiperSlide} from 'vue-awesome-swiper'
+import 'swiper/swiper-bundle.esm'
+import 'swiper/swiper-bundle.css'
+import rand from 'lodash/random'
 
-  export default {
+export default {
   components: {
     Swiper,
     SwiperSlide
@@ -382,9 +381,8 @@
     swiper: directive
   },
   mounted() {
-    let width = document.documentElement.clientWidth
+    this.width = document.documentElement.clientWidth
     window.addEventListener('scroll', this.loadCategories);
-    this.width = width
   },
   destroyed() {
     window.removeEventListener('scroll', this.loadCategories);
@@ -443,6 +441,7 @@
     }
     if (store.getters['mainPage/topSlider'].length === 0) {
       await store.dispatch('mainPage/fetch')
+      await store.dispatch('mainPage/sticky')
     }
   },
   computed: {
@@ -461,6 +460,9 @@
     },
     golos() {
       return rand(0, 2)
+    },
+    sticky() {
+      return this.$store.getters['mainPage/sticky']
     }
   },
   methods: {
@@ -470,6 +472,7 @@
         if (this.$store.getters['mainPage/categories'].length === 0) {
           await this.$store.dispatch('mainPage/load3')
         }
+
         this.categories = this.$store.getters['mainPage/categories']
         this.analitika = this.$store.getters['mainPage/analitika']
 

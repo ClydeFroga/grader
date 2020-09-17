@@ -7,7 +7,7 @@
       <span>Результаты поиска по запросу "{{this.req}}"</span>
     </div>
 
-    <div v-for="post of posts" :key="post.id" class="row news__one">
+    <div v-for="(post, index) of posts" :key="post.id" class="row news__one">
       <div class="col-12 col-sm">
         <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}">
           <img :src="post.x_featured_media_large" :alt="post.alt">
@@ -32,6 +32,25 @@
           </div>
         </nuxt-link>
       </div>
+
+      <div v-if="index === 2" class="sticky stickyNews">
+        <div class="row row-cols-1 row-cols-md-3 wrapper__botCol">
+
+          <div class="col" v-for="(title, ind) of sticky" :key="title.id" v-if="ind < 3 && index === 2">
+            <div>
+              <nuxt-link :to="{name: 'post-slug', params: {slug: title.slug}}">
+                <div class="wrapper__trpl">
+                  <img :alt='title.alt' :src="title.x_featured_media_large">
+                  <span>{{title.x_types[0]}}</span>
+                  <p v-html="title.title.rendered" class="wrapper__trplText"></p>
+                </div>
+
+              </nuxt-link>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
 
     <button @click.prevent="fetchData" class="loadmore" type="button">
@@ -49,6 +68,9 @@
       }
       if (store.getters['botNews/news'].length === 0) {
         await store.dispatch('botNews/fetch')
+      }
+      if (store.getters['mainPage/sticky'].length === 0) {
+        await store.dispatch('mainPage/sticky')
       }
     },
     data: () => ({
@@ -101,6 +123,10 @@
         })
       },
     },
-
+    computed: {
+      sticky() {
+        return this.$store.getters['mainPage/sticky']
+      }
+    }
   }
 </script>

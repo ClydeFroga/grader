@@ -16,7 +16,7 @@ module.exports = {
       // { rel: 'icon', type: 'image/png', href: 'favicon2.png' }
     ],
     script: [
-      {src: 'https://yastatic.net/pcode/adfox/loader.js', crossorigin: "anonymous" },
+      // {src: 'https://yastatic.net/pcode/adfox/loader.js', crossorigin: "anonymous" },
     ]
   },
 
@@ -25,9 +25,10 @@ module.exports = {
   ],
 
   plugins: [
-    '~/plugins/disqus'
+    '~/plugins/disqus',
+    { src: "~/plugins/AOS", mode: 'client'},
+    // { src: '~/plugins/fullpage', mode: 'client' }
   ],
-
   components: true,
 
   buildModules: [
@@ -79,7 +80,7 @@ module.exports = {
       }
     ],
     '@nuxtjs/redirect-module',
-    // 'nuxt-fullpage.js',
+    'nuxt-fullpage.js'
   ],
 
   router: {

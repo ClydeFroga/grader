@@ -1,6 +1,7 @@
 import rand from 'lodash/random'
 
 export const state = () => ({
+  sticky: [],
   topSlider: [],
   news: [],
   categories: [],
@@ -15,6 +16,9 @@ export const state = () => ({
   })
 
   export const mutations = {
+    setSticky(state, sticky) {
+      state.sticky = sticky
+    },
     setTopSlider(state, topSlider) {
       state.topSlider = topSlider
     },
@@ -51,8 +55,13 @@ export const state = () => ({
   }
 
   export const actions = {
+    async sticky({commit}) {
+      let sticky = await fetch('https://igrader.ru/wp-json/wp/v2/posts?sticky=true&per_page=5')
+      sticky = await sticky.json()
+      commit('setSticky', sticky)
+    },
     async fetch({commit}) {
-      let topSlider = await fetch('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1601,1603,1604,1033&per_page=8')
+      let topSlider = await fetch('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1601,1603,1604,1033&per_page=5')
       topSlider = await topSlider.json()
       let news = await fetch('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=5')
       news = await news.json()
@@ -101,6 +110,7 @@ export const state = () => ({
   }
 
   export const getters = {
+    sticky: state => state.sticky,
     topSlider: state => state.topSlider,
     news: state => state.news,
     categories: state => state.categories,

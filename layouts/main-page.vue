@@ -2,7 +2,7 @@
   <div>
     <header-my />
     <Nuxt />
-    <cookie  v-if="cookies" />
+    <cookie v-if="cookies" />
     <footer-my/>
   </div>
 </template>

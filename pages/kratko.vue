@@ -24,6 +24,25 @@
 
     </div>
 
+    <div class="col-12 sticky stickyKratko">
+      <div class="row row-cols-1 row-cols-md-3 wrapper__botCol">
+
+        <div class="col" v-for="(title, ind) of sticky" :key="title.id" v-if="ind < 3">
+          <div>
+            <nuxt-link :to="{name: 'post-slug', params: {slug: title.slug}}">
+              <div class="wrapper__trpl">
+                <img :alt='title.alt' :src="title.x_featured_media_large">
+                <span>{{title.x_types[0]}}</span>
+                <p v-html="title.title.rendered" class="wrapper__trplText"></p>
+              </div>
+
+            </nuxt-link>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <div class="long-ad">
       <img src="https://picsum.photos/728/90/?random=1">
     </div>
@@ -80,6 +99,9 @@
       if (store.getters['botNews/news'].length === 0) {
         store.dispatch('botNews/fetch')
       }
+      if (store.getters['mainPage/sticky'].length === 0) {
+        await store.dispatch('mainPage/sticky')
+      }
     },
     async asyncData() {
       const url = 'https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=12';
@@ -116,8 +138,13 @@
           let c = document.querySelector('.news_read')
           c.classList.remove('read' )
         }
-      }
+      },
     },
+    computed: {
+      sticky() {
+        return this.$store.getters['mainPage/sticky']
+      }
+    }
 	}
 </script>
 
