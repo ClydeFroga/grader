@@ -64,58 +64,51 @@
         </div>
 
         <div class="long-ad">
-          <img src="https://picsum.photos/728/90/?random=1">
+          <div class="foxy" id="adfox_159374525659365226"></div>
         </div>
 
-        <div class="sp-form-outer sp-force-hide">
+        <div class="sp-form-outer">
           <div
-            id="sp-form-143557"
-            sp-id="143557"
-            sp-hash="75c996cc38cd9c8f6b58e209feaf3cef7030d612d73db39c36a59291991b4c83"
-            sp-lang="ru"
             class="sp-form sp-form-regular sp-form-embed"
-            sp-show-options="%7B%22satellite%22%3Afalse%2C%22maDomain%22%3A%22login.sendpulse.com%22%2C%22formsDomain%22%3A%22forms.sendpulse.com%22%2C%22condition%22%3A%22onEnter%22%2C%22scrollTo%22%3A25%2C%22delay%22%3A10%2C%22repeat%22%3A3%2C%22background%22%3A%22rgba(0%2C%200%2C%200%2C%200.5)%22%2C%22position%22%3A%22bottom-right%22%2C%22animation%22%3A%22%22%2C%22hideOnMobile%22%3Afalse%2C%22urlFilter%22%3Afalse%2C%22urlFilterConditions%22%3A%5B%7B%22force%22%3A%22hide%22%2C%22clause%22%3A%22contains%22%2C%22token%22%3A%22%22%7D%5D%2C%22analytics%22%3A%7B%22ga%22%3A%7B%22eventLabel%22%3A%22%D0%A4%D0%BE%D1%80%D0%BC%D0%B0_%D0%BF%D0%BE%D0%B4%D0%BF%D0%B8%D1%81%D0%BA%D0%B8_%D0%94%D0%B0%D0%B9%D0%B4%D0%B6%D0%B5%D1%81%D1%82_dprom_%D0%94%D0%B0%D0%B9%D0%B4%D0%B6%D0%B5%D1%81%D1%82_dprom_%D0%94%D0%B0%D0%B9%D0%B4%D0%B6%D0%B5%D1%81%D1%82_dprom%22%2C%22send%22%3Afalse%7D%2C%22ym%22%3A%7B%22counterId%22%3A47347473%2C%22eventLabel%22%3A%22%D0%A4%D0%BE%D1%80%D0%BC%D0%B0_%D0%BF%D0%BE%D0%B4%D0%BF%D0%B8%D1%81%D0%BA%D0%B8_%D0%94%D0%B0%D0%B9%D0%B4%D0%B6%D0%B5%D1%81%D1%82_dprom%22%2C%22targetId%22%3A%22forma_podpiska%22%2C%22send%22%3Atrue%7D%7D%7D"
           >
             <div class="sp-form-fields-wrapper">
               <div class="sp-message"><div></div></div>
-              <form novalidate="" class="sp-element-container ui-sortable ui-droppable sp-field-nolabel">
-                <div class="sp-field sp-field-full-width" sp-id="sp-ef5d6dd8-f452-4ebe-820a-7d3f23b8184f">
-                  <div style="font-family: 'Segoe UI', Segoe, 'Avenir Next', 'Open Sans', sans-serif; line-height: 1.2;">
+              <form @submit.prevent="sendMail" name="subscribe" class="sp-element-container ui-sortable ui-droppable sp-field-nolabel">
+                <div class="sp-field sp-field-full-width">
+                  <div style="line-height: 1.2;">
                     <p style="text-align: center;">
-                            <span style="color: #000000;">
-                                <strong>Понравился материал? Подпишитесь</strong><br />
+                            <span style="color: #000000; font-size: 1.15rem;">
+                                <strong style="font-size: 1.15rem;">Понравился материал? Подпишитесь</strong><br />
                                 на отраслевой дайджест и получайте подборку статей каждый месяц
                             </span>
-                      <span style="color: #000000;">.<br /></span>
+                      <span style="color: #000000; font-size: 1.15rem;">.<br /></span>
                     </p>
                   </div>
                 </div>
-                <div class="sp-field" sp-id="sp-9b1f4896-bb7c-48d0-8a16-a8b63c1c4034">
-                  <label class="sp-control-label"><span></span><strong>*</strong></label>
+                <div class="sp-field">
+                  <label class="sp-control-label"><span></span><strong class="req">*</strong></label>
                   <input
                     type="text"
-                    sp-type="input"
-                    name="sform[NjA0NjQ4Mw==]"
+                    v-model="pname"
                     class="sp-form-control"
                     placeholder="Имя Отчество"
-                    sp-tips="%7B%22required%22%3A%22%D0%9E%D0%B1%D1%8F%D0%B7%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5%20%D0%BF%D0%BE%D0%BB%D0%B5%22%7D"
-                    required="required"
+                    required
                   />
                 </div>
-                <div class="sp-field" sp-id="sp-ab2f8b4a-4327-4589-aaf7-2372221b18db">
-                  <label class="sp-control-label"><span></span><strong>*</strong></label>
+                <div class="sp-field">
+                  <label class="sp-control-label"><span></span><strong class="req">*</strong></label>
                   <input
                     type="email"
-                    sp-type="email"
-                    name="sform[email]"
+                    v-model="email"
                     class="sp-form-control"
                     placeholder="Email"
-                    sp-tips="%7B%22required%22%3A%22%D0%9E%D0%B1%D1%8F%D0%B7%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5%20%D0%BF%D0%BE%D0%BB%D0%B5%22%2C%22wrong%22%3A%22%D0%9D%D0%B5%D0%B2%D0%B5%D1%80%D0%BD%D1%8B%D0%B9%20email-%D0%B0%D0%B4%D1%80%D0%B5%D1%81%22%7D"
-                    required="required"
+                    required
                   />
                 </div>
-                <div class="sp-field sp-button-container" sp-id="sp-a910838d-0d6b-4604-8734-a9cccc8e2dcc">
-                  <button id="sp-a910838d-0d6b-4604-8734-a9cccc8e2dcc" class="sp-button" onclick="yaCounter23728024.reachGoal('followsendpulse'); return true;">Подписаться</button>
+                <div class="sp-field" id="result">
+                </div>
+                <div class="sp-field sp-button-container" >
+                  <button  class="sp-button">Подписаться</button>
                 </div>
               </form>
               <div class="sp-link-wrapper sp-brandname__left"></div>
@@ -166,11 +159,8 @@
       </div>
 
       <div class="col-12 col-lg-3 side">
-        <div class="foxy ad">
-          <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
-        </div>
 
-<!--        <div class="foxy ad" id="adfox_159374506763656431"></div>-->
+        <div class="foxy ad" id="adfox_159374506763656431"></div>
 
         <div v-if="this.width > 992" class="foxy foxy-news">
           <h2 class="field__title" >
@@ -188,11 +178,7 @@
           </nuxt-link>
         </div>
 
-        <div class="foxy ad">
-          <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
-        </div>
-
-<!--        <div class="foxy ad" id="adfox_159480168913443656"></div>-->
+        <div class="foxy ad" id="adfox_159480168913443656"></div>
 
         <div  v-if="journal.acf !== undefined" class="foxy">
           <h2 class="field__title" >
@@ -209,6 +195,10 @@
           </nuxt-link>
         </div>
       </div>
+    </div>
+
+    <div class="long-ad">
+      <div class="foxy" id="adfox_159374528706764377"></div>
     </div>
 
     <div>
@@ -292,9 +282,6 @@ export default {
         meta: [
           { hid: 'description', name: 'description', content: this.titles[0].excerpt.rendered.replace(/&#\d+;/g, '').slice(0, 180) + ' ...' }
         ],
-        script: [
-          {src: '//web.webformscr.com/apps/fc3/build/default-handler.js?1579692714610', type: "text/javascript" },
-        ]
       }
     },
     data() {
@@ -318,7 +305,7 @@ export default {
       }
     },
     async asyncData({params, redirect}) {
-      let titles = await fetch('https://igrader.ru/wp-json/wp/v2/comtrans?slug=' + params.slug)
+      let titles = await fetch('http://promotech.igrader.ru/wp-json/wp/v2/comtrans?slug=' + params.slug)
       titles = await titles.json()
       if(titles.length === 0) {
         redirect(301, `/404`)
@@ -338,7 +325,7 @@ export default {
         return text.replace(/<\/?[^>]+(>|$)/g, "");
       },
       loadRightNews() {
-        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=3&exclude=' + this.titles[0].id)
+        this.$axios.$get('http://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=3&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsRight = responce
         })
@@ -352,13 +339,28 @@ export default {
       },
       botNews() {
         let r = rand(0, 21)
-        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/comtrans?per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
+        this.$axios.$get('http://promotech.igrader.ru/wp-json/wp/v2/comtrans?per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
         .then(responce => {
           this.postsSame = responce
         })
-        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1601&per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
+        this.$axios.$get('http://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1601&per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
         .then(responce => {
           this.postsBot = responce
+        })
+      },
+      sendMail() {
+        let butt = document.querySelector('.sp-button')
+        let res = document.querySelector('#result')
+
+        fetch('http://promotech.igrader.ru/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email)
+        .then(responce => responce.json())
+        .then(result => {
+          if(result.result === true) {
+            butt.remove()
+            res.textContent = 'Спасибо за вашу подписку'
+          } else {
+            res.textContent = 'Произошла ошибка, пожалуйста, сообщите нам'
+          }
         })
       },
     }

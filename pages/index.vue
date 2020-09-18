@@ -42,7 +42,7 @@
               </div>
 
               <div v-if="this.width <= 576" class="long-ad">
-                <img src="https://picsum.photos/728/90/?random=1">
+                <div class="foxy" id="adfox_159374525659365226"></div>
               </div>
 
               <div class="col col-xl-4">
@@ -78,21 +78,14 @@
           </div>
 
           <div class="col-lg-3">
-            <div class="foxy">
-              <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
-            </div>
-            <div class="foxy">
-              <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
-            </div>
-<!--            <div class="foxy" id="adfox_159374506763656431"></div>-->
+            <div class="foxy" id="adfox_159374506763656431"></div>
 
-<!--            <div class="foxy" id="adfox_159480168913443656"></div>-->
+            <div class="foxy" id="adfox_159480168913443656"></div>
           </div>
         </div>
 
-        <div v-if="this.width > 576" class="long-ad">
-            <img src="https://picsum.photos/728/90/?random=5">
-<!--          <div class="foxy" id="adfox_159374525659365226"></div>-->
+        <div v-if="this.width > 576" class="long-ad"> //dadadadadadadadadadada
+          <div class="foxy" id="adfox_159374525659365226"></div>
         </div>
 
         <div v-if="this.width > 576" class="wrapper__mainthemes">
@@ -317,18 +310,9 @@
           </div>
 
           <div class="col-12 col-lg-3">
-            <div class="foxy">
-              <img class="wrapper__adSmallImg" src="https://picsum.photos/250/375/?random=5">
-            </div>
-            <div class="foxy">
-              <img class="wrapper__adSmallImg" src="https://picsum.photos/250/375/?random=5">
-            </div>
-            <div class="foxy">
-              <img class="wrapper__adSpecialImg" src="https://picsum.photos/250/375/?random=5">
-            </div>
-<!--            <div class="foxy" id="adfox_159374935502579870"></div>-->
-<!--            <div class="foxy" id="adfox_159374952133726391"></div>-->
-<!--            <div class="foxy" id="adfox_159712112538951246"></div>-->
+            <div class="foxy" id="adfox_159374935502579870"></div>
+            <div class="foxy" id="adfox_159374952133726391"></div>
+            <div class="foxy" id="adfox_159712112538951246"></div>
           </div>
 
         </div>

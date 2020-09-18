@@ -30,18 +30,9 @@
       </div>
 
       <div class="col-12 col-lg-3">
-        <div class="foxy">
-          <img class="wrapper__adSmallImg" src="https://picsum.photos/250/375/?random=5">
-        </div>
-        <div class="foxy">
-          <img class="wrapper__adSmallImg" src="https://picsum.photos/250/375/?random=5">
-        </div>
-        <div class="foxy">
-          <img class="wrapper__adSpecialImg" src="https://picsum.photos/250/375/?random=5">
-        </div>
-<!--        <div class="foxy" id="adfox_159374935502579870"></div>-->
-<!--        <div class="foxy" id="adfox_159374952133726391"></div>-->
-<!--        <div class="foxy" id="adfox_159712112538951246"></div>-->
+        <div class="foxy" id="adfox_159374935502579870"></div>
+        <div class="foxy" id="adfox_159374952133726391"></div>
+        <div class="foxy" id="adfox_159712112538951246"></div>
       </div>
     </div>
   </div>

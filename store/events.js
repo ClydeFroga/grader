@@ -21,7 +21,7 @@ export const actions = {
     let endDates = []
     let startDates = []
     let events = []
-    fetch('https://igrader.ru/wp-json/wp/v2/events')
+    fetch('http://promotech.igrader.ru/wp-json/wp/v2/events')
     .then(responce => responce.json())
     .then(result => {
       if (result.length === 0) {

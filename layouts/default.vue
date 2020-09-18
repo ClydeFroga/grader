@@ -38,13 +38,12 @@
     //   }
     // },
     mounted() {
-      // this.test()
-      // this.adfox()
+      this.adfox()
     },
     updated() {
-      // setTimeout(() => {
-      //   this.test()
-      // }, 100)
+      setTimeout(() => {
+        this.adfox()
+      }, 100)
     },
     methods: {
       adfox() {
@@ -94,20 +93,26 @@
               p2: 'gxim'
             }
           });
+          window.Ya.adfoxCode.create({
+              ownerId: 299653,
+              containerId: 'adfox_159374525659365226',
+              params: {
+                pp: 'g',
+                ps: 'dkqx',
+                p2: 'gwau'
+              }
+          });
+          window.Ya.adfoxCode.create({
+            ownerId: 299653,
+            containerId: 'adfox_159374528706764377',
+            params: {
+              pp: 'i',
+              ps: 'dkqx',
+              p2: 'gwmz'
+            }
+          });
         }
       },
-      test() {
-        window.Ya.adfoxCode.create({
-          ownerId: 299653,
-          containerId: 'adfox_15983472592613563',
-          params: {
-            p1: 'clzeo',
-            p2: 'gxsz',
-            pfc: 'dcwtq',
-            pfb: 'ikavk'
-          }
-        });
-      }
     }
   }
 </script>

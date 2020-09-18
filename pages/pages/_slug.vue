@@ -34,7 +34,7 @@
       }
     },
     async asyncData({params, redirect}) {
-      let posts = await fetch('https://igrader.ru/wp-json/wp/v2/pages?slug=' + params.slug)
+      let posts = await fetch('http://promotech.igrader.ru/wp-json/wp/v2/pages?slug=' + params.slug)
       posts = await posts.json()
       if(posts.length === 0) {
         redirect(301, `/404`)
@@ -55,7 +55,7 @@
               form.set(item.name, item.value);
             }
             button.setAttribute('disabled', 'disabled')
-            fetch('https://igrader.ru/wp-json/contact-form-7/v1/contact-forms/'+ formId +'/feedback', {
+            fetch('http://promotech.igrader.ru/wp-json/contact-form-7/v1/contact-forms/'+ formId +'/feedback', {
               method: 'POST',
               body: form
             }).then(responce => responce.json())

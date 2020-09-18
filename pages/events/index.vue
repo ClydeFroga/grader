@@ -58,7 +58,7 @@
     },
     async asyncData({redirect}) {
       let events = []
-      let url = 'https://igrader.ru/wp-json/wp/v2/activity'
+      let url = 'http://promotech.igrader.ru/wp-json/wp/v2/activity'
       fetch(url)
       .then(responce => responce.json())
       .then(result => {

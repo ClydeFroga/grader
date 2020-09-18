@@ -54,7 +54,7 @@
       }
     },
     async asyncData() {
-      const url = 'https://igrader.ru/wp-json/wp/v2/posts?tags=2099&per_page=12';
+      const url = 'http://promotech.igrader.ru/wp-json/wp/v2/posts?tags=2099&per_page=12';
       let posts = await fetch(url)
       posts = await posts.json()
       let latest = posts[0].id

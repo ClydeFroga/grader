@@ -16,12 +16,13 @@ module.exports = {
       // { rel: 'icon', type: 'image/png', href: 'favicon2.png' }
     ],
     script: [
-      // {src: 'https://yastatic.net/pcode/adfox/loader.js', crossorigin: "anonymous" },
+      {src: 'https://yastatic.net/pcode/adfox/loader.js', crossorigin: "anonymous" },
     ]
   },
 
   css: [
     '../assets/style.css',
+
   ],
 
   plugins: [

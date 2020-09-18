@@ -1,8 +1,7 @@
 <template>
   <div class="col-12 col-lg-3 side">
-    <div class="foxy">
-      <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
-    </div>
+
+    <div class="foxy" id="adfox_159374506763656431"></div>
 
     <div v-if="this.width > 992" class="foxy foxy-news">
       <h2 class="field__title" >
@@ -19,9 +18,7 @@
       </nuxt-link>
       </div>
 
-    <div class="foxy">
-      <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
-    </div>
+    <div class="foxy" id="adfox_159480168913443656"></div>
 
     <div v-if="journal.acf !== undefined" class="foxy">
       <h2 class="field__title" >
@@ -37,10 +34,6 @@
         Оформить подписку
       </nuxt-link>
     </div>
-
-<!--    <div class="foxy" id="adfox_159374506763656431"></div>-->
-
-<!--    <div class="foxy" id="adfox_159480168913443656"></div>-->
 
   </div>
 </template>

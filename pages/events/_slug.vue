@@ -82,11 +82,7 @@
 
       <div class="col-12 col-lg-3 side">
 
-        <div class="foxy ad">
-          <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
-        </div>
-
-        <!--        <div class="foxy ad" id="adfox_159374506763656431"></div>-->
+        <div class="foxy ad" id="adfox_159374506763656431"></div>
 
         <transition name="sideNews">
           <div v-if="this.width > 992" class="foxy foxy-news">
@@ -106,11 +102,7 @@
           </div>
         </transition>
 
-        <div class="foxy ad">
-          <img class="wrapper__adImg" src="https://picsum.photos/250/375/?random=5">
-        </div>
-
-        <!--        <div class="foxy ad" id="adfox_159480168913443656"></div>-->
+        <div class="foxy ad" id="adfox_159480168913443656"></div>
 
         <div v-if="journal.acf !== undefined" class="foxy fresh">
           <h2 class="field__title" >
@@ -193,7 +185,7 @@
       }
     },
     async asyncData({params, redirect}) {
-      let titles = await fetch('https://igrader.ru/wp-json/wp/v2/activity?slug=' + params.slug)
+      let titles = await fetch('http://promotech.igrader.ru/wp-json/wp/v2/activity?slug=' + params.slug)
       titles = await titles.json()
       if(titles.length === 0) {
         redirect(301, `/404`)
@@ -213,7 +205,7 @@
         return text.replace(/<\/?[^>]+(>|$)/g, "");
       },
       loadRightNews() {
-        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=4&exclude=' + this.titles[0].id)
+        this.$axios.$get('http://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=4&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsRight = responce
         })
