@@ -50,7 +50,7 @@
     },
     mounted() {
       this.width = document.documentElement.clientWidth
-      this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=3')
+      this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=3')
       .then(responce => {
         this.posts = responce
       })

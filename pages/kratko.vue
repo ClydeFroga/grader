@@ -43,9 +43,7 @@
       </div>
     </div>
 
-    <div class="long-ad">
-      <img src="https://picsum.photos/728/90/?random=1">
-    </div>
+    <div class="long-ad" id="adfox_159374525659365226"></div>
 
     <div class="kratko row row-cols-1 row-cols-md-3">
       <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="col" v-for="(post, ind) of posts" :key="post.id" v-if="ind > 5">
@@ -104,7 +102,7 @@
       }
     },
     async asyncData() {
-      const url = 'http://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=12';
+      const url = 'https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=12';
       let posts = await fetch(url)
       posts = await posts.json()
       let latest = posts[0].id

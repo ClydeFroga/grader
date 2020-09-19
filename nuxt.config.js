@@ -31,9 +31,9 @@ module.exports = {
   components: true,
 
   buildModules: [
-    // ['@nuxtjs/google-analytics', {
-    //   id: 'UA-71349912-1'
-    // }]
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-71349912-1'
+    }]
   ],
 
   layoutTransition: {
@@ -46,17 +46,17 @@ module.exports = {
     mode: ''
   },
 
-  // yandexMetrika: {
-  //   id: '23728024',
-  //   webvisor: true,
-  //   clickmap:true,
-  //   trackHash:true,
-  //   trackLinks:true,
-  //   accurateTrackBounce:true,
-  // },
+  yandexMetrika: {
+    id: '23728024',
+    webvisor: true,
+    clickmap:true,
+    trackHash:true,
+    trackLinks:true,
+    accurateTrackBounce:true,
+  },
 
   modules: [
-    // '@nuxtjs/yandex-metrika',
+    '@nuxtjs/yandex-metrika',
     ['nuxt-rfg-icon', {
     masterPicture: 'static/favicon.png'
      }],

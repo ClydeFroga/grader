@@ -41,9 +41,7 @@
 
               </div>
 
-              <div v-if="this.width <= 576" class="long-ad">
-                <div class="foxy" id="adfox_159374525659365226"></div>
-              </div>
+              <div v-if="this.width <= 576" class="col-12 long-ad" id="adfox_159374525659365226"></div>
 
               <div class="col col-xl-4">
                   <nuxt-link class="wrapper__title title-top" :to="{ name: 'news-slug', params: { slug: 'analitika' } }">
@@ -58,6 +56,8 @@
 
               </div>
             </div>
+
+
 
             <div class="row row-cols-1 row-cols-md-3 wrapper__botCol">
 
@@ -84,9 +84,7 @@
           </div>
         </div>
 
-        <div v-if="this.width > 576" class="long-ad"> //dadadadadadadadadadada
-          <div class="foxy" id="adfox_159374525659365226"></div>
-        </div>
+          <div v-if="this.width > 576" class="long-ad" id="adfox_159374525659365226"></div>
 
         <div v-if="this.width > 576" class="wrapper__mainthemes">
           <span>
@@ -375,7 +373,7 @@ export default {
     window.removeEventListener('scroll', this.loadCategories);
   },
 
-  layout: 'main-page',
+  // layout: 'main-page',
   data: () => ({
     swiperOptions: {
       loop: true,
@@ -517,3 +515,14 @@ export default {
   }
 }
 </script>
+
+
+<style>
+.long-ad {
+  max-width: 728px;
+  width: 100%;
+  height: auto;
+}
+
+
+</style>

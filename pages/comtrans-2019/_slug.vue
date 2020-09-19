@@ -63,10 +63,6 @@
           </div>
         </div>
 
-        <div class="long-ad">
-          <div class="foxy" id="adfox_159374525659365226"></div>
-        </div>
-
         <div class="sp-form-outer">
           <div
             class="sp-form sp-form-regular sp-form-embed"
@@ -197,9 +193,7 @@
       </div>
     </div>
 
-    <div class="long-ad">
-      <div class="foxy" id="adfox_159374528706764377"></div>
-    </div>
+    <div class="long-ad" id="adfox_159374525659365226"></div>
 
     <div>
       <h2 class="field__title">
@@ -253,19 +247,9 @@
         </div>
 
         <div class="col-12 col-lg-3">
-          <div class="foxy">
-            <img class="wrapper__adSmallImg" src="https://picsum.photos/250/375/?random=5">
-          </div>
-          <div class="foxy">
-            <img class="wrapper__adSmallImg" src="https://picsum.photos/250/375/?random=5">
-          </div>
-          <div class="foxy">
-            <img class="wrapper__adSpecialImg" src="https://picsum.photos/250/375/?random=5">
-          </div>
-
-<!--          <div class="foxy" id="adfox_159374935502579870"></div>-->
-<!--          <div class="foxy" id="adfox_159374952133726391"></div>-->
-<!--          <div class="foxy" id="adfox_159712112538951246"></div>-->
+          <div class="foxy" id="adfox_159374935502579870"></div>
+          <div class="foxy" id="adfox_159374952133726391"></div>
+          <div class="foxy" id="adfox_159712112538951246"></div>
         </div>
       </div>
     </div>
@@ -305,7 +289,7 @@ export default {
       }
     },
     async asyncData({params, redirect}) {
-      let titles = await fetch('http://promotech.igrader.ru/wp-json/wp/v2/comtrans?slug=' + params.slug)
+      let titles = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/comtrans?slug=' + params.slug)
       titles = await titles.json()
       if(titles.length === 0) {
         redirect(301, `/404`)
@@ -325,7 +309,7 @@ export default {
         return text.replace(/<\/?[^>]+(>|$)/g, "");
       },
       loadRightNews() {
-        this.$axios.$get('http://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=3&exclude=' + this.titles[0].id)
+        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=3&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsRight = responce
         })
@@ -339,11 +323,11 @@ export default {
       },
       botNews() {
         let r = rand(0, 21)
-        this.$axios.$get('http://promotech.igrader.ru/wp-json/wp/v2/comtrans?per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
+        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/comtrans?per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
         .then(responce => {
           this.postsSame = responce
         })
-        this.$axios.$get('http://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1601&per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
+        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1601&per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
         .then(responce => {
           this.postsBot = responce
         })
@@ -352,7 +336,7 @@ export default {
         let butt = document.querySelector('.sp-button')
         let res = document.querySelector('#result')
 
-        fetch('http://promotech.igrader.ru/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email)
+        fetch('https://promotech.igrader.ru/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email)
         .then(responce => responce.json())
         .then(result => {
           if(result.result === true) {

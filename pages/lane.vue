@@ -1,6 +1,6 @@
 <template>
   <div class="col-12 col-lg-9 left">
-    <div class="lane" v-for="post of posts" :key="post.id">
+    <div class="lane" v-for="(post, ind) of posts" :key="post.id">
       <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="lane__title">
         <h2 v-html="post.title.rendered"></h2>
       </nuxt-link>
@@ -24,6 +24,10 @@
          {{post.x_date}}
        </span>
      </div>
+
+      <div v-if="ind == 1" class="long-ad" id="adfox_159374525659365226"></div>
+
+
     </div>
 
     <button @click.prevent="fetchData" class="loadmore" type="button">
@@ -54,7 +58,7 @@
       }
     },
     async asyncData() {
-      const url = 'http://promotech.igrader.ru/wp-json/wp/v2/posts?tags=2099&per_page=12';
+      const url = 'https://promotech.igrader.ru/wp-json/wp/v2/posts?tags=2099&per_page=12';
       let posts = await fetch(url)
       posts = await posts.json()
       let latest = posts[0].id

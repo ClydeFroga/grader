@@ -29,8 +29,8 @@
     // },
     updated() {
       setTimeout(() => {
-        this.adfox()
-      }, 100)
+        this.adfoxRel
+      }, 1500)
     },
     methods: {
       adfox() {
@@ -89,17 +89,23 @@
               p2: 'gwau'
             }
           });
-          window.Ya.adfoxCode.create({
-            ownerId: 299653,
-            containerId: 'adfox_159374528706764377',
-            params: {
-              pp: 'i',
-              ps: 'dkqx',
-              p2: 'gwmz'
-            }
-          });
+
+          // window.Ya.adfoxCode.create({
+          //   ownerId: 299653,
+          //   containerId: 'adfox_159374528706764377',
+          //   params: {
+          //     pp: 'i',
+          //     ps: 'dkqx',
+          //     p2: 'gwmz'
+          //   }
+          // });
         }
-      }
+      },
+      adfoxRel() {
+        if(window.Ya) {
+          window.Ya.adfoxCode.reload()
+        }
+      },
     }
   }
 </script>

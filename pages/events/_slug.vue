@@ -121,6 +121,8 @@
       </div>
     </div>
 
+    <div class="long-ad" id="adfox_159374525659365226"></div>
+
     <div>
       <h2 class="field__title">
         <nuxt-link to="/kratko">
@@ -185,7 +187,7 @@
       }
     },
     async asyncData({params, redirect}) {
-      let titles = await fetch('http://promotech.igrader.ru/wp-json/wp/v2/activity?slug=' + params.slug)
+      let titles = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/activity?slug=' + params.slug)
       titles = await titles.json()
       if(titles.length === 0) {
         redirect(301, `/404`)
@@ -205,7 +207,7 @@
         return text.replace(/<\/?[^>]+(>|$)/g, "");
       },
       loadRightNews() {
-        this.$axios.$get('http://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=4&exclude=' + this.titles[0].id)
+        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=4&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsRight = responce
         })

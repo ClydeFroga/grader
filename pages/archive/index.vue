@@ -55,7 +55,7 @@
         let a = document.querySelector('.loadmore')
         a.blur()
         this.page++
-        await this.$axios.$get("https://igrader.ru/wp-json/wp/v2/magazins?orderby=slug&order=desc&per_page=12&page=" + this.page)
+        await this.$axios.$get("https://promotech.igrader.ru/wp-json/wp/v2/magazins?orderby=slug&order=desc&per_page=12&page=" + this.page)
         .then(responce => {
           for(let item of responce) {
             this.articles.push(item)

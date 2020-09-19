@@ -89,7 +89,7 @@
       }
     },
     async asyncData() {
-      const url = 'http://promotech.igrader.ru/wp-json/wp/v2/comtrans?per_page=12';
+      const url = 'https://promotech.igrader.ru/wp-json/wp/v2/comtrans?per_page=12';
       let posts = await fetch(url)
       posts = await posts.json()
       return {posts, url}

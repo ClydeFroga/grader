@@ -30,6 +30,9 @@
           </nuxt-link>
         </div>
       </div>
+
+
+      <div class="long-ad" id="adfox_159374525659365226"></div>
       <button @click.prevent="fetchData" class="loadmore" type="button">
         Загрузить еще
       </button>
@@ -58,7 +61,7 @@
     },
     async asyncData({redirect}) {
       let events = []
-      let url = 'http://promotech.igrader.ru/wp-json/wp/v2/activity'
+      let url = 'https://promotech.igrader.ru/wp-json/wp/v2/activity'
       fetch(url)
       .then(responce => responce.json())
       .then(result => {

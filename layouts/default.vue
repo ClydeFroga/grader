@@ -1,14 +1,15 @@
 <template>
 	<div>
     <header-my/>
-    <div class="container-md">
+    <div v-if="$route.path !== '/'" class="container-md">
       <div class="row">
         <nuxt/>
         <aside-my v-if="$route.name !== 'post-slug' && $route.name !== 'comtrans-2019-slug' && $route.name !== 'events-slug'"/>
       </div>
       <bot-news v-if="$route.name !== 'lane' && $route.name !== 'post-slug' && $route.name !== 'comtrans-2019-slug' && $route.name !== 'events-slug'"/>
     </div>
-    <scroll-to-top />
+    <scroll-to-top v-if="$route.path !== '/'" />
+    <Nuxt v-if="$route.path === '/'" />
     <cookie />
     <footer-my/>
   </div>
@@ -23,6 +24,7 @@
   import cookie from "../components/cookie";
 
   export default {
+
     components: {
       headerMy,
       footerMy,
@@ -38,12 +40,12 @@
     //   }
     // },
     mounted() {
-      this.adfox()
+        this.adfox()
     },
     updated() {
       setTimeout(() => {
-        this.adfox()
-      }, 100)
+        this.adfoxRel()
+      }, 1500)
     },
     methods: {
       adfox() {
@@ -102,15 +104,20 @@
                 p2: 'gwau'
               }
           });
-          window.Ya.adfoxCode.create({
-            ownerId: 299653,
-            containerId: 'adfox_159374528706764377',
-            params: {
-              pp: 'i',
-              ps: 'dkqx',
-              p2: 'gwmz'
-            }
-          });
+          // window.Ya.adfoxCode.create({
+          //   ownerId: 299653,
+          //   containerId: 'adfox_159374528706764377',
+          //   params: {
+          //     pp: 'i',
+          //     ps: 'dkqx',
+          //     p2: 'gwmz'
+          //   }
+          // });
+        }
+      },
+      adfoxRel() {
+        if(window.Ya) {
+          window.Ya.adfoxCode.reload()
         }
       },
     }

@@ -122,12 +122,12 @@
     },
     mounted() {
       this.$nextTick(() => {
-        fetch('http://prometech.igrader.ru/wp-json/last_news/v1/last-news')
+        fetch('https://promotech.igrader.ru/wp-json/last_news/v1/last-news')
         .then(responce => responce.json())
         .then(result => {
           this.latestNews(result.last_id)
         })
-        fetch('http://prometech.igrader.ru/wp-json/last_news/v1/last-polosa')
+        fetch('https://promotech.igrader.ru/wp-json/last_news/v1/last-polosa')
         .then(responce => responce.json())
         .then(result => {
           this.latestLane(result.last_id)
