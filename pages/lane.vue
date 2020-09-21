@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 col-lg-9 left">
     <div class="lane" v-for="(post, ind) of posts" :key="post.id">
-      <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="lane__title">
+      <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="lane__title">
         <h2 v-html="post.title.rendered"></h2>
       </nuxt-link>
 
@@ -11,13 +11,13 @@
 
       <div class="lane__excerpt" v-html="post.excerpt.rendered.slice(0, 180) + ' ...'"></div>
 
-      <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}">
+      <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
         <img class="lane__img" :alt="post.alt" :src="post.x_featured_media_large">
       </nuxt-link>
 
 
      <div class="lane__bot">
-       <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="lane__cont">
+       <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="lane__cont">
          Читать продолжение...
        </nuxt-link>
        <span class="lane__date">

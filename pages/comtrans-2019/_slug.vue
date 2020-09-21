@@ -165,7 +165,7 @@
             </a>
           </h2>
 
-          <nuxt-link v-for="post of postsRight" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}" class="foxy-news-line">
+          <nuxt-link v-for="post of postsRight" :key="post.id" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="foxy-news-line">
             <div class="foxy__text" v-html="post.title.rendered.slice(0, 45) + ' ...'">
             </div>
             <div>
@@ -229,7 +229,7 @@
         <div class="col-12 col-lg">
 
           <div class="row-cols-1 row-cols-md-2 row">
-            <nuxt-link v-for="post of postsBot" :key="post.id" class="col field__blockFull" :to="{name: 'post-slug', params: {slug: post.slug}}">
+            <nuxt-link v-for="post of postsBot" :key="post.id" class="col field__blockFull" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
 
               <div class="field__block">
                 <div class="field__imgBlc">

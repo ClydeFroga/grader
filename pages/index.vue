@@ -9,7 +9,7 @@
                 <div v-swiper:mySwiper="swiperOptions">
                   <div class="swiper-wrapper">
                     <div class="swiper-slide" v-for="post of topSlider" :key="post.id">
-                      <nuxt-link class="col field__blockFull tops" :to="{name: 'post-slug', params: {slug: post.slug}}">
+                      <nuxt-link class="col field__blockFull tops" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
 
                         <div class="field__block topper">
                           <div class="field__imgBlc">
@@ -47,7 +47,7 @@
                   <nuxt-link class="wrapper__title title-top" :to="{ name: 'news-slug', params: { slug: 'analitika' } }">
                     Новости
                   </nuxt-link>
-                <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" v-for="post of news" :key="post.id" class="orangeHover wrapper__text" >
+                <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" v-for="post of news" :key="post.id" class="orangeHover wrapper__text" >
                   <p v-html="post.title.rendered"></p>
                   <span>
                     {{post.x_date}}
@@ -63,7 +63,7 @@
 
                 <div class="col" v-for="(post, ind) of sticky" :key="post.id" v-if="ind < 3">
                   <div>
-                    <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}">
+                    <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
                       <div class="wrapper__trpl">
                         <img :alt='post.alt' :src="post.x_featured_media_large">
                         <span>{{post.x_types[0]}}</span>
@@ -109,7 +109,7 @@
             </h2>
 
             <div class="row-cols-1 row-cols-md-2 row">
-              <nuxt-link class="col field__blockFull" v-for="(post, ind) of analitika" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}" v-if="(width > 576) || (width <= 576 && ind < 3)">
+              <nuxt-link class="col field__blockFull" v-for="(post, ind) of analitika" :key="post.id" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" v-if="(width > 576) || (width <= 576 && ind < 3)">
 
                 <div class="field__block">
                   <div class="field__imgBlc">
@@ -130,7 +130,7 @@
             </h2>
 
             <div v-if="width > 576" class="field__four row row-cols-1 row-cols-md-2 row-cols-xl-4">
-              <nuxt-link v-for="post of kruglyjStol" :key="post.id" class="col" :to="{name: 'post-slug', params: {slug: post.slug}}">
+              <nuxt-link v-for="post of kruglyjStol" :key="post.id" class="col" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
                 <img :alt='post.alt' :src="post.x_featured_media_large">
                 <p v-html="post.title.rendered" class="field__span"></p>
               </nuxt-link>
@@ -171,7 +171,7 @@
         <div v-swiper:mySwip="middleSwiper">
           <div class="swiper-wrapper">
             <a v-for="post of krupniymPlanom" :key="post.id" class="swiper-slide">
-              <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="col field__blockFull">
+              <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="col field__blockFull">
                 <div class="field__block">
                   <div class="field__imgBlcBig">
                     <img data-not-lazy :alt="post.alt" :src="post.x_featured_media_large">
@@ -199,7 +199,7 @@
           <div class="col-lg-8 col-xl-9">
             <div class="row riders">
               <div class="col-12 col-xl-4">
-                <nuxt-link class="orangeHover" v-for="(post, ind) of riders" :key="post.id" v-if="ind === 0" :to="{name: 'post-slug', params: {slug: post.slug}}">
+                <nuxt-link class="orangeHover" v-for="(post, ind) of riders" :key="post.id" v-if="ind === 0" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
                   <img :alt="post.alt" :src="post.x_featured_media_large">
                   <p v-html="post.title.rendered" class="riders__main orangeHover">
                   </p>
@@ -209,7 +209,7 @@
               <div class="col-12 col-xl-8 ">
 
                 <div class="row riders__row row-cols-lg-2 row-cols-1">
-                  <nuxt-link class="orangeHover col riders__col" v-for="(post, ind) of riders" :key="post.id" v-if="ind > 0 && ind < 3" :to="{name: 'post-slug', params: {slug: post.slug}}">
+                  <nuxt-link class="orangeHover col riders__col" v-for="(post, ind) of riders" :key="post.id" v-if="ind > 0 && ind < 3" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
                     <img :alt="post.alt" :src="post.x_featured_media_large">
                     <p class="orangeHover riders__sec" v-html="post.title.rendered">
                     </p>
@@ -220,7 +220,7 @@
 
                 <div class="row riders__row row-cols-lg-2 row-cols-1">
 
-                  <nuxt-link class="orangeHover col riders__col" v-for="(post, ind) of riders" :key="post.id" v-if="ind > 2 && ind < 5" :to="{name: 'post-slug', params: {slug: post.slug}}">
+                  <nuxt-link class="orangeHover col riders__col" v-for="(post, ind) of riders" :key="post.id" v-if="ind > 2 && ind < 5" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
                     <img :alt="post.alt" :src="post.x_featured_media_large">
                     <p class="orangeHover riders__sec" v-html="post.title.rendered">
                     </p>
@@ -232,7 +232,7 @@
 
                 <div class="row riders__row row-cols-lg-2 row-cols-1" v-if="width > 576">
 
-                  <nuxt-link class="orangeHover col riders__col" v-for="(post, ind) of riders" :key="post.id" v-if="ind > 4" :to="{name: 'post-slug', params: {slug: post.slug}}">
+                  <nuxt-link class="orangeHover col riders__col" v-for="(post, ind) of riders" :key="post.id" v-if="ind > 4" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
                     <img :alt="post.alt" :src="post.x_featured_media_large">
                     <p class="orangeHover riders__sec" v-html="post.title.rendered">
                     </p>
@@ -247,14 +247,14 @@
 
           <div class="col-3">
             <div class="foxy">
-              <nuxt-link v-if="golos === 0" :to="{ name: 'post-slug', params: { slug: 'luchshij-avtogrejder' } }">
-                <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/03/golosuem_2-01.jpg">
+              <nuxt-link v-if="golos === 0" :to="{ name: 'post-slug', params: {post:'vybor-professionalov',  slug: 'luchshij-avtogrejder' } }">
+                <img class="wrapper__adImg" src="https://promotech.igrader.ru/wp-content/uploads/2020/03/golosuem_2-01.jpg">
               </nuxt-link>
-              <nuxt-link v-else-if="golos === 1" :to="{ name: 'post-slug', params: { slug: 'luchshij-ekskavator-pogruzchik-vybor-professionalov' } }">
-                <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/05/golosuem_1-01.jpg">
+              <nuxt-link v-else-if="golos === 1" :to="{ name: 'post-slug', params: {post:'vybor-professionalov',  slug: 'luchshij-ekskavator-pogruzchik-vybor-professionalov' } }">
+                <img class="wrapper__adImg" src="https://promotech.igrader.ru/wp-content/uploads/2020/05/golosuem_1-01.jpg">
               </nuxt-link>
-              <nuxt-link v-else-if="golos === 2" :to="{ name: 'post-slug', params: { slug: 'luchshij-teleskopicheskij-pogruzchik' } }">
-                <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/05/golosuem_3-01.jpg">
+              <nuxt-link v-else-if="golos === 2" :to="{ name: 'post-slug', params: {post:'vybor-professionalov',  slug: 'luchshij-teleskopicheskij-pogruzchik' } }">
+                <img class="wrapper__adImg" src="https://promotech.igrader.ru/wp-content/uploads/2020/05/golosuem_3-01.jpg">
               </nuxt-link>
             </div>
           </div>
@@ -270,7 +270,7 @@
           <div class="col-12 col-lg">
 
             <div class="field__four row row-cols-1 row-cols-md-2 row-cols-xl-4">
-              <nuxt-link class="col" v-for="post of servismenyi" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}">
+              <nuxt-link class="col" v-for="post of servismenyi" :key="post.id" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
                 <img :alt="post.alt" :src="post.x_featured_media_large">
                 <p v-html="post.title.rendered" class="field__span"></p>
                 <span class="serv">{{post.x_date}}</span>
@@ -280,7 +280,7 @@
             <div v-swiper:botSwiper="swiperOptions">
               <div class="swiper-wrapper">
                 <div class="swiper-slide" v-for="post of stranitciIstorii" :key="post.id">
-                  <nuxt-link class="col field__blockFull" :to="{name: 'post-slug', params: {slug: post.slug}}">
+                  <nuxt-link class="col field__blockFull" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
                   <div class="field__block">
                     <div class="field__imgBlc">
                       <img data-not-lazy :alt="post.alt" :src="post.x_featured_media_large">
@@ -322,7 +322,7 @@
         </h2>
 
         <div class="row">
-          <nuxt-link class="col-12 col-md" v-for="post of specialoffers" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}">
+          <nuxt-link class="col-12 col-md" v-for="post of specialoffers" :key="post.id" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
             <img :alt="post.alt" :src="post.x_featured_media_large">
             <p v-html="post.title.rendered" class="field__spanBot">
             </p>
@@ -336,7 +336,7 @@
         </h2>
 
         <div class="row">
-          <nuxt-link class="col-12 col-md" v-for="post of vyborProfessionalov" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}">
+          <nuxt-link class="col-12 col-md" v-for="post of vyborProfessionalov" :key="post.id" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
             <img :alt="post.alt" :src="post.x_featured_media_large">
             <p v-html="post.title.rendered" class="field__spanBot">
             </p>
@@ -366,14 +366,12 @@ export default {
     this.golos = rand(0, 2);
     this.width = document.documentElement.clientWidth
     this.$nextTick(() => {
-      window.addEventListener('scroll', this.loadCategories);
+      window.addEventListener('scroll', this.rest);
     })
   },
   destroyed() {
-    window.removeEventListener('scroll', this.loadCategories);
+    window.removeEventListener('scroll', this.rest);
   },
-
-  // layout: 'main-page',
   data: () => ({
     swiperOptions: {
       loop: true,
@@ -411,11 +409,7 @@ export default {
       }
     },
     width: 1920,
-    categories: [],
-    analitika: [],
     golos: null,
-    kruglyjStol: [],
-    krupniymPlanom: [],
     riders: [],
     servismenyi: [],
     stranitciIstorii: [],
@@ -447,69 +441,36 @@ export default {
     },
     sticky() {
       return this.$store.getters['mainPage/sticky']
+    },
+    categories() {
+      return this.$store.getters['mainPage/categories']
+    },
+    analitika() {
+      return this.$store.getters['mainPage/analitika']
+    },
+    kruglyjStol() {
+      return this.$store.getters['mainPage/kruglyjStol']
+    },
+    krupniymPlanom() {
+      return this.$store.getters['mainPage/krupniymPlanom']
+    },
+    lastLoad() {
+      return document.querySelector('.lastLoad').getBoundingClientRect().top;
     }
   },
   methods: {
-    async loadCategories() {
-      if(window.pageYOffset > this.leftBot) {
-        window.removeEventListener('scroll', this.loadCategories);
-        if (this.$store.getters['mainPage/categories'].length === 0) {
-          await this.$store.dispatch('mainPage/load3')
-        }
-
-        this.categories = this.$store.getters['mainPage/categories']
-        this.analitika = this.$store.getters['mainPage/analitika']
-
-        window.addEventListener('scroll', this.loadKruglyjStol);
-      }
-    },
-    async loadKruglyjStol() {
-      let a =  document.querySelector('.grader').getBoundingClientRect().top;
-      if(window.pageYOffset > a) {
-        window.removeEventListener('scroll', this.loadKruglyjStol);
-        if (this.$store.getters['mainPage/kruglyjStol'].length === 0) {
-          await this.$store.dispatch('mainPage/load4')
-        }
-        this.kruglyjStol = this.$store.getters['mainPage/kruglyjStol']
-        this.krupniymPlanom = this.$store.getters['mainPage/krupniymPlanom']
-
-        window.addEventListener('scroll', this.loadRiders);
-      }
-    },
-    async loadRiders() {
-      let a =  document.querySelector('.field__four').getBoundingClientRect().top;
-      if(window.pageYOffset > a) {
-        window.removeEventListener('scroll', this.loadRiders);
+    async rest() {
+      // let a =  document.querySelector('.lastLoad').getBoundingClientRect().top;
+      if(window.pageYOffset > this.lastLoad - 2000) {
+        window.removeEventListener('scroll', this.rest);
         if (this.$store.getters['mainPage/riders'].length === 0) {
-          await this.$store.dispatch('mainPage/load5')
-        }
-        this.riders = this.$store.getters['mainPage/riders']
-
-        window.addEventListener('scroll', this.loadServismenyi);
-      }
-    },
-    async loadServismenyi() {
-      let a =  document.querySelector('.big').getBoundingClientRect().top;
-      if(window.pageYOffset > a) {
-        window.removeEventListener('scroll', this.loadServismenyi);
-        if (this.$store.getters['mainPage/servismenyi'].length === 0) {
-          await this.$store.dispatch('mainPage/load6')
-        }
-        this.servismenyi = this.$store.getters['mainPage/servismenyi']
-        this.stranitciIstorii = this.$store.getters['mainPage/stranitciIstorii']
-
-        window.addEventListener('scroll', this.lastLoad);
-      }
-    },
-    async lastLoad() {
-      let a =  document.querySelector('.lastLoad').getBoundingClientRect().bottom;
-      if(window.pageYOffset > a) {
-        window.removeEventListener('scroll', this.lastLoad);
-        if (this.$store.getters['mainPage/vyborProfessionalov'].length === 0) {
-          await this.$store.dispatch('mainPage/load7')
+          await this.$store.dispatch('mainPage/rest')
         }
         this.vyborProfessionalov = this.$store.getters['mainPage/vyborProfessionalov']
         this.specialoffers = this.$store.getters['mainPage/specialoffers']
+        this.servismenyi = this.$store.getters['mainPage/servismenyi']
+        this.stranitciIstorii = this.$store.getters['mainPage/stranitciIstorii']
+        this.riders = this.$store.getters['mainPage/riders']
       }
     },
   }

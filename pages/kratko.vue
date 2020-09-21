@@ -7,7 +7,7 @@
     </h2>
 
     <div class="kratko row row-cols-1 row-cols-md-3">
-      <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="col" v-for="(post, ind) of posts" :key="post.id" v-if="ind < 6">
+      <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="col" v-for="(post, ind) of posts" :key="post.id" v-if="ind < 6">
         <div class="kratko__imgBlc">
           <img :alt="post.alt" :src="post.x_featured_media_large" class="kratko__img">
         </div>
@@ -29,7 +29,7 @@
 
         <div class="col" v-for="(title, ind) of sticky" :key="title.id" v-if="ind < 3">
           <div>
-            <nuxt-link :to="{name: 'post-slug', params: {slug: title.slug}}">
+            <nuxt-link :to="{name: 'post-slug', params: {post:title.x_cats_slug[0], slug: title.slug}}">
               <div class="wrapper__trpl">
                 <img :alt='title.alt' :src="title.x_featured_media_large">
                 <span>{{title.x_types[0]}}</span>
@@ -46,7 +46,7 @@
     <div class="long-ad" id="adfox_159374525659365226"></div>
 
     <div class="kratko row row-cols-1 row-cols-md-3">
-      <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="col" v-for="(post, ind) of posts" :key="post.id" v-if="ind > 5">
+      <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="col" v-for="(post, ind) of posts" :key="post.id" v-if="ind > 5">
         <div class="kratko__imgBlc">
           <img :alt="post.alt" :src="post.x_featured_media_large" class="kratko__img">
         </div>

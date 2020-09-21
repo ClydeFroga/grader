@@ -169,7 +169,7 @@
               </a>
             </h2>
 
-            <nuxt-link v-for="post of postsRight" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}" class="foxy-news-line">
+            <nuxt-link v-for="post of postsRight" :key="post.id" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="foxy-news-line">
               <div class="foxy__text" v-html="post.title.rendered.slice(0, 45) + ' ...'">
               </div>
               <div>
@@ -210,7 +210,7 @@
       <div v-swiper:mySwip="middleSwiper">
         <div class="swiper-wrapper">
           <a v-for="post of sticky" :key="post.id" class="swiper-slide single">
-            <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="col field__blockFull">
+            <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="col field__blockFull">
               <div class="field__block">
                 <div class="field__imgBlcBig">
                   <img data-not-lazy :alt="post.alt" :src="post.x_featured_media_large">
@@ -230,7 +230,7 @@
       </h2>
 
       <div class="kratko row row-cols-1 row-cols-sm-2 row-cols-md-4">
-        <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="col" v-for="(post, ind) of postsSame" :key="post.id" v-if="ind < 6">
+        <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="col" v-for="(post, ind) of postsSame" :key="post.id" v-if="ind < 6">
           <div class="kratko__imgBlc">
             <img :alt="post.alt" :src="post.x_featured_media_large" class="kratko__img">
           </div>
@@ -256,7 +256,7 @@
         <div class="col-12 col-lg">
 
           <div class="row-cols-1 row-cols-md-2 row">
-            <nuxt-link v-for="post of postsBot" :key="post.id" class="col field__blockFull" :to="{name: 'post-slug', params: {slug: post.slug}}">
+            <nuxt-link v-for="post of postsBot" :key="post.id" class="col field__blockFull" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
 
               <div class="field__block">
                 <div class="field__imgBlc">

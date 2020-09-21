@@ -34,7 +34,7 @@
     </div>
     <div v-else v-for="post of posts" :key="post.id" class="row news__one">
       <div class="col-12 col-sm">
-        <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}">
+        <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
           <img :src="post.x_featured_media_large" :alt="post.alt">
         </nuxt-link>
       </div>
@@ -48,7 +48,7 @@
               {{post.x_date}}
             </span>
         </div>
-        <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}">
+        <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
           <div v-html="post.title.rendered" class="news__title">
 
           </div>

@@ -9,7 +9,7 @@
 
     <div v-for="(post, index) of posts" :key="post.id" class="row news__one">
       <div class="col-12 col-sm">
-        <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}">
+        <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
           <img :src="post.x_featured_media_large" :alt="post.alt">
         </nuxt-link>
 
@@ -24,7 +24,7 @@
             {{post.x_date}}
           </span>
         </div>
-        <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}">
+        <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
           <div v-html="post.title.rendered" class="news__title">
 
           </div>
@@ -38,7 +38,7 @@
 
           <div class="col" v-for="(title, ind) of sticky" :key="title.id" v-if="ind < 3 && index === 2">
             <div>
-              <nuxt-link :to="{name: 'post-slug', params: {slug: title.slug}}">
+              <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: title.slug}}">
                 <div class="wrapper__trpl">
                   <img :alt='title.alt' :src="title.x_featured_media_large">
                   <span>{{title.x_types[0]}}</span>

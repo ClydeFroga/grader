@@ -1,5 +1,5 @@
 <template>
-  <div class="about col-12 col-lg-7 left single adv" >
+  <div class="about col-12 col-lg-7 left single pages" >
     <div v-for="post of posts" :key="post.id" v-if="posts.length !== 0">
       <h1>{{post.title.rendered}}</h1>
       <div class="news__breadcrumbs">

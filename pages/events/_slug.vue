@@ -92,7 +92,7 @@
               </a>
             </h2>
 
-            <nuxt-link v-if="ind < 3" v-for="(post, ind) of postsRight" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}" class="foxy-news-line">
+            <nuxt-link v-if="ind < 3" v-for="(post, ind) of postsRight" :key="post.id" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="foxy-news-line">
               <div class="foxy__text" v-html="post.title.rendered.slice(0, 45) + ' ...'">
               </div>
               <div>
@@ -131,7 +131,7 @@
       </h2>
 
       <div class="kratko row row-cols-2 row-cols-md-4">
-        <nuxt-link :to="{name: 'post-slug', params: {slug: post.slug}}" class="col" v-for="(post, ind) of postsRight" :key="post.id" v-if="ind < 6">
+        <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="col" v-for="(post, ind) of postsRight" :key="post.id" v-if="ind < 6">
           <div class="kratko__imgBlc">
             <img :alt="post.alt" :src="post.x_featured_media_large" class="kratko__img">
           </div>

@@ -9,7 +9,7 @@
           Новости
         </a>
       </h2>
-      <nuxt-link v-for="post of posts" :key="post.id" :to="{name: 'post-slug', params: {slug: post.slug}}" class="foxy-news-line">
+      <nuxt-link v-for="post of posts" :key="post.id" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="foxy-news-line">
         <div class="foxy__text" v-html="post.title.rendered.slice(0, 45) + ' ...'">
         </div>
         <div>

@@ -40,12 +40,12 @@
     //   }
     // },
     mounted() {
-        this.adfox()
+        // this.adfox()
     },
     updated() {
-      setTimeout(() => {
-        this.adfoxRel()
-      }, 1500)
+      // setTimeout(() => {
+      //   this.adfoxRel()
+      // }, 1500)
     },
     methods: {
       adfox() {

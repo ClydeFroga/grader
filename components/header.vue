@@ -47,7 +47,7 @@
                 <nuxt-link class="nav-link nav-m" :to="{name: 'news-slug', params: {slug: 'specialoffer'}}">🔥 Спецпредложения</nuxt-link>
               </li>
               <li class="nav-item ">
-                <nuxt-link class="nav-link nav-m" :to="{name: 'pages-slug', params: {slug: 'adv'}}">Рекламодателям</nuxt-link>
+                <nuxt-link class="nav-link nav-m" :to="{name: 'pages-slug', params: {slug: 'infoforpartners'}}">Рекламодателям</nuxt-link>
               </li>
             </ul>
           </div>
@@ -143,7 +143,9 @@
     },
     openModal() {
       let modal = document.querySelector('.searchBlock')
+      let inp = document.querySelector('.searchBlock input')
       modal.style.display = 'block'
+      inp.focus()
       window.onclick = function(event) {
         if (event.target == modal) {
           modal.style.display = "none";

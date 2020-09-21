@@ -14,7 +14,7 @@
           <div class="foote__line">
             <span class="foote__title">Правила</span>
             <nuxt-link :to="{name: 'pages-slug', params: {slug: 'rules'}}">Условия использования сайта</nuxt-link>
-            <nuxt-link :to="{name: 'pages-slug', params: {slug: 'privacy'}}">Политика конфиденциальности</nuxt-link>
+            <nuxt-link :to="{name: 'pages-slug', params: {slug: 'for_users'}}">Политика конфиденциальности</nuxt-link>
             <nuxt-link :to="{name: 'pages-slug', params: {slug: 'politika-obrabotki-personalnyih-dannyih'}}">Политика обработки персональных данных</nuxt-link>
           </div>
         </div>

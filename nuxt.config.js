@@ -55,6 +55,7 @@ module.exports = {
     accurateTrackBounce:true,
   },
 
+
   modules: [
     '@nuxtjs/yandex-metrika',
     ['nuxt-rfg-icon', {
@@ -82,6 +83,9 @@ module.exports = {
     'nuxt-fullpage.js',
     'nuxt-validate',
   ],
+
+
+
 
   nuxtValidate: {
     lang: 'ru',
