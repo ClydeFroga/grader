@@ -67,7 +67,7 @@ export const state = () => ({
       let news = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=5')
       news = await news.json()
 
-      let categories = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/categories?per_page=100')
+      let categories = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/categories?per_page=100&exclude=1480,5')
       categories = await categories.json()
 
       let analitika = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1600&per_page=4')

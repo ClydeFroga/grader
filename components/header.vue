@@ -28,11 +28,11 @@
           <div class="collapse navbar-collapse expanded" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item dropdown" @click="openDrop('.top_drop')">
-                <a class="nav-link dropdown-toggle" href="#">
+                <a class="nav-link dropdown-toggle">
                   Журнал «Грейдер»
                 </a>
                 <div class="dropdown-menu top_drop hide" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item nav-m" href="https://igrader.promogroupmedia.ru/">О журнале</a>
+                  <a class="dropdown-item nav-m" target="_blank" href="https://igrader.promogroupmedia.ru/">О журнале</a>
                   <nuxt-link class="dropdown-item nav-m" to="/archive">Архив</nuxt-link>
                   <nuxt-link class="dropdown-item nav-m" :to="{name: 'pages-slug', params: {slug: 'about'}}">Подписка на журнал</nuxt-link>
                 </div>

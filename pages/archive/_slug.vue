@@ -22,7 +22,7 @@
         <div class="magazine__links">
           <a :href="post.acf.floowie_link">Листать журнал</a>
           <a :href="post.acf.pdf_magazine">Смотреть pdf</a>
-          <nuxt-link to="/about">Оформить подписку</nuxt-link>
+          <nuxt-link to="/pages/about">Оформить подписку</nuxt-link>
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: 'Портал igrader.ru - обзор рынка спецтехники, грузовиков и коммерческого транспорта. Тест-драйвы погрузчиков, экскаваторов и другой строительной техники.' }
     ],
     link: [
       // { rel: 'icon', type: 'image/png', href: 'favicon2.png' }
@@ -22,7 +22,6 @@ module.exports = {
 
   css: [
     '../assets/style.css',
-
   ],
 
   plugins: [

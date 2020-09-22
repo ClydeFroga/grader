@@ -38,8 +38,8 @@
 <style scoped>
   .arrow {
     position: fixed;
-    right: 60px;
-    bottom: 40px;
+    right: 0;
+    bottom: 0;
     cursor: pointer;
     width: 40px;
     height: 45px;

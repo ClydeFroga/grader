@@ -322,12 +322,11 @@ export default {
         }
       },
       botNews() {
-        let r = rand(0, 21)
-        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/comtrans?per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
+        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/comtrans?per_page=4&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsSame = responce
         })
-        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1601&per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
+        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1601,1603,1602&per_page=4&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsBot = responce
         })

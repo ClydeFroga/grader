@@ -75,10 +75,10 @@
                 <div class="sp-field sp-field-full-width">
                   <div style="line-height: 1.2;">
                     <p style="text-align: center;">
-                            <span style="color: #000000; font-size: 1.15rem;">
-                                <strong style="font-size: 1.15rem;">Понравился материал? Подпишитесь</strong><br />
-                                на отраслевой дайджест и получайте подборку статей каждый месяц
-                            </span>
+                      <span style="color: #000000; font-size: 1.15rem;">
+                          <strong style="font-size: 1.15rem;">Понравился материал? Подпишитесь</strong><br />
+                          на отраслевой дайджест и получайте подборку статей каждый месяц
+                      </span>
                       <span style="color: #000000; font-size: 1.15rem;">.<br /></span>
                     </p>
                   </div>
@@ -207,6 +207,12 @@
 
     <div>
 
+      <h2 class="field__title noMrg">
+        <a>
+          Предложения  партнёров
+        </a>
+      </h2>
+
       <div v-swiper:mySwip="middleSwiper">
         <div class="swiper-wrapper">
           <a v-for="post of sticky" :key="post.id" class="swiper-slide single">
@@ -220,17 +226,23 @@
             </nuxt-link>
           </a>
         </div>
+        <div class="swiper-next topper">
+          <svg-icon width="20" height="20" name="arrowRight"></svg-icon>
+        </div>
+        <div class="swiper-prev topper">
+          <svg-icon width="20" height="20" name="arrowLeft"></svg-icon>
+        </div>
 
       </div>
 
-      <h2 class="field__title">
+      <h2 v-if="postsSame[0] != undefined" class="field__title">
         <nuxt-link :to="{name: 'news-slug', params: {slug: this.titles[0].x_types_slug[0]}}">
-          {{this.titles[0].x_types[0]}}
+          {{postsSame[0].x_types[0]}}
         </nuxt-link>
       </h2>
 
       <div class="kratko row row-cols-1 row-cols-sm-2 row-cols-md-4">
-        <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="col" v-for="(post, ind) of postsSame" :key="post.id" v-if="ind < 6">
+        <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="col" v-for="(post, ind) of postsSame" :key="post.id">
           <div class="kratko__imgBlc">
             <img :alt="post.alt" :src="post.x_featured_media_large" class="kratko__img">
           </div>
@@ -252,7 +264,7 @@
         </a>
       </h2>
 
-      <div class="row field">
+      <div class="row field noTopMrg">
         <div class="col-12 col-lg">
 
           <div class="row-cols-1 row-cols-md-2 row">
@@ -289,24 +301,25 @@ import 'swiper/swiper-bundle.css'
 import rand from 'lodash/random'
 
 export default {
-  components: {
-    Swiper,
-    SwiperSlide
-  },
-  directives: {
+    components: {
+      Swiper,
+      SwiperSlide
+    },
+    directives: {
     swiper: directive
   },
     head() {
       return {
         title: this.titles[0].title.rendered.replace(/&#\d+;/g, ''),
         meta: [
+          { name: 'robots', content: this.robots},
           { hid: 'description', name: 'description', content: this.titles[0].excerpt.rendered.replace(/&#\d+;/g, '').slice(0, 180) + ' ...' }
         ],
-
       }
     },
     data() {
       return {
+        robots: 'all',
         width: 1920,
         offset: 0,
         loaded: [],
@@ -325,6 +338,10 @@ export default {
           spaceBetween: 15,
           autoplay: {
             delay: 5000,
+          },
+          navigation: {
+            nextEl: '.swiper-next',
+            prevEl: '.swiper-prev',
           },
           breakpoints: {
             476: {
@@ -349,7 +366,7 @@ export default {
       window.removeEventListener('scroll', this.loadPost);
       window.removeEventListener('scroll', this.selectBlc);
     },
-  async fetch({store}) {
+    async fetch({store}) {
       if (store.getters['lastMag/journal'].length === 0) {
         await store.dispatch('lastMag/fetch')
       }
@@ -363,11 +380,14 @@ export default {
       if(titles.length === 0) {
         redirect(301, `/404`)
       }
-      // let urls = ['http://localhost:3000/post/' + params.slug]
       let urls = ['https://igrader.ru/post/' + params.slug]   //заменить!!!!!!
       let articles = [titles[0].title.rendered.replace(/&#\d+;/g, '')]
       let ids = [titles[0].id]
-      return {titles, urls, articles, ids}
+      let robots = 'all'
+      if(titles[0].x_cats_slug[0] === 'prototip') {
+        robots = 'noindex';
+      }
+      return {titles, urls, articles, ids, robots}
     },
     computed: {
       journal() {
@@ -412,7 +432,7 @@ export default {
           if(!this.body.classList.contains('loading')) {
             this.body.classList.add('loading')
             this.offset++
-            this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes' + '&offset=' + this.offset + '&per_page=1&exclude=' + this.titles[0].id)
+            this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599' + '&offset=' + this.offset + '&per_page=1&exclude=' + this.titles[0].id)
             .then(responce => {
               for(let item of responce) {
                 let name = item.title.rendered.replace(/&#\d+;/g, '')
@@ -566,6 +586,7 @@ export default {
         }
       },
       loadRightNews() {
+        let r = rand(0, 6)
         let a = null
         switch(this.disq){
           case 1600:
@@ -578,9 +599,10 @@ export default {
           case 1602:a = '1601';break;
           case 1601:
           case 1606:
+          case 2110:
           default:a = '1599';break;
         };
-        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=3&exclude=' + this.titles[0].id)
+        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=3&exclude=' + this.titles[0].id + '&offset=' + r)
         .then(responce => {
           this.postsRight = responce
         })
@@ -593,28 +615,27 @@ export default {
         }
       },
       botNews() {
-        let r = rand(0, 21)
         let a = ''
         let b = ''
         switch(this.disq){
-          case 1603:a='1601,1602,1605';break;
-          case 1601:
-          case 1606:
-          case 1599:a='1603';break;
+          case 2110:a='1603'; b='2110'; break;
+          case 1603:a='1601,1602,1605'; b='1603'; break;
+          case 1601:b='1601,1033'; a='1603'; break;
+          case 1606:a='1603'; b='1600'; break;
+          case 1599:a='1603'; b='1599'; break;
           case 1605:
           case 1638:
-          case 1033:a='1602';break;
-          case 1602:a='1605,1638,1033';break;
+          case 1033:a='1602'; b='1605,1638,1033'; break;
+          case 1602:a='1605,1638,1033'; b='1603'; break;
           case 1600:
-          case 2110:
-          case 1604:
-          default:a='1601';break;
+          case 1604: b='1604'; a='1601'; break;
+          default:a='1601'; break;
         }
-        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + this.disq + '&per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
+        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + b + '&per_page=4&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsSame = responce
         })
-        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=4&exclude=' + this.titles[0].id + '&offset=' + r)
+        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=4&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsBot = responce
         })
@@ -623,7 +644,7 @@ export default {
         let butt = document.querySelector('.sp-button')
         let res = document.querySelector('#result')
 
-        fetch('https://promotech.igrader.ru/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email)
+        fetch('https://promotech.igrader.ru/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email + '&id=88981846')
         .then(responce => responce.json())
         .then(result => {
           if(result.result === true) {
@@ -641,5 +662,11 @@ export default {
 <style scoped>
   .wp-polls-loading {
     display: none;
+  }
+  .noMrg {
+    margin-bottom: 0;
+  }
+  .noTopMrg {
+    margin-top: 0;
   }
 </style>

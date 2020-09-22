@@ -19,7 +19,7 @@
       cookie
     },
     mounted() {
-      this.adfox()
+      // this.adfox()
     },
     // computed: {
     //   cookies() {
@@ -28,9 +28,9 @@
     //   }
     // },
     updated() {
-      setTimeout(() => {
-        this.adfoxRel
-      }, 1500)
+      // setTimeout(() => {
+      //   this.adfoxRel
+      // }, 1500)
     },
     methods: {
       adfox() {
