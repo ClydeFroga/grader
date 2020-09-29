@@ -102,12 +102,14 @@
     </nav>
 
     <div class="searchBlock" id="search">
-      <div class="input-group">
-        <input @keyup.enter.prevent="allRequests(searchQuery)" v-model="searchQuery" type="search" class="form-control" placeholder="Что ищем?" aria-describedby="button-addon2">
-        <div class="input-group-append">
-          <button @click="allRequests(searchQuery)" class="btn" type="submit" id="button-addon2">Поиск</button>
+      <transition name="poisk">
+        <div v-show="this.poisk === 1" class="input-group">
+          <input @keyup.enter.prevent="allRequests(searchQuery)" v-model="searchQuery" type="search" class="form-control" placeholder="Что ищем?" aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <button @click="allRequests(searchQuery)" class="btn" type="submit" id="button-addon2">Поиск</button>
+          </div>
         </div>
-      </div>
+      </transition>
     </div>
   </header>
 </template>
@@ -117,7 +119,8 @@
     data() {
       return {
         searchQuery: '',
-        open: 0
+        open: 0,
+        poisk: 0,
       }
     },
     mounted() {
@@ -144,13 +147,35 @@
     openModal() {
       let modal = document.querySelector('.searchBlock')
       let inp = document.querySelector('.searchBlock input')
+      let i = 0;
       modal.style.display = 'block'
-      inp.focus()
+
+      let timer = setInterval(() => {
+        modal.style.opacity = i;
+        i += 0.1;
+        if(i > 1) {
+          this.poisk = 1;
+          clearInterval(timer)
+        }
+      }, 20)
+
+      setTimeout(() => {
+        inp.focus()
+      },600)
+
       window.onclick = function(event) {
         if (event.target == modal) {
-          modal.style.display = "none";
+          let timer2 = setInterval(() => {
+            modal.style.opacity = i;
+            i -= 0.1;
+            if(i <= 0) {
+              clearInterval(timer2)
+              modal.style.display = "none";
+            }
+          }, 20)
         }
       }
+      this.poisk = 0;
     },
     openDropdown(dropdown) {
       let exp = document.querySelectorAll(dropdown)
@@ -197,7 +222,7 @@
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .open {
     display: block;
   }

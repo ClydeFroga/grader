@@ -5,6 +5,8 @@
     <div class="news__breadcrumbs">
       <nuxt-link to="/">Главная</nuxt-link>
       <span> / </span>
+      <nuxt-link to="/archive">Архив</nuxt-link>
+      <span> / </span>
       <span>{{this.cat[0].name}}</span>
     </div>
 

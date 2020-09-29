@@ -49,7 +49,7 @@ module.exports = {
     id: '23728024',
     webvisor: true,
     clickmap:true,
-    trackHash:true,
+    trackHash:false,
     trackLinks:true,
     accurateTrackBounce:true,
   },
@@ -95,7 +95,19 @@ module.exports = {
   },
 
   redirect: [
-    { from: '^/news/?$', to: '/kratko' }
+    { from: '^/news/?$', to: '/kratko' },
+    {  from: '^/comtrans/(.*)$',
+      to: (from, req) => {
+        const param = req.url.match(/comtrans\/(.*)$/)[1]
+        return `/comtrans-2019/${param}`
+      }
+    },
+    {  from: '^/\\d+/\\d+/(.*)$',
+      to: (from, req) => {
+        const param = req.url.match(/\/\d*\/\d*\/(.+)/)[1]
+        return `/difference/${param}`
+      }
+    },
   ],
   loading: { color: "#ff9900" },
 

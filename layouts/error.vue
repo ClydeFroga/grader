@@ -1,6 +1,6 @@
 <template>
   <div class="col-12 col-lg-9 news left">
-      <img class="img404" src="@/static/404.png">
+    <img class="img404" src="@/static/404.png">
     <p>
       Кажется кто-то закатал эту страницу в асфальт или она никогда не существовала.
       Воспользуйтесь поиском или посмотрите топчик.

@@ -310,10 +310,10 @@ export default {
   },
     head() {
       return {
-        title: this.titles[0].title.rendered.replace(/&#\d+;/g, ''),
+        title: this.titles[0].title.rendered.replace(/&(#)?(amp;)?\d+;/g, ''),
         meta: [
           { name: 'robots', content: this.robots},
-          { hid: 'description', name: 'description', content: this.titles[0].excerpt.rendered.replace(/&#\d+;/g, '').slice(0, 180) + ' ...' }
+          { hid: 'description', name: 'description', content: this.titles[0].excerpt.rendered.replace(/&.+;/g, '').slice(0, 180) + ' ...' }
         ],
       }
     },
@@ -375,6 +375,10 @@ export default {
       }
     },
     async asyncData({params, redirect}) {
+      if(params.slug === undefined) {
+        console.log('ecgt[')
+        redirect(301, `/404`)
+      }
       let titles = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?slug=' + params.slug)
       titles = await titles.json()
       if(titles.length === 0) {

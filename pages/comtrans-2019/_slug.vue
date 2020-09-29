@@ -262,7 +262,7 @@ import rand from "lodash/random";
 export default {
     head() {
       return {
-        title: this.titles[0].title.rendered,
+        title: this.titles[0].title.rendered.replace(/&(#)?(amp;)?\d+;/g, ''),
         meta: [
           { hid: 'description', name: 'description', content: this.titles[0].excerpt.rendered.replace(/&#\d+;/g, '').slice(0, 180) + ' ...' }
         ],
@@ -274,6 +274,8 @@ export default {
         postsRight: [],
         postsBot: [],
         postsSame: [],
+        email: '',
+        pname: '',
       }
     },
     mounted() {

@@ -38,13 +38,16 @@
     //     return cookieRes !== 1;
     //   }
     // },
+    // beforeMount() {
+    //   this.adfoxDestr()
+    // },
     mounted() {
-        this.adfox()
+        // this.adfox()
     },
     updated() {
-      setTimeout(() => {
-        this.adfoxRel()
-      }, 1500)
+      // setTimeout(() => {
+      //   this.adfoxRel()
+      // }, 1500)
     },
     methods: {
       adfox() {
@@ -119,6 +122,11 @@
           window.Ya.adfoxCode.reload()
         }
       },
+      // adfoxDestr() {
+      //   if(window.Ya) {
+      //     window.Ya.adfoxCode.destroy();
+      //   }
+      // },
     }
   }
 </script>

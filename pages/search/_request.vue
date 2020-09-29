@@ -9,22 +9,24 @@
 
     <div v-for="(post, index) of posts" :key="post.id" class="row news__one">
       <div class="col-12 col-sm">
-        <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
+        <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0]? post.x_cats_slug[0]: 'difference', slug: post.slug}}">
           <img :src="post.x_featured_media_large" :alt="post.alt">
         </nuxt-link>
-
       </div>
 
       <div class="col-12 col-sm-7">
         <div>
-          <nuxt-link :to="{name: 'category-slug', params: {slug: post.x_cats_slug[0]}}" class="news__cat">
+          <nuxt-link v-if="post.x_cats[0]" :to="{name: 'category-slug', params: {slug: post.x_cats_slug[0]}}" class="news__cat">
             {{post.x_cats[0]}}
+          </nuxt-link>
+          <nuxt-link v-else :to="{name: 'category-slug', params: {slug: 'difference'}}" class="news__cat">
+            Разное
           </nuxt-link>
           <span class="news__date">
             {{post.x_date}}
           </span>
         </div>
-        <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
+        <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0]? post.x_cats_slug[0]: 'difference', slug: post.slug}}">
           <div v-html="post.title.rendered" class="news__title">
 
           </div>

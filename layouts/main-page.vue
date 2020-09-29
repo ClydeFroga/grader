@@ -19,7 +19,7 @@
       cookie
     },
     mounted() {
-      // this.adfox()
+      this.adfox()
     },
     // computed: {
     //   cookies() {
@@ -27,10 +27,13 @@
     //     return cookieRes !== 1;
     //   }
     // },
+    // beforeMount() {
+    //   this.adfoxDestr()
+    // },
     updated() {
-      // setTimeout(() => {
-      //   this.adfoxRel
-      // }, 1500)
+      setTimeout(() => {
+        this.adfoxRel
+      }, 1500)
     },
     methods: {
       adfox() {
@@ -101,6 +104,11 @@
           // });
         }
       },
+      // adfoxDestr() {
+      //   if(window.Ya) {
+      //     window.Ya.adfoxCode.destroy();
+      //   }
+      // },
       adfoxRel() {
         if(window.Ya) {
           window.Ya.adfoxCode.reload()

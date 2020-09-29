@@ -41,10 +41,10 @@
 
               </div>
 
-              <div v-if="this.width < 577" class="col-12 long-ad" id="adfox_159374525659365226"></div>
+<!--              <div v-if="this.width < 577" class="col-12 long-ad" id="adfox_159374525659365226"></div>-->
 
               <div class="col col-xl-4">
-                  <nuxt-link class="wrapper__title title-top" :to="{ name: 'news-slug', params: { slug: 'analitika' } }">
+                  <nuxt-link class="wrapper__title title-top" to="/kratko">
                     Новости
                   </nuxt-link>
                 <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" v-for="post of news" :key="post.id" class="orangeHover wrapper__text" >
@@ -82,7 +82,7 @@
           </div>
         </div>
 
-          <div v-if="this.width > 577" class="long-ad" id="adfox_159374525659365226"></div>
+          <div  class="long-ad" id="adfox_159374525659365226"></div>
 
         <div v-if="this.width > 576" class="wrapper__mainthemes">
           <span>
@@ -275,22 +275,21 @@
               </nuxt-link>
             </div>
 
-            <div v-swiper:botSwiper="swiperOptions">
+            <div v-swiper:botSwiper="swiperOptions2">
               <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="post of stranitciIstorii" :key="post.id">
+                <div  class="swiper-slide" v-for="post of stranitciIstorii" :key="post.id">
                   <nuxt-link class="col field__blockFull" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
-                  <div class="field__block">
-                    <div class="field__imgBlc">
-                      <img data-not-lazy :alt="post.alt" :src="post.x_featured_media_large">
-                      <div class="sw-top">
-                        <span>{{post.x_types[0]}}</span>
-                        <p v-html="post.title.rendered">
-                        </p>
-                        <div>
-                          <span>{{post.x_cats[0]}}</span>
+                    <div class="field__block">
+                      <div data-not-lazy class="field__imgBlc" :style="{'background-image': `url(${post.x_featured_media_large})`, backgroundSize: 'cover'}" >
+                        <div  class="sw-top">
+                          <span>{{post.x_types[0]}}</span>
+                          <p v-html="post.title.rendered">
+                          </p>
+                          <div>
+                            <span>{{post.x_cats[0]}}</span>
+                          </div>
                         </div>
                       </div>
-                    </div>
                   </div>
                   </nuxt-link>
                 </div>
@@ -303,6 +302,7 @@
                 <svg-icon width="20" height="20" name="arrowLeft"></svg-icon>
               </div>
             </div>
+
           </div>
 
           <div class="col-12 col-lg-3">
@@ -373,12 +373,21 @@ export default {
   data: () => ({
     swiperOptions: {
       loop: true,
-      fadeEffect: {
-        crossFade: true
-      },
       autoplay: {
         delay: 5000,
       },
+
+      navigation: {
+        nextEl: '.swiper-next',
+        prevEl: '.swiper-prev',
+      },
+    },
+    swiperOptions2: {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+      },
+      // watchSlidesVisibility: true,
       navigation: {
         nextEl: '.swiper-next',
         prevEl: '.swiper-prev',
