@@ -364,7 +364,7 @@ export default {
     this.golos = rand(0, 2);
     this.width = document.documentElement.clientWidth
     this.$nextTick(() => {
-      window.addEventListener('scroll', this.rest);
+      this.rest();
     })
   },
   destroyed() {
@@ -461,24 +461,17 @@ export default {
     krupniymPlanom() {
       return this.$store.getters['mainPage/krupniymPlanom']
     },
-    lastLoad() {
-      return document.querySelector('.lastLoad').getBoundingClientRect().top;
-    }
   },
   methods: {
     async rest() {
-      // let a =  document.querySelector('.lastLoad').getBoundingClientRect().top;
-      if(window.pageYOffset > this.lastLoad - 2000) {
-        window.removeEventListener('scroll', this.rest);
-        if (this.$store.getters['mainPage/riders'].length === 0) {
-          await this.$store.dispatch('mainPage/rest')
-        }
-        this.vyborProfessionalov = this.$store.getters['mainPage/vyborProfessionalov']
-        this.specialoffers = this.$store.getters['mainPage/specialoffers']
-        this.servismenyi = this.$store.getters['mainPage/servismenyi']
-        this.stranitciIstorii = this.$store.getters['mainPage/stranitciIstorii']
-        this.riders = this.$store.getters['mainPage/riders']
+      if (this.$store.getters['mainPage/riders'].length === 0) {
+        await this.$store.dispatch('mainPage/rest')
       }
+      this.vyborProfessionalov = this.$store.getters['mainPage/vyborProfessionalov']
+      this.specialoffers = this.$store.getters['mainPage/specialoffers']
+      this.servismenyi = this.$store.getters['mainPage/servismenyi']
+      this.stranitciIstorii = this.$store.getters['mainPage/stranitciIstorii']
+      this.riders = this.$store.getters['mainPage/riders']
     },
   }
 }

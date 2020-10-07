@@ -6,13 +6,13 @@
       </nuxt-link>
 
       <div class="lane__cat">
-        <nuxt-link :to="{name: 'category-slug', params: {slug: post.x_cats_slug[0]}}" class="lane__title">{{post.x_cats[0]}}</nuxt-link>
+        <nuxt-link :to="{name: 'category-slug', params: {slug: post.x_cats_slug[0]}}" class="">{{post.x_cats[0]}}</nuxt-link>
       </div>
 
       <div class="lane__excerpt" v-html="post.excerpt.rendered.slice(0, 180) + ' ...'"></div>
 
       <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
-        <img class="lane__img" :alt="post.alt" :src="post.x_featured_media_large">
+        <img class="lane__img" :alt="post.alt" :src="post.x_featured_media_large"  type="image/webp">
       </nuxt-link>
 
 

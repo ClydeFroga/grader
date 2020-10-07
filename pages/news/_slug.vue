@@ -4,7 +4,7 @@
       <div class="news__breadcrumbs">
         <nuxt-link to="/">Главная</nuxt-link>
         <span> / </span>
-        <span>{{this.cat[0].name}}</span>
+        <span>{{this.cat}}</span>
       </div>
 
       <div v-for="(post, index) of posts" :key="post.id" class="row news__one">
@@ -86,18 +86,23 @@
     }),
     head() {
       return {
-        title: this.cat[0].name + ' | iGrader.ru'
+        title: this.cat + ' | iGrader.ru'
       }
     },
     async asyncData({params, redirect}) {
-      let cat = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/mainthemes?search=' + params.slug)
-      cat = await cat.json()
-      if(cat.length === 0) {
-        redirect(301, `/404`)
-      }
-      const url = 'https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + cat[0].id;
-      let posts = await fetch(url)
-      posts = await posts.json()
+      let cat = '';
+      const url = 'http://localhost/igrader/wp-json/wp/v2/posts?mainthemes_slug=' + params.slug;
+      // const url = 'https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes_slug=' + params.slug;
+      let posts = []
+      await fetch(url)
+      .then(responce => responce.json())
+      .then(result => {
+        if(result.length === 0) {
+          redirect(301, `/404`)
+        }
+        posts = result;
+        cat = result[0].x_types[0]
+      })
 
       return {posts, url, cat}
     },

@@ -204,7 +204,6 @@
       <Disqus />
     </div>
 
-
     <div>
 
       <h2 class="field__title noMrg">
@@ -213,7 +212,7 @@
         </a>
       </h2>
 
-      <div v-swiper:mySwip="middleSwiper">
+      <div v-if="sticky !== undefined" v-swiper:mySwip="middleSwiper">
         <div class="swiper-wrapper">
           <a v-for="post of sticky" :key="post.id" class="swiper-slide single">
             <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}" class="col field__blockFull">
@@ -232,7 +231,6 @@
         <div class="swiper-prev topper">
           <svg-icon width="20" height="20" name="arrowLeft"></svg-icon>
         </div>
-
       </div>
 
       <h2 v-if="postsSame[0] != undefined" class="field__title">
@@ -289,6 +287,10 @@
           <div class="foxy" id="adfox_159712112538951246"></div>
         </div>
       </div>
+    </div>
+
+    <div class="modalForImg">
+      <img class="modalImg" src="">
     </div>
   </div>
 
@@ -361,6 +363,7 @@ export default {
         setTimeout(() => window.addEventListener('scroll', this.selectBlc), 5000)
       }
       this.findOpr()
+      this.lightBox()
     },
     destroyed() {
       window.removeEventListener('scroll', this.loadPost);
@@ -370,13 +373,9 @@ export default {
       if (store.getters['lastMag/journal'].length === 0) {
         await store.dispatch('lastMag/fetch')
       }
-      if (store.getters['mainPage/sticky'].length === 0) {
-        await store.dispatch('mainPage/sticky')
-      }
     },
     async asyncData({params, redirect}) {
       if(params.slug === undefined) {
-        console.log('ecgt[')
         redirect(301, `/404`)
       }
       let titles = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?slug=' + params.slug)
@@ -384,14 +383,15 @@ export default {
       if(titles.length === 0) {
         redirect(301, `/404`)
       }
-      let urls = ['https://igrader.ru/post/' + params.slug]   //заменить!!!!!!
+      let category = params.post;
+      let urls = ['https://igrader.ru/' + category + '/' + params.slug]   //заменить!!!!!!
       let articles = [titles[0].title.rendered.replace(/&#\d+;/g, '')]
       let ids = [titles[0].id]
       let robots = 'all'
       if(titles[0].x_cats_slug[0] === 'prototip') {
         robots = 'noindex';
       }
-      return {titles, urls, articles, ids, robots}
+      return {titles, urls, articles, ids, robots, category}
     },
     computed: {
       journal() {
@@ -444,7 +444,7 @@ export default {
                 this.articles.push(name)
                 this.ids.push(item.id)
                 // let url = 'http://localhost:3000/post/' + item.slug
-                let url = 'https://igrader.ru/post/' + item.slug       //заменить!!!
+                let url = 'https://igrader.ru/' + this.category + '/' + item.slug       //заменить!!!
                 this.urls.push(url)
                 history.pushState({page_title: name}, '', url)
                 this.titles.push(item)
@@ -611,7 +611,13 @@ export default {
           this.postsRight = responce
         })
       },
+      async stickyBot() {
+        if (this.$store.getters['mainPage/sticky'].length === 0) {
+          await this.$store.dispatch('mainPage/sticky')
+        }
+      },
       loadbot() {
+        this.stickyBot()
         let adTop = this.longAd.getBoundingClientRect().top
         if(adTop < 500) {
           window.removeEventListener('scroll', this.loadbot)
@@ -659,11 +665,48 @@ export default {
           }
         })
       },
+      lightBox() {
+        let modal = document.querySelector('.modalForImg')
+        let modalImg = document.querySelector('.modalImg')
+
+        document.addEventListener('click', function (e) {
+          let imgs = document.querySelectorAll('div.single__text figure')
+          if(modal === e.target ) {
+            modal.style.display = 'none'
+            document.querySelector('body').style.overflow = 'auto'
+            modalImg.src = ''
+            document.removeEventListener('wheel', zoom1)
+            modalImg.style.transform =`scale(1)`
+          }
+          for(let img of imgs) {
+            if(e.target === img || img === e.target.parentNode) {
+              let im = e.target.querySelector('img')
+              if(im === null) {
+                im = e.target.parentNode.querySelector('img')
+              }
+              modalImg.src = im.src
+              modal.style.display = 'flex'
+              document.querySelector('body').style.overflow = 'hidden'
+              zoom()
+            }
+          }
+        })
+        let scale = 1;
+        let zoom = function () {
+          document.addEventListener('wheel',  zoom1)
+        }
+
+        function zoom1(event) {
+            scale += event.deltaY * -0.01;
+            scale = Math.min(Math.max(.125, scale), 4);
+            modalImg.style.transform = `scale(${scale})`;
+        }
+      },
     },
 	}
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .wp-polls-loading {
     display: none;
   }

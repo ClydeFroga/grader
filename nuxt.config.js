@@ -13,7 +13,6 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Портал igrader.ru - обзор рынка спецтехники, грузовиков и коммерческого транспорта. Тест-драйвы погрузчиков, экскаваторов и другой строительной техники.' }
     ],
     link: [
-      // { rel: 'icon', type: 'image/png', href: 'favicon2.png' }
     ],
     script: [
       {src: 'https://yastatic.net/pcode/adfox/loader.js', crossorigin: "anonymous" },
@@ -82,9 +81,6 @@ module.exports = {
     'nuxt-fullpage.js',
     'nuxt-validate',
   ],
-
-
-
 
   nuxtValidate: {
     lang: 'ru',
