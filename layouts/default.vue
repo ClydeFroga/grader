@@ -42,12 +42,12 @@
     //   this.adfoxDestr()
     // },
     mounted() {
-        // this.adfox()
+        this.adfox()
     },
     updated() {
-      // setTimeout(() => {
-      //   this.adfoxRel()
-      // }, 1500)
+      setTimeout(() => {
+        this.adfoxRel()
+      }, 1500)
     },
     methods: {
       adfox() {
@@ -60,7 +60,7 @@
               ps: 'dkqx',
               p2: 'gwmw'
             }
-          });
+          }); //
           window.Ya.adfoxCode.create({
             ownerId: 299653,
             containerId: 'adfox_159480168913443656',
@@ -69,7 +69,7 @@
               ps: 'dkqx',
               p2: 'gwmx'
             }
-          });
+          }); //
           window.Ya.adfoxCode.create({
             ownerId: 299653,
             containerId: 'adfox_159374935502579870',
@@ -78,7 +78,7 @@
               ps: 'dkqx',
               p2: 'gwna'
             }
-          });
+          }); //
           window.Ya.adfoxCode.create({
             ownerId: 299653,
             containerId: 'adfox_159374952133726391',
@@ -87,7 +87,7 @@
               ps: 'dkqx',
               p2: 'gwnb'
             }
-          });
+          }); //
           window.Ya.adfoxCode.create({
             ownerId: 299653,
             containerId: 'adfox_159712112538951246',
@@ -96,7 +96,7 @@
               ps: 'dkqx',
               p2: 'gxim'
             }
-          });
+          }); //
           window.Ya.adfoxCode.create({
               ownerId: 299653,
               containerId: 'adfox_159374525659365226',
@@ -105,16 +105,25 @@
                 ps: 'dkqx',
                 p2: 'gwau'
               }
-          });
-          // window.Ya.adfoxCode.create({
-          //   ownerId: 299653,
-          //   containerId: 'adfox_159374528706764377',
-          //   params: {
-          //     pp: 'i',
-          //     ps: 'dkqx',
-          //     p2: 'gwmz'
-          //   }
-          // });
+          }); // D1
+          window.Ya.adfoxCode.create({
+            ownerId: 299653,
+            containerId: 'adfox_159374518828642846',
+            params: {
+              pp: 'i',
+              ps: 'dkqx',
+              p2: 'gwmy'
+            }
+          }); // C
+          window.Ya.adfoxCode.create({
+            ownerId: 299653,
+            containerId: 'adfox_159374528706764377',
+            params: {
+              pp: 'i',
+              ps: 'dkqx',
+              p2: 'gwmz'
+            }
+          }); // D2
         }
       },
       adfoxRel() {

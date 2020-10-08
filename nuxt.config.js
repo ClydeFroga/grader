@@ -25,6 +25,8 @@ module.exports = {
 
   plugins: [
     '~/plugins/disqus',
+    '~/plugins/lightBox',
+    '~/plugins/loadBot',
   ],
   components: true,
 
@@ -53,11 +55,10 @@ module.exports = {
     accurateTrackBounce:true,
   },
 
-
   modules: [
     '@nuxtjs/yandex-metrika',
     ['nuxt-rfg-icon', {
-    masterPicture: 'static/favicon.png'
+      masterPicture: 'static/favicon.png'
      }],
     '@nuxtjs/manifest',
     '@nuxtjs/axios',
@@ -66,21 +67,41 @@ module.exports = {
     'cookie-universal-nuxt',
     '@nuxtjs/sitemap',
     '@nuxtjs/component-cache',
-    [
-      "nuxt-compress",
-      {
-        gzip: {
-          cache: true
-        },
-        brotli: {
-          threshold: 10240
-        }
-      }
-    ],
+    'nuxt-precompress',
+    // ["nuxt-compress", {
+    //     gzip: { cache: true },
+    //     brotli: { threshold: 10240}
+    //   }
+    // ],
     '@nuxtjs/redirect-module',
     'nuxt-fullpage.js',
     'nuxt-validate',
   ],
+
+  nuxtPrecompress: {
+    enabled: true,
+    report: false,
+    test: /\.(js|css|html|txt|xml|svg)$/,
+    middleware: {
+      enabled: true,
+      enabledStatic: true,
+      encodingsPriority: ['br', 'gzip'],
+    },
+    gzip: {
+      enabled: true,
+      filename: '[path].gz[query]',
+      threshold: 10240,
+      minRatio: 0.8,
+      compressionOptions: { level: 9 },
+    },
+    brotli: {
+      enabled: true,
+      filename: '[path].br[query]',
+      compressionOptions: { level: 11 },
+      threshold: 10240,
+      minRatio: 0.8,
+    },
+  },
 
   nuxtValidate: {
     lang: 'ru',
@@ -105,11 +126,13 @@ module.exports = {
       }
     },
   ],
+
   loading: { color: "#ff9900" },
 
   build: {
-    extend(config, ctx) {
-
-    }
+    // extend(config, ctx) {
+    //
+    // }
   }
+
 }
