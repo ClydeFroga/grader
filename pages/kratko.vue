@@ -67,6 +67,8 @@
       Загрузить еще
     </button>
 
+    <div class="long-ad" id="adfox_159374528706764377"></div>
+
   </div>
 </template>
 

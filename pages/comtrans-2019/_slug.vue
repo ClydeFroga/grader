@@ -19,7 +19,9 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="single__main">
-                <img class="mainImg" :alt="post.alt" :src="post.x_featured_media_large">
+                <figure>
+                  <img class="mainImg" :alt="post.alt" :src="post.x_featured_media_large">
+                </figure>
               </div>
               <div class="single__text" v-html="post.content.rendered"></div>
               <div class="sharing__wrapper static">
@@ -176,6 +178,8 @@
 
         <div class="foxy ad" id="adfox_159480168913443656"></div>
 
+        <div class="foxy" id="adfox_159374518828642846"></div>
+
         <div  v-if="journal.acf !== undefined" class="foxy">
           <h2 class="field__title" >
             <a href="#">
@@ -220,6 +224,8 @@
 
       </div>
 
+      <div class="long-ad" id="adfox_159374528706764377"></div>
+
       <h2 class="field__title">
         <nuxt-link :to="{name: 'news-slug', params: {slug: 'ryinok'}}">
           Рынок
@@ -253,6 +259,18 @@
         </div>
       </div>
     </div>
+    <div class="modalForImg">
+      <div>
+        <img class="modalImg" src="">
+        <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+        </svg>
+        <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+        </svg>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -284,6 +302,7 @@ export default {
         this.loadRightNews()
         window.addEventListener('scroll', this.loadbot)
       })
+      this.lightBox()
     },
     async fetch({store}) {
       if (store.getters['lastMag/journal'].length === 0) {
@@ -315,13 +334,6 @@ export default {
         .then(responce => {
           this.postsRight = responce
         })
-      },
-      loadbot() {
-        let adTop = this.longAd.getBoundingClientRect().top
-        if(adTop < 500) {
-          window.removeEventListener('scroll', this.loadbot)
-          this.botNews()
-        }
       },
       botNews() {
         this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/comtrans?per_page=4&exclude=' + this.titles[0].id)

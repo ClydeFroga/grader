@@ -37,7 +37,7 @@
     </div>
 
     <div class="long-ad">
-      <img src="https://picsum.photos/728/90/?random=1">
+      <div  class="long-ad" id="adfox_159374525659365226"></div>
     </div>
 
     <div class="kratko row row-cols-1 row-cols-md-3">
@@ -62,6 +62,7 @@
       Загрузить еще
     </button>
 
+    <div class="long-ad" id="adfox_159374528706764377"></div>
   </div>
 </template>
 

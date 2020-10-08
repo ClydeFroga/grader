@@ -57,8 +57,10 @@
       <button @click.prevent="fetchData" class="loadmore" type="button">
         Загрузить еще
       </button>
-    </div>
 
+      <div  class="long-ad" id="adfox_159374525659365226"></div>
+
+    </div>
   </div>
 </template>
 

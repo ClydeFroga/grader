@@ -57,6 +57,7 @@
         Загрузить еще
       </button>
 
+    <div  class="long-ad" id="adfox_159374525659365226"></div>
   </div>
 </template>
 
@@ -91,8 +92,8 @@
     },
     async asyncData({params, redirect}) {
       let cat = '';
-      const url = 'http://localhost/igrader/wp-json/wp/v2/posts?mainthemes_slug=' + params.slug;
-      // const url = 'https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes_slug=' + params.slug;
+      // const url = 'http://localhost/igrader/wp-json/wp/v2/posts?mainthemes_slug=' + params.slug;
+      const url = 'https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes_slug=' + params.slug;
       let posts = []
       await fetch(url)
       .then(responce => responce.json())

@@ -33,6 +33,9 @@
     <button @click.prevent="fetchData" class="loadmore" type="button">
       Загрузить еще
     </button>
+
+    <div class="long-ad" id="adfox_159374528706764377"></div>
+
   </div>
 </template>
 
@@ -98,5 +101,7 @@
 </script>
 
 <style scoped>
-
+  .long-ad {
+    margin-top: 2rem;
+  }
 </style>

@@ -20,6 +20,8 @@
 
     <div class="foxy" id="adfox_159480168913443656"></div>
 
+    <div class="foxy" id="adfox_159374518828642846"></div>
+
     <div v-if="journal.acf !== undefined" class="foxy">
       <h2 class="field__title" >
         <a href="#">

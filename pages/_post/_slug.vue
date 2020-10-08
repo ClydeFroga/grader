@@ -3,7 +3,7 @@
     <div class="row">
       <div class="post col-12 col-lg-7 left single">
 
-          <div class="loaded" v-for="(post, ind) of titles" :key="post.id">
+        <div class="loaded" v-for="(post, ind) of titles" :key="post.id">
           <h1 class="single__title" :id="post.id" v-html="post.title.rendered"></h1>
           <div class="single__date">
             {{post.x_date}}
@@ -20,7 +20,9 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="single__main">
-                <img class="mainImg" :alt="post.alt" :src="post.x_featured_media_large">
+                <figure>
+                  <img class="mainImg" :alt="post.alt" :src="post.x_featured_media_large">
+                </figure>
               </div>
               <div class="single__text" v-html="post.content.rendered"></div>
 
@@ -181,6 +183,8 @@
 
         <div class="foxy ad" id="adfox_159480168913443656"></div>
 
+        <div class="foxy ad" id="adfox_159374518828642846"></div>
+
         <div v-if="journal.acf !== undefined" class="foxy fresh">
           <h2 class="field__title" >
             <a href="#">
@@ -232,6 +236,8 @@
           <svg-icon width="20" height="20" name="arrowLeft"></svg-icon>
         </div>
       </div>
+
+      <div class="long-ad" id="adfox_159374528706764377"></div>
 
       <h2 v-if="postsSame[0] != undefined" class="field__title">
         <nuxt-link :to="{name: 'news-slug', params: {slug: this.titles[0].x_types_slug[0]}}">
@@ -290,7 +296,15 @@
     </div>
 
     <div class="modalForImg">
-      <img class="modalImg" src="">
+      <div>
+        <img class="modalImg" src="">
+        <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+        </svg>
+        <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+        </svg>
+      </div>
     </div>
   </div>
 
@@ -308,8 +322,8 @@ export default {
       SwiperSlide
     },
     directives: {
-    swiper: directive
-  },
+      swiper: directive
+    },
     head() {
       return {
         title: this.titles[0].title.rendered.replace(/&(#)?(amp;)?\d+;/g, ''),
@@ -616,14 +630,6 @@ export default {
           await this.$store.dispatch('mainPage/sticky')
         }
       },
-      loadbot() {
-        this.stickyBot()
-        let adTop = this.longAd.getBoundingClientRect().top
-        if(adTop < 500) {
-          window.removeEventListener('scroll', this.loadbot)
-          this.botNews()
-        }
-      },
       botNews() {
         let a = ''
         let b = ''
@@ -664,43 +670,6 @@ export default {
             res.textContent = 'Произошла ошибка, пожалуйста, сообщите нам'
           }
         })
-      },
-      lightBox() {
-        let modal = document.querySelector('.modalForImg')
-        let modalImg = document.querySelector('.modalImg')
-
-        document.addEventListener('click', function (e) {
-          let imgs = document.querySelectorAll('div.single__text figure')
-          if(modal === e.target ) {
-            modal.style.display = 'none'
-            document.querySelector('body').style.overflow = 'auto'
-            modalImg.src = ''
-            document.removeEventListener('wheel', zoom1)
-            modalImg.style.transform =`scale(1)`
-          }
-          for(let img of imgs) {
-            if(e.target === img || img === e.target.parentNode) {
-              let im = e.target.querySelector('img')
-              if(im === null) {
-                im = e.target.parentNode.querySelector('img')
-              }
-              modalImg.src = im.src
-              modal.style.display = 'flex'
-              document.querySelector('body').style.overflow = 'hidden'
-              zoom()
-            }
-          }
-        })
-        let scale = 1;
-        let zoom = function () {
-          document.addEventListener('wheel',  zoom1)
-        }
-
-        function zoom1(event) {
-            scale += event.deltaY * -0.01;
-            scale = Math.min(Math.max(.125, scale), 4);
-            modalImg.style.transform = `scale(${scale})`;
-        }
       },
     },
 	}

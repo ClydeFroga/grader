@@ -33,10 +33,6 @@
             </div>
           </div>
         </div>
-
-        <div class="long-ad">
-          <img src="https://picsum.photos/728/90/?random=1">
-        </div>
       </div>
 
       <div class="col-12 col-md-1 col-lg-2">
@@ -104,6 +100,8 @@
 
         <div class="foxy ad" id="adfox_159480168913443656"></div>
 
+        <div class="foxy" id="adfox_159374518828642846"></div>
+
         <div v-if="journal.acf !== undefined" class="foxy fresh">
           <h2 class="field__title" >
             <a href="#">
@@ -122,6 +120,23 @@
     </div>
 
     <div class="long-ad" id="adfox_159374525659365226"></div>
+
+
+
+    <h2 class="field__title">
+      <nuxt-link to="/lane">
+        Полоса
+      </nuxt-link>
+    </h2>
+
+    <div class="field__four row row-cols-1 row-cols-md-2 row-cols-xl-4">
+      <nuxt-link v-for="post of lane" :key="post.id" class="col" :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
+        <img :alt='post.alt' :src="post.x_featured_media_large">
+        <p v-html="post.title.rendered" class="field__span"></p>
+      </nuxt-link>
+    </div>
+
+    <div class="long-ad" id="adfox_159374528706764377"></div>
 
     <div>
       <h2 class="field__title">
@@ -152,7 +167,6 @@
 </template>
 
 <script>
-  import rand from "lodash/random";
 
   export default {
     validate({ params }) {
@@ -172,6 +186,7 @@
         articles: [],
         width: 1920,
         postsRight: [],
+        lane: []
       }
     },
     mounted() {
@@ -210,8 +225,15 @@
         this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=4&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsRight = responce
+          this.loadLane()
         })
       },
+      loadLane() {
+        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?tags=2099&per_page=4')
+        .then(responce => {
+          this.lane = responce
+        })
+      }
     },
   }
 </script>
