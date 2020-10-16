@@ -6,8 +6,13 @@
 
         <div class="loaded" v-for="(post, ind) of titles" :key="post.id">
           <h1 class="single__title" :id="post.id" v-html="post.title.rendered"></h1>
-          <div class="single__date">
-            {{post.x_date}}
+          <div class="dateAndTime">
+            <div class="single__date">
+              {{post.x_date}}
+            </div>
+            <div class="single__date readTime" v-text="readTime">
+
+            </div>
           </div>
           <div class="single__breadcrumbs">
             <nuxt-link to="/">Главная</nuxt-link>
@@ -17,10 +22,10 @@
             <nuxt-link :to="{name: 'category-slug', params: {slug: post.x_cats_slug[0]}}">{{post.x_cats[0]}}</nuxt-link>
           </div>
           <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12 forTm">
               <div class="single__main">
                 <figure>
-                  <img class="mainImg" :alt="post.alt" :src="post.x_featured_media_large">
+                  <img data-not-lazy class="mainImg" :alt="post.alt" :src="post.x_featured_media_large">
                 </figure>
               </div>
               <div class="single__text" v-html="post.content.rendered"></div>
@@ -186,7 +191,7 @@
               Свежий номер
             </a>
           </h2>
-          <nuxt-link class="wrapper__adText" :to="{name: 'archive-slug', params: {slug: journal.slug}}">
+          <nuxt-link class="wrapper__adText" :to="{name: 'magazins-slug', params: {slug: journal.slug}}">
             <img class="wrapper__adImg" :src="journal.acf.ssylka_na_oblozhku">
             Online-версия
           </nuxt-link>
@@ -261,6 +266,11 @@
     </div>
     <div class="modalForImg">
       <div>
+        <div>
+          <span class="current"></span>
+          <span>/</span>
+          <span class="total"></span>
+        </div>
         <img class="modalImg" src="">
         <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
@@ -282,7 +292,8 @@ export default {
       return {
         title: this.titles[0].title.rendered.replace(/&(#)?(amp;)?\d+;/g, ''),
         meta: [
-          { hid: 'description', name: 'description', content: this.titles[0].excerpt.rendered.replace(/&#\d+;/g, '').slice(0, 180) + ' ...' }
+          { hid: 'description', name: 'description', content: this.titles[0].excerpt.rendered.replace(/&(#)?(amp;)?\d+;|<\w+>/g, '').replace(/&nbsp;/g, ' ').slice(0, 80) + ' ...' },
+          { property: 'og:image', content: this.titles[0].x_featured_media_large }
         ],
       }
     },
@@ -294,6 +305,8 @@ export default {
         postsSame: [],
         email: '',
         pname: '',
+        leftOps: '',
+        readTimePost: 0,
       }
     },
     mounted() {
@@ -302,7 +315,14 @@ export default {
         this.loadRightNews()
         window.addEventListener('scroll', this.loadbot)
       })
+      window.onload = window.addEventListener('scroll', this.readProgress)
       this.lightBox()
+    },
+    updated() {
+      this.leftOpps()
+    },
+    destroyed() {
+      window.removeEventListener('scroll', this.readProgress)
     },
     async fetch({store}) {
       if (store.getters['lastMag/journal'].length === 0) {
@@ -323,6 +343,12 @@ export default {
       },
       longAd() {
         return document.querySelector('.long-ad')
+      },
+      progress() {
+        return document.querySelector('.progressMy')
+      },
+      height() {
+        return document.documentElement.clientHeight
       },
     },
     methods: {

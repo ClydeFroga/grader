@@ -5,8 +5,13 @@
 
         <div class="loaded" v-for="(post, ind) of titles" :key="post.id">
           <h1 class="single__title" :id="post.id" v-html="post.title.rendered"></h1>
-          <div class="single__date">
-            {{post.x_date}}
+          <div class="dateAndTime">
+            <div class="single__date">
+              {{post.x_date}}
+            </div>
+            <div class="single__date readTime" v-text="readTime">
+
+            </div>
           </div>
 
           <div class="single__breadcrumbs">
@@ -17,15 +22,19 @@
             <nuxt-link :to="{name: 'category-slug', params: {slug: post.x_cats_slug[0]}}">{{post.x_cats[0]}}</nuxt-link>
           </div>
 
+
           <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12 forTm">
               <div class="single__main">
                 <figure>
-                  <img class="mainImg" :alt="post.alt" :src="post.x_featured_media_large">
+                  <img data-not-lazy class="mainImg" :alt="post.alt" :src="post.x_featured_media_large">
                 </figure>
               </div>
               <div class="single__text" v-html="post.content.rendered"></div>
 
+              <div v-if="post.magMy.length > 0" class="writer">
+                Статья опубликована в журнале <nuxt-link :to="{name: 'magazins-slug', params: {slug: post.magMy[1]}}">{{post.magMy[0]}}</nuxt-link>
+              </div>
               <div v-if="disq === 1599" class="sharing__wrapper static">
                 <a :href="'http://vk.com/share.php?url=https://igrader.ru' + $route.path + '&title=' + articles[ind] + '&description=' + cleanText(post.excerpt.rendered) + '&image=' + post.x_featured_media" class="sharing__item vk">
                   <svg width="25" height="25" fill="white">
@@ -65,7 +74,10 @@
               </div>
             </div>
           </div>
+
+
         </div>
+
 
         <div class="sp-form-outer">
           <div
@@ -191,7 +203,7 @@
               Свежий номер
             </a>
           </h2>
-          <nuxt-link class="wrapper__adText" :to="{name: 'archive-slug', params: {slug: journal.slug}}">
+          <nuxt-link class="wrapper__adText" :to="{name: 'magazins-slug', params: {slug: journal.slug}}">
             <img class="wrapper__adImg" :src="journal.acf.ssylka_na_oblozhku">
             Online-версия
           </nuxt-link>
@@ -297,6 +309,11 @@
 
     <div class="modalForImg">
       <div>
+        <div>
+          <span class="current"></span>
+          <span>/</span>
+          <span class="total"></span>
+        </div>
         <img class="modalImg" src="">
         <svg width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
@@ -315,363 +332,397 @@ import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 import 'swiper/swiper-bundle.esm'
 import 'swiper/swiper-bundle.css'
 import rand from 'lodash/random'
+import cookie from "../../components/cookie";
 
 export default {
-    components: {
-      Swiper,
-      SwiperSlide
-    },
-    directives: {
-      swiper: directive
-    },
-    head() {
-      return {
-        title: this.titles[0].title.rendered.replace(/&(#)?(amp;)?\d+;/g, ''),
-        meta: [
-          { name: 'robots', content: this.robots},
-          { hid: 'description', name: 'description', content: this.titles[0].excerpt.rendered.replace(/&.+;/g, '').slice(0, 180) + ' ...' }
-        ],
-      }
-    },
-    data() {
-      return {
-        robots: 'all',
-        width: 1920,
-        offset: 0,
-        loaded: [],
-        news: [],
-        i: 0,
-        golos: null,
-        disq: 1599,
-        postsRight: [],
-        postsBot: [],
-        postsSame: [],
-        pname: '',
-        email: '',
-        middleSwiper: {
-          loop: true,
-          slidesPerView: 1,
-          spaceBetween: 15,
-          autoplay: {
-            delay: 5000,
-          },
-          navigation: {
-            nextEl: '.swiper-next',
-            prevEl: '.swiper-prev',
-          },
-          breakpoints: {
-            476: {
-              slidesPerView: 2,
-            },
-            768: {
-              slidesPerView: 3,
-            }
-          }
+  components: {
+    Swiper,
+    SwiperSlide
+  },
+  directives: {
+    swiper: directive
+  },
+  head() {
+    return {
+      title: this.titles[0].title.rendered.replace(/&(#)?(amp;)?\d+;/g, ''),
+      meta: [
+        { name: 'robots', content: this.robots},
+        { hid: 'description', name: 'description', content: this.titles[0].excerpt.rendered.replace(/&(#)?(amp;)?\d+;|<\w+>/g, '').replace(/&nbsp;/g, ' ').slice(0, 80) + ' ...' },
+        { property: 'og:image', content: this.titles[0].x_featured_media_large }
+      ],
+    }
+  },
+  data() {
+    return {
+      robots: 'all',
+      width: 1920,
+      offset: 0,
+      loaded: [],
+      news: [],
+      i: 0,
+      golos: null,
+      disq: 1599,
+      postsRight: [],
+      postsBot: [],
+      postsSame: [],
+      pname: '',
+      email: '',
+      middleSwiper: {
+        loop: true,
+        slidesPerView: 1,
+        spaceBetween: 15,
+        autoplay: {
+          delay: 5000,
         },
-      }
-    },
-    mounted: function () {
-      this.width = document.documentElement.clientWidth
-      setTimeout(() => this.kratko(), 3000)
-      if(document.documentElement.clientWidth > 992) {
-        setTimeout(() => window.addEventListener('scroll', this.selectBlc), 5000)
-      }
-      this.findOpr()
-      this.lightBox()
-    },
-    destroyed() {
+        navigation: {
+          nextEl: '.swiper-next',
+          prevEl: '.swiper-prev',
+        },
+        breakpoints: {
+          476: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 3,
+          }
+        }
+      },
+      sticky: [],
+      leftOps: '',
+      readTimePost: 0,
+    }
+  },
+  mounted: function () {
+    this.width = document.documentElement.clientWidth
+    setTimeout(() => this.kratko(), 3000)
+    if(document.documentElement.clientWidth > 992) {
+      setTimeout(() => window.addEventListener('scroll', this.selectBlc), 5000)
+    }
+    this.findOpr()
+    this.lightBox()
+    window.onload = window.addEventListener('scroll', this.readProgress)
+
+    // this.readTime(this.titles[0].content.rendered)
+  },
+  updated() {
+    this.leftOpps()
+  },
+  destroyed() {
+      window.removeEventListener('scroll', this.loadbot)
+      window.removeEventListener('scroll', this.readProgress)
       window.removeEventListener('scroll', this.loadPost);
       window.removeEventListener('scroll', this.selectBlc);
     },
-    async fetch({store}) {
-      if (store.getters['lastMag/journal'].length === 0) {
-        await store.dispatch('lastMag/fetch')
-      }
-    },
-    async asyncData({params, redirect}) {
-      if(params.slug === undefined) {
-        redirect(301, `/404`)
-      }
-      let titles = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?slug=' + params.slug)
+  async fetch({store}) {
+    if (store.getters['lastMag/journal'].length === 0) {
+      await store.dispatch('lastMag/fetch')
+    }
+  },
+  async asyncData({params, redirect}) {
+    if(params.slug === undefined) {
+      redirect(301, `/404`)
+    }
+    let titles = ''
+    if(params.jwt !== undefined && params.draft) {
+      titles = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?status=draft,future&slug=' + params.slug, {
+        headers: {
+          'Authorization': 'Bearer ' + params.jwt
+        }
+      })
       titles = await titles.json()
-      if(titles.length === 0) {
-        redirect(301, `/404`)
-      }
-      let category = params.post;
-      let urls = ['https://igrader.ru/' + category + '/' + params.slug]   //заменить!!!!!!
-      let articles = [titles[0].title.rendered.replace(/&#\d+;/g, '')]
-      let ids = [titles[0].id]
-      let robots = 'all'
-      if(titles[0].x_cats_slug[0] === 'prototip') {
-        robots = 'noindex';
-      }
-      return {titles, urls, articles, ids, robots, category}
+    } else if(params.post === 'prototip') {
+      let id  = await fetch('http://promotech.igrader.ru/wp-json/last_news/v1/prototip?slug=' + params.slug)
+      id = await id.json()
+      id = id.id
+      let post =  await fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts/' + id)
+      titles = [await post.json()]
+      } else {
+      titles = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?slug=' + params.slug)
+      titles = await titles.json()
+    }
+    if(titles.length === 0) {
+      redirect(301, `/404`)
+    }
+    let category = params.post;
+    let urls = ['https://igrader.ru/' + category + '/' + params.slug]   //заменить!!!!!!
+    let articles = [titles[0].title.rendered.replace(/&#\d+;/g, '')]
+    let ids = [titles[0].id]
+    let robots = 'all'
+    if(titles[0].x_cats_slug[0] === 'prototip') {
+      robots = 'noindex';
+    }
+    return {titles, urls, articles, ids, robots, category}
+  },
+  computed: {
+    journal() {
+      return this.$store.getters['lastMag/journal']
     },
-    computed: {
-      journal() {
-        return this.$store.getters['lastMag/journal']
-      },
-      left() {
-        return document.querySelector('.left');
-      },
-      first() {
-        return document.querySelector(".loaded");
-      },
-      body() {
-        return document.querySelector('body')
-      },
-      ad() {
-        return document.querySelectorAll('.ad')
-      },
-      right() {
-        let all_height = 500
-        for (let item of this.ad) {
-          all_height += item.offsetHeight
-        }
-        return all_height
-      },
-      num() {
-        let num = rand(0, this.ad.length - 1)
-        return num
-      },
-      longAd() {
-        return document.querySelector('.long-ad')
-      },
-      sticky() {
-        return this.$store.getters['mainPage/sticky']
-      }
+    left() {
+      return document.querySelector('.left.single');
     },
-    methods: {
-      cleanText(text) {
-        return text.replace(/<\/?[^>]+(>|$)/g, "");
-      },
-      loadPost() {
-        if(this.leftBot() < 1000 && this.offset < 5) {
-          if(!this.body.classList.contains('loading')) {
-            this.body.classList.add('loading')
-            this.offset++
-            this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599' + '&offset=' + this.offset + '&per_page=1&exclude=' + this.titles[0].id)
-            .then(responce => {
-              for(let item of responce) {
-                let name = item.title.rendered.replace(/&#\d+;/g, '')
-                document.title = name
-                this.articles.push(name)
-                this.ids.push(item.id)
-                // let url = 'http://localhost:3000/post/' + item.slug
-                let url = 'https://igrader.ru/' + this.category + '/' + item.slug       //заменить!!!
-                this.urls.push(url)
-                history.pushState({page_title: name}, '', url)
-                this.titles.push(item)
-              }
-            }).then(() => {
-              this.news = document.querySelectorAll(".loaded");
-              setTimeout(() => this.body.classList.remove('loading'), 3000)
-            })
-          }
+    first() {
+      return document.querySelector(".loaded");
+    },
+    body() {
+      return document.querySelector('body')
+    },
+    ad() {
+      return document.querySelectorAll('.ad')
+    },
+    right() {
+      let all_height = 500
+      for (let item of this.ad) {
+        all_height += item.offsetHeight
+      }
+      return all_height
+    },
+    num() {
+      let num = rand(0, this.ad.length - 1)
+      return num
+    },
+    longAd() {
+      return document.querySelector('.long-ad')
+    },
+    progress() {
+      return document.querySelector('.progressMy')
+    },
+    height() {
+      return document.documentElement.clientHeight
+    },
+
+  },
+  methods: {
+    cleanText(text) {
+      return text.replace(/<\/?[^>]+(>|$)/g, "");
+    },
+    loadPost() {
+      if(this.leftBot() < 1000 && this.offset < 5) {
+        if(!this.body.classList.contains('loading')) {
+          this.body.classList.add('loading')
+          this.offset++
+          this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599' + '&offset=' + this.offset + '&per_page=1&exclude=' + this.titles[0].id)
+          .then(responce => {
+            for(let item of responce) {
+              let name = item.title.rendered.replace(/&#\d+;/g, '')
+              document.title = name
+              this.articles.push(name)
+              this.ids.push(item.id)
+              let url = 'https://igrader.ru/' + this.category + '/' + item.slug       //заменить!!!
+              this.urls.push(url)
+              history.pushState({page_title: name}, '', url)
+              this.titles.push(item)
+            }
+          }).then(() => {
+            this.news = document.querySelectorAll(".loaded");
+            setTimeout(() => this.body.classList.remove('loading'), 3000)
+          })
         }
-        if(this.firstBot() < 0) {
-          for( let i = this.news.length - 1; i > -1; i--) {
-            if(this.news[i].getBoundingClientRect().bottom > 0) {
-              continue;
-            } else {
-              if(!this.articles[i+1]) {
-                document.title = this.articles[i]
-                return
-              }
-              let art = this.articles[i+1]
-              document.title = art
-              window.history.replaceState({page_title: art}, '', this.urls[i+1]);
+      }
+      if(this.firstBot() < 0) {
+        for( let i = this.news.length - 1; i > -1; i--) {
+          if(this.news[i].getBoundingClientRect().bottom > 0) {
+            continue;
+          } else {
+            if(!this.articles[i+1]) {
+              document.title = this.articles[i]
               return
             }
-          }
-        } else {
-          document.title = this.articles[0];
-          window.history.replaceState({page_title: this.articles[0]}, '', this.urls[0]);
-        }
-      },
-      firstBot() {
-        return this.first.getBoundingClientRect().bottom;
-      },
-      leftBot() {
-        return this.left.getBoundingClientRect().bottom;
-      },
-      selectBlc() {
-        if(this.leftHeight() > this.right + 500) {
-          if(pageYOffset > this.right + 500) {
-            if(this.ad.length === 0) {
-              window.removeEventListener('scroll', this.selectBlc)
-            }
-            this.ad[this.num].classList.add('sharing__wrapper')
-          } else {
-            if(this.ad.length === 0) {
-              window.removeEventListener('scroll', this.selectBlc)
-            }
-            this.ad[this.num].classList.remove('sharing__wrapper')
-          }
-        }
-      },
-      leftHeight() {
-        let a = document.querySelector('.left')
-        return a.offsetHeight
-      },
-      kratko() {
-        for(let item of this.titles[0].mainthemes) {
-          this.disq = item
-          if (item === 1599) {
-            window.addEventListener('scroll', this.loadPost);
-            break
-          }
-        }
-        window.addEventListener('scroll', this.loadbot)
-        if(this.disq !== 1599) {
-          this.loadRightNews()
-        }
-      },
-      oprosFunc(id, opros) {
-        let spisok = document.getElementsByName('poll_' + id)
-        let vote = document.getElementsByName('vote')[0]
-        let results = opros.result.data
-        const voted = this.$cookies.get('voted_'+ id)
-        let labels = document.querySelectorAll('.wp-polls-ul > li > label')
-
-        if(voted == 1) {
-          vote.outerHTML = "Вы уже проголосовали"
-          del()
-          return
-        }
-
-        function del() {
-          for(let item of spisok) {
-            item.remove()
-          }
-          let ul = document.querySelector('.wp-polls-ul')
-          let li = document.querySelectorAll('.wp-polls-ul > li')
-          for(let item of li) {
-            item.remove()
-          }
-
-          for(let item of results) {
-            ul.insertAdjacentHTML('beforeend', `<span class="res__name">` + item.polla_answers + `</span>` +
-              `<span class="res__res"> (`+  item.pourcent +`%, `+ item.polla_votes +` Голосов) </span>` +
-              `<div class="res__bar" style="width:` + item.pourcent + `%;"></div>`)
-          }
-        }
-
-        function cook() {
-          window.$nuxt.$cookies.set('voted_' + id, 1, {
-            path: '/',
-            maxAge: 60 * 60 * 24 * 365,
-          })
-        }
-
-        let gg = null
-        window.addEventListener('mouseup', function (e) {
-          if(e.target == vote) {
-            if (gg !== null) {
-              fetch('https://promotech.igrader.ru/wp-json/wp/v2/add_vote?id=' + id + '&vote_id=' + gg, {
-                method: 'POST'
-              }).then(() => {
-                vote.outerHTML = 'Спасибо за ваш голос'
-                cook()
-                vote.setAttribute('disabled', '')
-                del()
-              });
-            }
+            let art = this.articles[i+1]
+            document.title = art
+            window.history.replaceState({page_title: art}, '', this.urls[i+1]);
             return
           }
-          for(let item of spisok) {
-            if(e.target == item) {
-              gg = e.target.value
-            }
+        }
+      } else {
+        document.title = this.articles[0];
+        window.history.replaceState({page_title: this.articles[0]}, '', this.urls[0]);
+      }
+    },
+    firstBot() {
+      return this.first.getBoundingClientRect().bottom;
+    },
+    leftBot() {
+      return this.left.getBoundingClientRect().bottom;
+    },
+    selectBlc() {
+      if(this.leftHeight() > this.right + 500) {
+        if(pageYOffset > this.right + 500) {
+          if(this.ad.length === 0) {
+            window.removeEventListener('scroll', this.selectBlc)
           }
-          for(let item of labels) {
-            if(e.target == item) {
-              gg = e.target.control.attributes[3].nodeValue
-            }
+          this.ad[this.num].classList.add('sharing__wrapper')
+        } else {
+          if(this.ad.length === 0) {
+            window.removeEventListener('scroll', this.selectBlc)
           }
-        })
-      },
-      findOpr() {
-        let a = document.querySelector('.wp-polls')
-        let b = ''
-        if (a !== null) {
-          b = a.id.match(/\d+/)
-          fetch('https://promotech.igrader.ru/wp-json/wp/v2/poll?id=' + b)
-          .then(responce => responce.json())
-          .then(result => {
-            this.oprosFunc(b, result)
-          })
+          this.ad[this.num].classList.remove('sharing__wrapper')
         }
-      },
-      loadRightNews() {
-        let r = rand(0, 6)
-        let a = null
-        switch(this.disq){
-          case 1600:
-          case 1604:a = '1600,1604';break;
-          case 1603:a = '1033,1638,1605';break;
-          case 1599:a = '1601,1033,1602';break;
-          case 1605:
-          case 1638:
-          case 1033:
-          case 1602:a = '1601';break;
-          case 1601:
-          case 1606:
-          case 2110:
-          default:a = '1599';break;
-        };
-        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=3&exclude=' + this.titles[0].id + '&offset=' + r)
-        .then(responce => {
-          this.postsRight = responce
-        })
-      },
-      async stickyBot() {
-        if (this.$store.getters['mainPage/sticky'].length === 0) {
-          await this.$store.dispatch('mainPage/sticky')
+      }
+    },
+    leftHeight() {
+      let a = document.querySelector('.left')
+      return a.offsetHeight
+    },
+    kratko() {
+      for(let item of this.titles[0].mainthemes) {
+        this.disq = item
+        if (item === 1599) {
+          window.addEventListener('scroll', this.loadPost);
+          break
         }
-      },
-      botNews() {
-        let a = ''
-        let b = ''
-        switch(this.disq){
-          case 2110:a='1603'; b='2110'; break;
-          case 1603:a='1601,1602,1605'; b='1603'; break;
-          case 1601:b='1601,1033'; a='1603'; break;
-          case 1606:a='1603'; b='1600'; break;
-          case 1599:a='1603'; b='1599'; break;
-          case 1605:
-          case 1638:
-          case 1033:a='1602'; b='1605,1638,1033'; break;
-          case 1602:a='1605,1638,1033'; b='1603'; break;
-          case 1600:
-          case 1604: b='1604'; a='1601'; break;
-          default:a='1601'; break;
-        }
-        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + b + '&per_page=4&exclude=' + this.titles[0].id)
-        .then(responce => {
-          this.postsSame = responce
-        })
-        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=4&exclude=' + this.titles[0].id)
-        .then(responce => {
-          this.postsBot = responce
-        })
-      },
-      sendMail() {
-        let butt = document.querySelector('.sp-button')
-        let res = document.querySelector('#result')
+      }
+      window.addEventListener('scroll', this.loadbot)
+      if(this.disq !== 1599) {
+        this.loadRightNews()
+      }
+    },
+    oprosFunc(id, opros) {
+      let spisok = document.getElementsByName('poll_' + id)
+      let vote = document.getElementsByName('vote')[0]
+      let results = opros.result.data
+      const voted = this.$cookies.get('voted_'+ id)
+      let labels = document.querySelectorAll('.wp-polls-ul > li > label')
 
-        fetch('https://promotech.igrader.ru/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email + '&id=88981846')
+      if(voted == 1) {
+        vote.outerHTML = "Вы уже проголосовали"
+        del()
+        return
+      }
+
+      function del() {
+        for(let item of spisok) {
+          item.remove()
+        }
+        let ul = document.querySelector('.wp-polls-ul')
+        let li = document.querySelectorAll('.wp-polls-ul > li')
+        for(let item of li) {
+          item.remove()
+        }
+
+        for(let item of results) {
+          ul.insertAdjacentHTML('beforeend', `<span class="res__name">` + item.polla_answers + `</span>` +
+            `<span class="res__res"> (`+  item.pourcent +`%, `+ item.polla_votes +` Голосов) </span>` +
+            `<div class="res__bar" style="width:` + item.pourcent + `%;"></div>`)
+        }
+      }
+
+      function cook() {
+        window.$nuxt.$cookies.set('voted_' + id, 1, {
+          path: '/',
+          maxAge: 60 * 60 * 24 * 365,
+        })
+      }
+
+      let gg = null
+      window.addEventListener('mouseup', function (e) {
+        if(e.target == vote) {
+          if (gg !== null) {
+            fetch('https://promotech.igrader.ru/wp-json/wp/v2/add_vote?id=' + id + '&vote_id=' + gg, {
+              method: 'POST'
+            }).then(() => {
+              vote.outerHTML = 'Спасибо за ваш голос'
+              cook()
+              vote.setAttribute('disabled', '')
+              del()
+            });
+          }
+          return
+        }
+        for(let item of spisok) {
+          if(e.target == item) {
+            gg = e.target.value
+          }
+        }
+        for(let item of labels) {
+          if(e.target == item) {
+            gg = e.target.control.attributes[3].nodeValue
+          }
+        }
+      })
+    },
+    findOpr() {
+      let a = document.querySelector('.wp-polls')
+      let b = ''
+      if (a !== null) {
+        b = a.id.match(/\d+/)
+        fetch('https://promotech.igrader.ru/wp-json/wp/v2/poll?id=' + b)
         .then(responce => responce.json())
         .then(result => {
-          if(result.result === true) {
-            butt.remove()
-            res.textContent = 'Спасибо за вашу подписку'
-          } else {
-            res.textContent = 'Произошла ошибка, пожалуйста, сообщите нам'
-          }
+          this.oprosFunc(b, result)
         })
-      },
+      }
     },
+    loadRightNews() {
+      let r = rand(0, 6)
+      let a = null
+      switch(this.disq){
+        case 1600:
+        case 1604:a = '1600,1604';break;
+        case 1603:a = '1033,1638,1605';break;
+        case 1599:a = '1601,1033,1602';break;
+        case 1605:
+        case 1638:
+        case 1033:
+        case 1602:a = '1601';break;
+        case 1601:
+        case 1606:
+        case 2110:
+        default:a = '1599';break;
+      };
+      this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=3&exclude=' + this.titles[0].id + '&offset=' + r)
+      .then(responce => {
+        this.postsRight = responce
+      })
+    },
+    async stickyBot() {
+      if (this.$store.getters['mainPage/sticky'].length === 0) {
+        await this.$store.dispatch('mainPage/sticky')
+      }
+      this.sticky = this.$store.getters['mainPage/sticky']
+    },
+    botNews() {
+      let a = ''
+      let b = ''
+      switch(this.disq){
+        case 2110:a='1603'; b='2110'; break;
+        case 1603:a='1601,1602,1605'; b='1603'; break;
+        case 1601:b='1601,1033'; a='1603'; break;
+        case 1606:a='1603'; b='1600'; break;
+        case 1599:a='1603'; b='1599'; break;
+        case 1605:
+        case 1638:
+        case 1033:a='1602'; b='1605,1638,1033'; break;
+        case 1602:a='1605,1638,1033'; b='1603'; break;
+        case 1600:
+        case 1604: b='1604'; a='1601'; break;
+        default:a='1601'; break;
+      }
+      this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + b + '&per_page=4&exclude=' + this.titles[0].id)
+      .then(responce => {
+        this.postsSame = responce
+      })
+      this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=4&exclude=' + this.titles[0].id)
+      .then(responce => {
+        this.postsBot = responce
+      })
+    },
+    sendMail() {
+      let butt = document.querySelector('.sp-button')
+      let res = document.querySelector('#result')
+
+      fetch('https://promotech.igrader.ru/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email + '&id=88981846')
+      .then(responce => responce.json())
+      .then(result => {
+        if(result.result === true) {
+          butt.remove()
+          res.textContent = 'Спасибо за вашу подписку'
+        } else {
+          res.textContent = 'Произошла ошибка, пожалуйста, сообщите нам'
+        }
+      })
+    },
+
+  },
 	}
 </script>
 

@@ -40,8 +40,6 @@
 </template>
 
 <script>
-
-
   export default {
     computed: {
       posts() {

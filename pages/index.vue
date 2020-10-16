@@ -80,7 +80,6 @@
 
             <div class="foxy" id="adfox_159480168913443656"></div>
 
-            <div class="foxy" id="adfox_159374518828642846"></div>
           </div>
         </div>
 
@@ -145,7 +144,7 @@
 
             </h2>
             <div v-if="journal.acf !== undefined" class="foxy">
-              <nuxt-link class="wrapper__adText" :to="{name: 'archive-slug', params: {slug: journal.slug}}">
+              <nuxt-link class="wrapper__adText" :to="{name: 'magazins-slug', params: {slug: journal.slug}}">
                 <img class="wrapper__adImg" :src="journal.acf.ssylka_na_oblozhku">
                 Online-версия
               </nuxt-link>
@@ -154,6 +153,7 @@
               </nuxt-link>
             </div>
 
+            <div class="foxy" id="adfox_159374518828642846"></div>
           </div>
         </div>
 
@@ -369,6 +369,9 @@ export default {
     swiper: directive
   },
   mounted() {
+    if(this.$route.query.p) {
+      this.$router.replace({ path: `/preview/${this.$route.query.p}`});
+    }
     this.golos = rand(0, 2);
     this.width = document.documentElement.clientWidth
     this.$nextTick(() => {
@@ -492,6 +495,4 @@ export default {
   width: 100%;
   height: auto;
 }
-
-
 </style>

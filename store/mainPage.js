@@ -57,10 +57,9 @@ export const state = () => ({
   export const actions = {
     async sticky({commit}) {
       let sticky = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?sticky=true&per_page=5')
-      .then(responce => responce.json())
-      .then(result => {
-        commit('setSticky', result)
-      })
+      sticky = await sticky.json()
+
+      commit('setSticky', sticky)
     },
     async fetch({commit}) {
       let topSlider = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1601,1603,1604,1033&per_page=5')

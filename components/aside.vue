@@ -3,7 +3,7 @@
 
     <div class="foxy" id="adfox_159374506763656431"></div>
 
-    <div v-if="this.width > 992" class="foxy foxy-news">
+    <div v-if="this.width > 992 && $route.name !== 'kratko'" class="foxy foxy-news">
       <h2 class="field__title" >
         <a href="#">
           Новости
@@ -22,13 +22,13 @@
 
     <div class="foxy" id="adfox_159374518828642846"></div>
 
-    <div v-if="journal.acf !== undefined" class="foxy">
+    <div v-if="journal !== undefined && journal.acf !== undefined" class="foxy">
       <h2 class="field__title" >
         <a href="#">
           Свежий номер
         </a>
       </h2>
-      <nuxt-link class="wrapper__adText" :to="{name: 'archive-slug', params: {slug: journal.slug}}">
+      <nuxt-link class="wrapper__adText" :to="{name: 'magazins-slug', params: {slug: journal.slug}}">
       <img class="wrapper__adImg" :src="journal.acf.ssylka_na_oblozhku">
         Online-версия
       </nuxt-link>
@@ -52,17 +52,45 @@
     },
     mounted() {
       this.width = document.documentElement.clientWidth
-      this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=3')
-      .then(responce => {
-        this.posts = responce
-      })
-
+      this.side()
+      let category = this.$route.params.slug
+      return {category}
+    },
+    updated() {
+      if(this.$route.params.slug !== this.category) {
+        this.category = this.$route.params.slug
+        this.side()
+      }
     },
     computed: {
       journal() {
         return this.$store.getters['lastMag/journal']
       },
     },
+    methods: {
+      side() {
+        let disq = this.$route.params.slug
+        let a = ''
+
+        switch(disq){
+          case 'analitika':
+          case 'kruglyj-stol':a = '1600,1604';break;
+          case 'krupniym-planom':a = '1033,1638,1605';break;
+          case 'ryinok':a = '1599';break;
+          case 'kratko':a = '1601,1033,1602';break;
+          case 'servismenyi':
+          case 'kulibiny':
+          case 'technology':
+          case 'ispyitateli':a = '1601';break;
+          case 'stranitci-istorii':
+          default:a = '1599';break;
+        }
+        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=3')
+        .then(responce => {
+          this.posts = responce
+        })
+      },
+    }
 	}
 </script>
 
@@ -73,6 +101,4 @@
       display: none;
     }
   }
-
-
 </style>

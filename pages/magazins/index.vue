@@ -2,7 +2,7 @@
   <div class="col-12 col-lg-9 left">
     <div class="magazine">
       <div class="magazine__item" v-for="post of posts" :key="post.id">
-        <nuxt-link class="magazine__anchor" :to="{name: 'archive-slug', params: {slug: post.slug}}">
+        <nuxt-link class="magazine__anchor" :to="{name: 'magazins-slug', params: {slug: post.slug}}">
           <img class="magazine__img" :src="post.acf.ssylka_na_oblozhku">
           <p class="magazine__title">{{post.name}}</p>
         </nuxt-link>
@@ -10,7 +10,7 @@
     </div>
     <div class="magazine">
       <div class=" magazine__item" v-for="post of articles" :key="post.id">
-        <nuxt-link class="magazine__anchor" :to="{name: 'archive-slug', params: {slug: post.slug}}">
+        <nuxt-link class="magazine__anchor" :to="{name: 'magazins-slug', params: {slug: post.slug}}">
           <img class="magazine__img" :src="post.acf.ssylka_na_oblozhku">
           <p class="magazine__title">{{post.name}}</p>
         </nuxt-link>

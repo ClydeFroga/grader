@@ -4,6 +4,9 @@ module.exports = {
   sitemap: {
     hostname: 'https://igrader.ru/',
     gzip: true,
+    exclude: [
+      '/draft',
+    ],
   },
   head: {
     title: 'Грейдер -  обзор рынка спецтехники, грузовиков и коммерческого транспорта',
@@ -27,6 +30,7 @@ module.exports = {
     '~/plugins/disqus',
     '~/plugins/lightBox',
     '~/plugins/loadBot',
+    '~/plugins/readProgress',
   ],
   components: true,
 
@@ -35,11 +39,6 @@ module.exports = {
       id: 'UA-71349912-1'
     }]
   ],
-
-  layoutTransition: {
-    name: 'layout',
-    mode: ''
-  },
 
   pageTransition: {
     name: 'page',
@@ -63,7 +62,9 @@ module.exports = {
     '@nuxtjs/manifest',
     '@nuxtjs/axios',
     '@nuxtjs/svg-sprite',
-    'nuxt-lazy-load',
+    ['nuxt-lazy-load', {
+      defaultImage: '/placeholder.png',
+    }],
     'cookie-universal-nuxt',
     '@nuxtjs/sitemap',
     '@nuxtjs/component-cache',

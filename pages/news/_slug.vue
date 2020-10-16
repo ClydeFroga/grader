@@ -1,6 +1,11 @@
 <template>
   <div class="col-12 col-lg-9 news left">
-
+      <button @click.prevent="draft" v-if="cookies" class="jwt btn btn-info">
+        Показать черновики
+      </button>
+      <button @click.prevent="future" v-if="cookies" class="jwt btn btn-info">
+        Показать запланированные записи
+      </button>
       <div class="news__breadcrumbs">
         <nuxt-link to="/">Главная</nuxt-link>
         <span> / </span>
@@ -9,7 +14,7 @@
 
       <div v-for="(post, index) of posts" :key="post.id" class="row news__one">
         <div class="col-12 col-sm">
-          <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
+          <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug, jwt: cookies, draft: draftD}}">
             <img :src="post.x_featured_media_large" :alt="post.alt">
           </nuxt-link>
 
@@ -24,7 +29,7 @@
               {{post.x_date}}
             </span>
           </div>
-          <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug}}">
+          <nuxt-link :to="{name: 'post-slug', params: {post:post.x_cats_slug[0], slug: post.slug, jwt: cookies, draft: draftD}}">
             <div v-html="post.title.rendered" class="news__title">
 
             </div>
@@ -84,6 +89,7 @@
     data: () => ({
       page: 1,
       titles: [],
+      draftD: false
     }),
     head() {
       return {
@@ -129,10 +135,37 @@
           document.preventDefault
         })
       },
+      async draft() {
+        fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?status=draft&per_page=100', {
+          headers: {
+            'Authorization': 'Bearer ' + this.cookies
+          }
+        })
+        .then(responce => responce.json())
+        .then(result => {
+          this.posts = result
+        })
+        this.draftD = true
+      },
+      async future() {
+        fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?status=future&per_page=100', {
+          headers: {
+            'Authorization': 'Bearer ' + this.cookies
+          }
+        })
+        .then(responce => responce.json())
+        .then(result => {
+          this.posts = result
+        })
+        this.draftD = true
+      }
     },
     computed: {
       sticky() {
         return this.$store.getters['mainPage/sticky']
+      },
+      cookies() {
+        return this.$cookies.get('jwt')
       }
     }
 	}

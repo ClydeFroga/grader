@@ -14,9 +14,9 @@
             <nuxt-link to="/events">Мероприятия</nuxt-link>
           </div>
           <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12 forTm">
               <div class="single__main">
-                <img class="mainImg" :alt="this.titles[0].alt" :src="this.titles[0].x_featured_media_large">
+                <img data-not-lazy class="mainImg" :alt="this.titles[0].alt" :src="this.titles[0].x_featured_media_large">
               </div>
               <div class="single__text dates">
                 <p>
@@ -108,7 +108,7 @@
               Свежий номер
             </a>
           </h2>
-          <nuxt-link class="wrapper__adText" :to="{name: 'archive-slug', params: {slug: journal.slug}}">
+          <nuxt-link class="wrapper__adText" :to="{name: 'magazins-slug', params: {slug: journal.slug}}">
             <img class="wrapper__adImg" :src="journal.acf.ssylka_na_oblozhku">
             Online-версия
           </nuxt-link>
@@ -176,6 +176,10 @@
     head() {
       return {
         title: this.titles[0].title.rendered + ' | iGrader.ru',
+        meta: [
+          { hid: 'description', name: 'description', content: this.titles[0].excerpt.rendered.replace(/&(#)?(amp;)?\d+;|<\w+>/g, '').replace(/&nbsp;/g, ' ').slice(0, 80) + ' ...' },
+          { property: 'og:image', content: this.titles[0].x_featured_media_large }
+        ],
       }
     },
     data() {

@@ -1,11 +1,6 @@
 <template>
   <a @click.prevent="scrolltop" :style="{display: show}" class="arrow">
-<!--    <svg width="25" height="25" >-->
-<!--      <use xlink:href="@/static/svgsprite.svg#upArrow"></use>-->
-<!--    </svg>-->
-    <svg-icon name="arrowUp">
-
-    </svg-icon>
+    <svg-icon name="arrowUp"></svg-icon>
   </a>
 </template>
 

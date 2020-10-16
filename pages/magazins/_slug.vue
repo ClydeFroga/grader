@@ -5,7 +5,7 @@
     <div class="news__breadcrumbs">
       <nuxt-link to="/">Главная</nuxt-link>
       <span> / </span>
-      <nuxt-link to="/archive">Архив</nuxt-link>
+      <nuxt-link to="/magazins">Архив</nuxt-link>
       <span> / </span>
       <span>{{this.cat[0].name}}</span>
     </div>
@@ -80,7 +80,21 @@
     }),
     head() {
       return {
-        title: this.cat[0].name + ' | iGrader.ru'
+        title: this.cat[0].name + ' | iGrader.ru',
+        meta: [
+          { property: 'og:type', content: 'article'},
+          { property: 'og:title', content: this.cat[0].name },
+          { property: 'og:description', content:  this.cat[0].description },
+          { property: 'og:url', content: 'https://igrader.ru/magazins/' + this.cat[0].slug },
+          { property: 'og:site_name', content: 'iGrader.ru' },
+          { property: 'og:image', content: this.cat[0].acf.ssylka_na_oblozhku },
+          { property: 'og:image:secure_url', content: this.cat[0].acf.ssylka_na_oblozhku },
+          { property: 'og:article:published_time', content: this.cat[0].acf.reliz_jrnl },
+          { property: 'twitter:card', content: "summary/" },
+          { property: 'twitter:title', content: this.cat[0].name },
+          { property: 'twitter:description', content: this.cat[0].description },
+          { property: 'twitter:image', content: this.cat[0].acf.ssylka_na_oblozhku },
+        ]
       }
     },
     async fetch ({store }) {

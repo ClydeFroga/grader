@@ -33,7 +33,7 @@
                 </a>
                 <div class="dropdown-menu top_drop hide" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item nav-m" target="_blank" href="https://igrader.promogroupmedia.ru/">О журнале</a>
-                  <nuxt-link class="dropdown-item nav-m" to="/archive">Архив</nuxt-link>
+                  <nuxt-link class="dropdown-item nav-m" to="/magazins">Архив</nuxt-link>
                   <nuxt-link class="dropdown-item nav-m" :to="{name: 'pages-slug', params: {slug: 'about'}}">Подписка на журнал</nuxt-link>
                 </div>
               </li>

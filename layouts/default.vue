@@ -1,6 +1,7 @@
 <template>
 	<div>
     <header-my/>
+    <div v-if="this.$route.name === 'post-slug' || this.$route.name === 'comtrans-2019-slug'" class="progressMy"></div>
     <div v-if="$route.path !== '/'" class="container-md">
       <div class="row">
         <nuxt/>
@@ -32,17 +33,14 @@
       scrollToTop,
       cookie,
     },
-    // computed: {
-    //   cookies() {
-    //     const cookieRes = this.$cookies.get('cookie')
-    //     return cookieRes !== 1;
-    //   }
-    // },
     // beforeMount() {
     //   this.adfoxDestr()
     // },
     mounted() {
-        this.adfox()
+      this.adfox()
+      setTimeout(() => {
+        this.$ga.event('send', 'event', 'new visitor')
+      }, 15000)
     },
     updated() {
       setTimeout(() => {
@@ -140,8 +138,16 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .row {
     justify-content: space-between;
+  }
+  .progressMy {
+    height: 3px;
+    background: linear-gradient(90deg, rgba(255,153,0,1) 0%, rgba(247,99,12,1) 100%);;
+    position: fixed;
+    top: 0;
+    z-index: 5;
+    width: 0;
   }
 </style>

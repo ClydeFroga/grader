@@ -84,9 +84,9 @@
             redirect(301, `/404`)
         }
         result.sort(function (a, b) {
-          if (a.acf.from > b.acf.from) return 1;
+          if (a.acf.from > b.acf.from) return -1;
           if (a.acf.from == b.acf.from) return 0;
-          if (a.acf.from < b.acf.from) return -1;
+          if (a.acf.from < b.acf.from) return 1;
         })
         events = result
       })
