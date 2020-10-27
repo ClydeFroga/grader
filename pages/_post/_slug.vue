@@ -489,7 +489,6 @@ export default {
     height() {
       return document.documentElement.clientHeight
     },
-
   },
   methods: {
     cleanText(text) {
