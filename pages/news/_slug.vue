@@ -6,6 +6,7 @@
       <button @click.prevent="future" v-if="cookies" class="jwt btn btn-info">
         Показать запланированные записи
       </button>
+
       <div class="news__breadcrumbs">
         <nuxt-link to="/">Главная</nuxt-link>
         <span> / </span>
@@ -33,7 +34,7 @@
             <div v-html="post.title.rendered" class="news__title">
 
             </div>
-            <div v-html="post.excerpt.rendered.slice(0, 180) + ' ...'" class="news__excerpt">
+            <div v-html="excCut(post.excerpt.rendered)" class="news__excerpt">
             </div>
           </nuxt-link>
         </div>
@@ -98,8 +99,7 @@
     },
     async asyncData({params, redirect}) {
       let cat = '';
-      // const url = 'http://localhost/igrader/wp-json/wp/v2/posts?mainthemes_slug=' + params.slug;
-      const url = 'https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes_slug=' + params.slug;
+      const url = 'https://igrader.ru/wp-json/wp/v2/posts?mainthemes_slug=' + params.slug;
       let posts = []
       await fetch(url)
       .then(responce => responce.json())
@@ -136,7 +136,7 @@
         })
       },
       async draft() {
-        fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?status=draft&per_page=100', {
+        fetch('https://igrader.ru/wp-json/wp/v2/posts?status=draft&per_page=100', {
           headers: {
             'Authorization': 'Bearer ' + this.cookies
           }
@@ -148,7 +148,7 @@
         this.draftD = true
       },
       async future() {
-        fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?status=future&per_page=100', {
+        fetch('https://igrader.ru/wp-json/wp/v2/posts?status=future&per_page=100', {
           headers: {
             'Authorization': 'Bearer ' + this.cookies
           }
@@ -158,6 +158,11 @@
           this.posts = result
         })
         this.draftD = true
+      },
+      excCut(exc) {
+        let str = exc.split(' ', 30)
+        str.push('[...]</p>')
+        return str.join(' ')
       }
     },
     computed: {

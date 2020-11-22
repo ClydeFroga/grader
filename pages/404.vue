@@ -32,13 +32,11 @@ export default {
 }
 </script>
 
-<style scoped >
+<style scoped lang="scss">
 p {
   margin: 2rem auto;
 }
 .img404 {
-  width: 70%;
-  min-width: 500px;
   display: flex;
   margin: 0 auto;
 }

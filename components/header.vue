@@ -20,12 +20,12 @@
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
-            @click="openDropdown('.expanded')"
+            @click="openDropdown('.navbar_open')"
           >
                 <svg-icon width="30" height="30" class="navbar-toggler-icon" name="list"></svg-icon>
               </button>
 
-          <div class="collapse navbar-collapse expanded" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse navbar_open" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item dropdown" @click="openDrop('.top_drop')">
                 <a class="nav-link dropdown-toggle">
@@ -217,7 +217,8 @@
         let b = document.querySelector('.lane_read')
         b.classList.add('read')
       }
-    }
+    },
+
   }
 };
 </script>

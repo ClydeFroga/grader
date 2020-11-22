@@ -206,7 +206,7 @@
       }
     },
     async asyncData({params, redirect}) {
-      let titles = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/activity?slug=' + params.slug)
+      let titles = await fetch('https://igrader.ru/wp-json/wp/v2/activity?slug=' + params.slug)
       titles = await titles.json()
       if(titles.length === 0) {
         redirect(301, `/404`)
@@ -226,14 +226,14 @@
         return text.replace(/<\/?[^>]+(>|$)/g, "");
       },
       loadRightNews() {
-        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=4&exclude=' + this.titles[0].id)
+        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=4&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsRight = responce
           this.loadLane()
         })
       },
       loadLane() {
-        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?tags=2099&per_page=4')
+        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?tags=2099&per_page=4')
         .then(responce => {
           this.lane = responce
         })

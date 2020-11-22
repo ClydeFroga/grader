@@ -402,7 +402,6 @@ export default {
     this.lightBox()
     window.onload = window.addEventListener('scroll', this.readProgress)
 
-    // this.readTime(this.titles[0].content.rendered)
   },
   updated() {
     this.leftOpps()
@@ -424,20 +423,20 @@ export default {
     }
     let titles = ''
     if(params.jwt !== undefined && params.draft) {
-      titles = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?status=draft,future&slug=' + params.slug, {
+      titles = await fetch('https://igrader.ru/wp-json/wp/v2/posts?status=draft,future&slug=' + params.slug, {
         headers: {
           'Authorization': 'Bearer ' + params.jwt
         }
       })
       titles = await titles.json()
     } else if(params.post === 'prototip') {
-      let id  = await fetch('http://promotech.igrader.ru/wp-json/last_news/v1/prototip?slug=' + params.slug)
+      let id  = await fetch('http://igrader.ru/wp-json/last_news/v1/prototip?slug=' + params.slug)
       id = await id.json()
       id = id.id
-      let post =  await fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts/' + id)
+      let post =  await fetch('https://igrader.ru/wp-json/wp/v2/posts/' + id)
       titles = [await post.json()]
       } else {
-      titles = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/posts?slug=' + params.slug)
+      titles = await fetch('https://igrader.ru/wp-json/wp/v2/posts?slug=' + params.slug)
       titles = await titles.json()
     }
     if(titles.length === 0) {
@@ -499,7 +498,7 @@ export default {
         if(!this.body.classList.contains('loading')) {
           this.body.classList.add('loading')
           this.offset++
-          this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599' + '&offset=' + this.offset + '&per_page=1&exclude=' + this.titles[0].id)
+          this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599' + '&offset=' + this.offset + '&per_page=1&exclude=' + this.titles[0].id)
           .then(responce => {
             for(let item of responce) {
               let name = item.title.rendered.replace(/&#\d+;/g, '')
@@ -616,7 +615,7 @@ export default {
       window.addEventListener('mouseup', function (e) {
         if(e.target == vote) {
           if (gg !== null) {
-            fetch('https://promotech.igrader.ru/wp-json/wp/v2/add_vote?id=' + id + '&vote_id=' + gg, {
+            fetch('https://igrader.ru/wp-json/wp/v2/add_vote?id=' + id + '&vote_id=' + gg, {
               method: 'POST'
             }).then(() => {
               vote.outerHTML = 'Спасибо за ваш голос'
@@ -644,7 +643,7 @@ export default {
       let b = ''
       if (a !== null) {
         b = a.id.match(/\d+/)
-        fetch('https://promotech.igrader.ru/wp-json/wp/v2/poll?id=' + b)
+        fetch('https://igrader.ru/wp-json/wp/v2/poll?id=' + b)
         .then(responce => responce.json())
         .then(result => {
           this.oprosFunc(b, result)
@@ -668,7 +667,7 @@ export default {
         case 2110:
         default:a = '1599';break;
       };
-      this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=3&exclude=' + this.titles[0].id + '&offset=' + r)
+      this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=3&exclude=' + this.titles[0].id + '&offset=' + r)
       .then(responce => {
         this.postsRight = responce
       })
@@ -696,11 +695,11 @@ export default {
         case 1604: b='1604'; a='1601'; break;
         default:a='1601'; break;
       }
-      this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + b + '&per_page=4&exclude=' + this.titles[0].id)
+      this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=' + b + '&per_page=4&exclude=' + this.titles[0].id)
       .then(responce => {
         this.postsSame = responce
       })
-      this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=4&exclude=' + this.titles[0].id)
+      this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=4&exclude=' + this.titles[0].id)
       .then(responce => {
         this.postsBot = responce
       })
@@ -709,7 +708,7 @@ export default {
       let butt = document.querySelector('.sp-button')
       let res = document.querySelector('#result')
 
-      fetch('https://promotech.igrader.ru/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email + '&id=88981846')
+      fetch('https://igrader.ru/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email + '&id=88981846')
       .then(responce => responce.json())
       .then(result => {
         if(result.result === true) {

@@ -86,12 +86,12 @@
     },
     head() {
       return {
-        title: this.cat + ' | Лесной комплекс '
+        title: this.cat + ' | iGrader.ru '
       }
     },
     async asyncData({params, redirect}) {
       let cat = '';
-      const url = 'https://promotech.igrader.ru/wp-json/wp/v2/posts?category_slug=' + params.slug;
+      const url = 'https://igrader.ru/wp-json/wp/v2/posts?category_slug=' + params.slug;
       let posts = []
       await fetch(url)
       .then(responce => responce.json())

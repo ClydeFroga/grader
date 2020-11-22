@@ -106,12 +106,12 @@
       }
     },
     async asyncData({params, redirect}) {
-      let cat = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/magazins?slug=' + params.slug)
+      let cat = await fetch('https://igrader.ru/wp-json/wp/v2/magazins?slug=' + params.slug)
       cat = await cat.json()
       if(cat.length === 0) {
         redirect(301, `/404`)
       }
-      const url = 'https://promotech.igrader.ru/wp-json/wp/v2/posts?magazins=' + cat[0].id;
+      const url = 'https://igrader.ru/wp-json/wp/v2/posts?magazins=' + cat[0].id;
       let posts = await fetch(url)
       posts = await posts.json()
 

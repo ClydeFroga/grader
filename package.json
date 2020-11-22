@@ -24,6 +24,7 @@
     "express": "^4.17.1",
     "fullpage.js": "^3.0.9",
     "lodash": "^4.17.20",
+    "node-fetch": "^2.6.1",
     "nuxt": "^2.14.6",
     "nuxt-compress": "^3.0.0",
     "nuxt-fullpage.js": "0.0.3",

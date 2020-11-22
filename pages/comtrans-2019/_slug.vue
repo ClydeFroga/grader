@@ -330,7 +330,7 @@ export default {
       }
     },
     async asyncData({params, redirect}) {
-      let titles = await fetch('https://promotech.igrader.ru/wp-json/wp/v2/comtrans?slug=' + params.slug)
+      let titles = await fetch('https://igrader.ru/wp-json/wp/v2/comtrans?slug=' + params.slug)
       titles = await titles.json()
       if(titles.length === 0) {
         redirect(301, `/404`)
@@ -356,17 +356,17 @@ export default {
         return text.replace(/<\/?[^>]+(>|$)/g, "");
       },
       loadRightNews() {
-        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=3&exclude=' + this.titles[0].id)
+        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=3&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsRight = responce
         })
       },
       botNews() {
-        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/comtrans?per_page=4&exclude=' + this.titles[0].id)
+        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/comtrans?per_page=4&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsSame = responce
         })
-        this.$axios.$get('https://promotech.igrader.ru/wp-json/wp/v2/posts?mainthemes=1601,1603,1602&per_page=4&exclude=' + this.titles[0].id)
+        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1601,1603,1602&per_page=4&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsBot = responce
         })
@@ -375,7 +375,7 @@ export default {
         let butt = document.querySelector('.sp-button')
         let res = document.querySelector('#result')
 
-        fetch('https://promotech.igrader.ru/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email)
+        fetch('https://igrader.ru/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email)
         .then(responce => responce.json())
         .then(result => {
           if(result.result === true) {

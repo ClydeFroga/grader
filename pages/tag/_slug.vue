@@ -66,10 +66,6 @@
 
 <script>
   export default {
-    validate({ params }) {
-      let val = /^\d+$/.test(params.slug)
-      return !val
-    },
     async fetch ({store }) {
       if (store.getters['lastMag/journal'].length === 0) {
         await store.dispatch('lastMag/fetch')
@@ -92,7 +88,7 @@
     },
     async asyncData({params, redirect}) {
       let cat = '';
-      const url = 'https://promotech.igrader.ru/wp-json/wp/v2/posts?tag_slug=' + params.slug;
+      const url = 'https://igrader.ru/wp-json/wp/v2/posts?tag_slug=' + params.slug;
       let posts = []
       await fetch(url)
       .then(responce => responce.json())

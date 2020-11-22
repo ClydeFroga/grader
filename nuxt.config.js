@@ -58,7 +58,7 @@ module.exports = {
     id: "23728024",
     webvisor: true,
     clickmap: true,
-    trackHash: false,
+    trackHash: true,
     trackLinks: true,
     accurateTrackBounce: true,
   },
@@ -84,11 +84,6 @@ module.exports = {
     "@nuxtjs/sitemap",
     "@nuxtjs/component-cache",
     "nuxt-precompress",
-    // ["nuxt-compress", {
-    //     gzip: { cache: true },
-    //     brotli: { threshold: 10240}
-    //   }
-    // ],
     "@nuxtjs/redirect-module",
     "nuxt-fullpage.js",
     "nuxt-validate",

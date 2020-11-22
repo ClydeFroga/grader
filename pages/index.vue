@@ -196,7 +196,7 @@
 
       <div class="container-md">
         <h2 class="field__title">
-          <nuxt-link :to="{ name: 'tags-slug', params: { slug: 'dorozhniki-2' } }">
+          <nuxt-link :to="{ name: 'tag-slug', params: { slug: 'dorozhniki-2' } }">
             Дорожники
           </nuxt-link>
         </h2>
@@ -254,13 +254,13 @@
           <div class="col-3">
             <div class="foxy">
               <nuxt-link v-if="golos === 0" :to="{ name: 'post-slug', params: {post:'vybor-professionalov',  slug: 'luchshij-avtogrejder' } }">
-                <img class="wrapper__adImg" src="https://promotech.igrader.ru/wp-content/uploads/2020/03/golosuem_2-01.jpg">
+                <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/03/golosuem_2-01.jpg">
               </nuxt-link>
               <nuxt-link v-else-if="golos === 1" :to="{ name: 'post-slug', params: {post:'vybor-professionalov',  slug: 'luchshij-ekskavator-pogruzchik-vybor-professionalov' } }">
-                <img class="wrapper__adImg" src="https://promotech.igrader.ru/wp-content/uploads/2020/05/golosuem_1-01.jpg">
+                <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/05/golosuem_1-01.jpg">
               </nuxt-link>
               <nuxt-link v-else-if="golos === 2" :to="{ name: 'post-slug', params: {post:'vybor-professionalov',  slug: 'luchshij-teleskopicheskij-pogruzchik' } }">
-                <img class="wrapper__adImg" src="https://promotech.igrader.ru/wp-content/uploads/2020/05/golosuem_3-01.jpg">
+                <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/05/golosuem_3-01.jpg">
               </nuxt-link>
             </div>
           </div>
@@ -370,7 +370,7 @@ export default {
   },
   mounted() {
     if(this.$route.query.p) {
-      this.$router.replace({ path: `/preview/${this.$route.query.p}`});
+      this.preview(this.$route.query.p).then(result => this.$router.replace({ name: 'post-slug', params: {draft: true, jwt: this.cookies, slug: result.slug, post: result.x_cats_slug[0]} }))
     }
     this.golos = rand(0, 2);
     this.width = document.documentElement.clientWidth
@@ -398,7 +398,6 @@ export default {
       autoplay: {
         delay: 5000,
       },
-      // watchSlidesVisibility: true,
       navigation: {
         nextEl: '.swiper-next',
         prevEl: '.swiper-prev',
@@ -472,6 +471,9 @@ export default {
     krupniymPlanom() {
       return this.$store.getters['mainPage/krupniymPlanom']
     },
+    cookies() {
+      return this.$cookies.get('jwt')
+    }
   },
   methods: {
     async rest() {
@@ -484,6 +486,16 @@ export default {
       this.stranitciIstorii = this.$store.getters['mainPage/stranitciIstorii']
       this.riders = this.$store.getters['mainPage/riders']
     },
+    async preview(id) {
+      let titles = ''
+      titles = await fetch('https://igrader.ru/wp-json/wp/v2/posts/' + id, {
+        headers: {
+          'Authorization': 'Bearer ' + this.cookies
+        }
+      })
+      titles = await titles.json()
+      return titles
+    }
   }
 }
 </script>
