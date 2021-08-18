@@ -99,7 +99,7 @@
     },
     async asyncData({params, redirect}) {
       let cat = '';
-      const url = 'https://igrader.ru/wp-json/wp/v2/posts?mainthemes_slug=' + params.slug;
+      const url = 'http://localhost/igrader/wp-json/wp/v2/posts?mainthemes_slug=' + params.slug;
       let posts = []
       await fetch(url)
       .then(responce => responce.json())
@@ -136,7 +136,7 @@
         })
       },
       async draft() {
-        fetch('https://igrader.ru/wp-json/wp/v2/posts?status=draft&per_page=100', {
+        fetch('http://localhost/igrader/wp-json/wp/v2/posts?status=draft&per_page=100', {
           headers: {
             'Authorization': 'Bearer ' + this.cookies
           }
@@ -148,7 +148,7 @@
         this.draftD = true
       },
       async future() {
-        fetch('https://igrader.ru/wp-json/wp/v2/posts?status=future&per_page=100', {
+        fetch('http://localhost/igrader/wp-json/wp/v2/posts?status=future&per_page=100', {
           headers: {
             'Authorization': 'Bearer ' + this.cookies
           }

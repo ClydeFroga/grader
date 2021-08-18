@@ -91,7 +91,7 @@
     },
     async asyncData({params, redirect}) {
       let cat = '';
-      const url = 'https://igrader.ru/wp-json/wp/v2/posts?category_slug=' + params.slug;
+      const url = 'http://localhost/igrader/wp-json/wp/v2/posts?category_slug=' + params.slug;
       let posts = []
       await fetch(url)
       .then(responce => responce.json())

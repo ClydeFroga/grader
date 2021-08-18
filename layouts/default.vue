@@ -37,98 +37,98 @@
     //   this.adfoxDestr()
     // },
     mounted() {
-      this.adfox()
-      setTimeout(() => {
-        this.$ga.event('send', 'event', 'new visitor')
-      }, 15000)
+    //   this.adfox()
+    //   setTimeout(() => {
+    //     this.$ga.event('send', 'event', 'new visitor')
+    //   }, 15000)
     },
-    updated() {
-      setTimeout(() => {
-        this.adfoxRel()
-      }, 1500)
-    },
+    // updated() {
+    //   setTimeout(() => {
+    //     this.adfoxRel()
+    //   }, 1500)
+    // },
     methods: {
-      adfox() {
-        if(window.Ya) {
-          window.Ya.adfoxCode.create({
-            ownerId: 299653,
-            containerId: 'adfox_159374506763656431',
-            params: {
-              pp: 'g',
-              ps: 'dkqx',
-              p2: 'gwmw'
-            }
-          }); //
-          window.Ya.adfoxCode.create({
-            ownerId: 299653,
-            containerId: 'adfox_159480168913443656',
-            params: {
-              pp: 'h',
-              ps: 'dkqx',
-              p2: 'gwmx'
-            }
-          }); //
-          window.Ya.adfoxCode.create({
-            ownerId: 299653,
-            containerId: 'adfox_159374935502579870',
-            params: {
-              pp: 'i',
-              ps: 'dkqx',
-              p2: 'gwna'
-            }
-          }); //
-          window.Ya.adfoxCode.create({
-            ownerId: 299653,
-            containerId: 'adfox_159374952133726391',
-            params: {
-              pp: 'i',
-              ps: 'dkqx',
-              p2: 'gwnb'
-            }
-          }); //
-          window.Ya.adfoxCode.create({
-            ownerId: 299653,
-            containerId: 'adfox_159712112538951246',
-            params: {
-              pp: 'i',
-              ps: 'dkqx',
-              p2: 'gxim'
-            }
-          }); //
-          window.Ya.adfoxCode.create({
-              ownerId: 299653,
-              containerId: 'adfox_159374525659365226',
-              params: {
-                pp: 'g',
-                ps: 'dkqx',
-                p2: 'gwau'
-              }
-          }); // D1
-          window.Ya.adfoxCode.create({
-            ownerId: 299653,
-            containerId: 'adfox_159374518828642846',
-            params: {
-              pp: 'i',
-              ps: 'dkqx',
-              p2: 'gwmy'
-            }
-          }); // C
-          window.Ya.adfoxCode.create({
-            ownerId: 299653,
-            containerId: 'adfox_159374528706764377',
-            params: {
-              pp: 'i',
-              ps: 'dkqx',
-              p2: 'gwmz'
-            }
-          }); // D2
-        }
-      },
-      adfoxRel() {
-        if(window.Ya) {
-          window.Ya.adfoxCode.reload()
-        }
-      },
+      // adfox() {
+      //   if(window.Ya) {
+      //     window.Ya.adfoxCode.create({
+      //       ownerId: 299653,
+      //       containerId: 'adfox_159374506763656431',
+      //       params: {
+      //         pp: 'g',
+      //         ps: 'dkqx',
+      //         p2: 'gwmw'
+      //       }
+      //     }); //
+      //     window.Ya.adfoxCode.create({
+      //       ownerId: 299653,
+      //       containerId: 'adfox_159480168913443656',
+      //       params: {
+      //         pp: 'h',
+      //         ps: 'dkqx',
+      //         p2: 'gwmx'
+      //       }
+      //     }); //
+      //     window.Ya.adfoxCode.create({
+      //       ownerId: 299653,
+      //       containerId: 'adfox_159374935502579870',
+      //       params: {
+      //         pp: 'i',
+      //         ps: 'dkqx',
+      //         p2: 'gwna'
+      //       }
+      //     }); //
+      //     window.Ya.adfoxCode.create({
+      //       ownerId: 299653,
+      //       containerId: 'adfox_159374952133726391',
+      //       params: {
+      //         pp: 'i',
+      //         ps: 'dkqx',
+      //         p2: 'gwnb'
+      //       }
+      //     }); //
+      //     window.Ya.adfoxCode.create({
+      //       ownerId: 299653,
+      //       containerId: 'adfox_159712112538951246',
+      //       params: {
+      //         pp: 'i',
+      //         ps: 'dkqx',
+      //         p2: 'gxim'
+      //       }
+      //     }); //
+      //     window.Ya.adfoxCode.create({
+      //         ownerId: 299653,
+      //         containerId: 'adfox_159374525659365226',
+      //         params: {
+      //           pp: 'g',
+      //           ps: 'dkqx',
+      //           p2: 'gwau'
+      //         }
+      //     }); // D1
+      //     window.Ya.adfoxCode.create({
+      //       ownerId: 299653,
+      //       containerId: 'adfox_159374518828642846',
+      //       params: {
+      //         pp: 'i',
+      //         ps: 'dkqx',
+      //         p2: 'gwmy'
+      //       }
+      //     }); // C
+      //     window.Ya.adfoxCode.create({
+      //       ownerId: 299653,
+      //       containerId: 'adfox_159374528706764377',
+      //       params: {
+      //         pp: 'i',
+      //         ps: 'dkqx',
+      //         p2: 'gwmz'
+      //       }
+      //     }); // D2
+      //   }
+      // },
+      // adfoxRel() {
+      //   if(window.Ya) {
+      //     window.Ya.adfoxCode.reload()
+      //   }
+      // },
       // adfoxDestr() {
       //   if(window.Ya) {
       //     window.Ya.adfoxCode.destroy();

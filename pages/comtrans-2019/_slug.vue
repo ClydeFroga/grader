@@ -30,25 +30,25 @@
               </div>
               <div class="single__text" v-html="post.content.rendered"></div>
               <div class="sharing__wrapper static">
-                <a :href="'http://vk.com/share.php?url=https://igrader.ru' + $route.path + '&title=' + post.title.rendered + '&description=' + cleanText(post.excerpt.rendered) + '&image=' + post.x_featured_media" class="sharing__item vk">
+                <a :href="'http://vk.com/share.php?url=http://localhost/igrader' + $route.path + '&title=' + post.title.rendered + '&description=' + cleanText(post.excerpt.rendered) + '&image=' + post.x_featured_media" class="sharing__item vk">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#vk_logo"></use>
                   </svg>
                 </a>
 
-                <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=https://igrader.ru' + $route.path + '&p[title]=' + post.title.rendered + '&p[summary]=' + cleanText(post.excerpt.rendered) + '&p[images][0]=' + post.x_featured_media" class="sharing__item fb">
+                <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=http://localhost/igrader' + $route.path + '&p[title]=' + post.title.rendered + '&p[summary]=' + cleanText(post.excerpt.rendered) + '&p[images][0]=' + post.x_featured_media" class="sharing__item fb">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#fb_logo"></use>
                   </svg>
                 </a>
 
-                <a :href="'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=https://igrader.ru'+ $route.path +'&st.comments=' + post.title.rendered" class="sharing__item od">
+                <a :href="'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=http://localhost/igrader'+ $route.path +'&st.comments=' + post.title.rendered" class="sharing__item od">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#classmates_logo"></use>
                   </svg>
                 </a>
 
-                <a :href="'https://telegram.me/share/url?url=https://igrader.ru'+  $route.path +'&amp;text=' + post.title.rendered" class="sharing__item telegram">
+                <a :href="'https://telegram.me/share/url?url=http://localhost/igrader'+  $route.path +'&amp;text=' + post.title.rendered" class="sharing__item telegram">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#pocket_logo"></use>
                   </svg>
@@ -60,7 +60,7 @@
                   </svg>
                 </a>
 
-                <a :href="'whatsapp://send?text=https://igrader.ru' + $route.path" class="sharing__item wApp">
+                <a :href="'whatsapp://send?text=http://localhost/igrader' + $route.path" class="sharing__item wApp">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#wApp_logo"></use>
                   </svg>
@@ -123,25 +123,25 @@
       <div class="col-12 col-md-1 col-lg-2">
         <div class="sharing__wrapper">
 
-          <a :href="'http://vk.com/share.php?url=https://igrader.ru' + $route.path + '&title=' + this.titles[0].title.rendered + '&description=' + cleanText(this.titles[0].excerpt.rendered) + '&image=' + this.titles[0].x_featured_media" class="sharing__item vk">
+          <a :href="'http://vk.com/share.php?url=http://localhost/igrader' + $route.path + '&title=' + this.titles[0].title.rendered + '&description=' + cleanText(this.titles[0].excerpt.rendered) + '&image=' + this.titles[0].x_featured_media" class="sharing__item vk">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#vk_logo"></use>
             </svg>
           </a>
 
-          <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=https://igrader.ru' + $route.path + '&p[title]=' + this.titles[0].title.rendered + '&p[summary]=' + cleanText(this.titles[0].excerpt.rendered) + '&p[images][0]=' + this.titles[0].x_featured_media" class="sharing__item fb">
+          <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=http://localhost/igrader' + $route.path + '&p[title]=' + this.titles[0].title.rendered + '&p[summary]=' + cleanText(this.titles[0].excerpt.rendered) + '&p[images][0]=' + this.titles[0].x_featured_media" class="sharing__item fb">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#fb_logo"></use>
             </svg>
           </a>
 
-          <a :href="'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=https://igrader.ru'+ $route.path +'&st.comments=' + this.titles[0].title.rendered" class="sharing__item od">
+          <a :href="'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=http://localhost/igrader'+ $route.path +'&st.comments=' + this.titles[0].title.rendered" class="sharing__item od">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#classmates_logo"></use>
             </svg>
           </a>
 
-          <a :href="'https://telegram.me/share/url?url=https://igrader.ru'+  $route.path +'&amp;text=' + this.titles[0].title.rendered" class="sharing__item telegram">
+          <a :href="'https://telegram.me/share/url?url=http://localhost/igrader'+  $route.path +'&amp;text=' + this.titles[0].title.rendered" class="sharing__item telegram">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#pocket_logo"></use>
             </svg>
@@ -153,7 +153,7 @@
             </svg>
           </a>
 
-          <a :href="'whatsapp://send?text=https://igrader.ru' + $route.path" class="sharing__item wApp">
+          <a :href="'whatsapp://send?text=http://localhost/igrader' + $route.path" class="sharing__item wApp">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#wApp_logo"></use>
             </svg>
@@ -330,7 +330,7 @@ export default {
       }
     },
     async asyncData({params, redirect}) {
-      let titles = await fetch('https://igrader.ru/wp-json/wp/v2/comtrans?slug=' + params.slug)
+      let titles = await fetch('http://localhost/igrader/wp-json/wp/v2/comtrans?slug=' + params.slug)
       titles = await titles.json()
       if(titles.length === 0) {
         redirect(301, `/404`)
@@ -356,17 +356,17 @@ export default {
         return text.replace(/<\/?[^>]+(>|$)/g, "");
       },
       loadRightNews() {
-        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=3&exclude=' + this.titles[0].id)
+        this.$axios.$get('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=1599&per_page=3&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsRight = responce
         })
       },
       botNews() {
-        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/comtrans?per_page=4&exclude=' + this.titles[0].id)
+        this.$axios.$get('http://localhost/igrader/wp-json/wp/v2/comtrans?per_page=4&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsSame = responce
         })
-        this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1601,1603,1602&per_page=4&exclude=' + this.titles[0].id)
+        this.$axios.$get('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=1601,1603,1602&per_page=4&exclude=' + this.titles[0].id)
         .then(responce => {
           this.postsBot = responce
         })
@@ -375,7 +375,7 @@ export default {
         let butt = document.querySelector('.sp-button')
         let res = document.querySelector('#result')
 
-        fetch('https://igrader.ru/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email)
+        fetch('http://localhost/igrader/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email)
         .then(responce => responce.json())
         .then(result => {
           if(result.result === true) {

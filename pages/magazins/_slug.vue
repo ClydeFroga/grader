@@ -85,7 +85,7 @@
           { property: 'og:type', content: 'article'},
           { property: 'og:title', content: this.cat[0].name },
           { property: 'og:description', content:  this.cat[0].description },
-          { property: 'og:url', content: 'https://igrader.ru/magazins/' + this.cat[0].slug },
+          { property: 'og:url', content: 'http://localhost/igrader/magazins/' + this.cat[0].slug },
           { property: 'og:site_name', content: 'iGrader.ru' },
           { property: 'og:image', content: this.cat[0].acf.ssylka_na_oblozhku },
           { property: 'og:image:secure_url', content: this.cat[0].acf.ssylka_na_oblozhku },
@@ -106,12 +106,12 @@
       }
     },
     async asyncData({params, redirect}) {
-      let cat = await fetch('https://igrader.ru/wp-json/wp/v2/magazins?slug=' + params.slug)
+      let cat = await fetch('http://localhost/igrader/wp-json/wp/v2/magazins?slug=' + params.slug)
       cat = await cat.json()
       if(cat.length === 0) {
         redirect(301, `/404`)
       }
-      const url = 'https://igrader.ru/wp-json/wp/v2/posts?magazins=' + cat[0].id;
+      const url = 'http://localhost/igrader/wp-json/wp/v2/posts?magazins=' + cat[0].id;
       let posts = await fetch(url)
       posts = await posts.json()
 

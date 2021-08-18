@@ -88,14 +88,14 @@
     },
     async asyncData({params}) {
       let ser =  encodeURIComponent(params.request)
-      const url = 'https://igrader.ru/wp-json/wp/v2/posts?search=' + ser;
+      const url = 'http://localhost/igrader/wp-json/wp/v2/posts?search=' + ser;
       let req = params.request
       let posts = await fetch(url)
       posts = await posts.json()
       if(posts.length === 0) {
         req = ''
         if(params.request === undefined) {
-          let posts = await fetch('https://igrader.ru/wp-json/wp/v2/posts')
+          let posts = await fetch('http://localhost/igrader/wp-json/wp/v2/posts')
           posts = await posts.json()
           return {posts, req}
         }

@@ -56,28 +56,28 @@ export const state = () => ({
 
   export const actions = {
     async sticky({commit}) {
-      let sticky = await fetch('https://igrader.ru/wp-json/wp/v2/posts?sticky=true&per_page=5')
+      let sticky = await fetch('http://localhost/igrader/wp-json/wp/v2/posts?sticky=true&per_page=5')
       sticky = await sticky.json()
 
       commit('setSticky', sticky)
     },
     async fetch({commit}) {
-      let topSlider = await fetch('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1601,1603,1604,1033&per_page=5')
+      let topSlider = await fetch('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=1601,1603,1604,1033&per_page=5')
       topSlider = await topSlider.json()
 
-      let news = await fetch('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599&per_page=5')
+      let news = await fetch('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=1599&per_page=5')
       news = await news.json()
 
-      let categories = await fetch('https://igrader.ru/wp-json/wp/v2/categories?per_page=100&exclude=1480,5')
+      let categories = await fetch('http://localhost/igrader/wp-json/wp/v2/categories?per_page=100&exclude=1480,5')
       categories = await categories.json()
 
-      let analitika = await fetch('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1600&per_page=4')
+      let analitika = await fetch('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=1600&per_page=4')
       analitika = await analitika.json()
 
-      let kruglyjStol = await fetch('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1604&per_page=4')
+      let kruglyjStol = await fetch('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=1604&per_page=4')
       kruglyjStol = await kruglyjStol.json()
 
-      let krupniymPlanom = await fetch('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1603&per_page=5')
+      let krupniymPlanom = await fetch('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=1603&per_page=5')
       krupniymPlanom = await krupniymPlanom.json()
 
       commit('setTopSlider', topSlider)
@@ -88,25 +88,25 @@ export const state = () => ({
       commit('setKrupniymPlanom', krupniymPlanom)
     },
     async rest({commit}) {
-      let riders = await fetch('https://igrader.ru/wp-json/wp/v2/posts?tags=223&mainthemes__exclude=1599&per_page=7')
+      let riders = await fetch('http://localhost/igrader/wp-json/wp/v2/posts?tags=223&mainthemes__exclude=1599&per_page=7')
       riders = await riders.json()
       commit('setRiders', riders)
 
-      let servismenyi = await fetch('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1605&per_page=4')
+      let servismenyi = await fetch('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=1605&per_page=4')
       servismenyi = await servismenyi.json()
       commit('setServismenyi', servismenyi)
 
-      let stranitciIstorii = await fetch('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1606&per_page=5')
+      let stranitciIstorii = await fetch('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=1606&per_page=5')
       stranitciIstorii = await stranitciIstorii.json()
       commit('setStranitciIstorii', stranitciIstorii)
 
-      let vyborProfessionalov = await fetch('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1607&per_page=3')
+      let vyborProfessionalov = await fetch('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=1607&per_page=3')
       vyborProfessionalov = await vyborProfessionalov.json()
       commit('setVyborProfessionalov', vyborProfessionalov)
 
-      let countOffers = await fetch('https://igrader.ru/wp-json/wp/v2/mainthemes/1980')
+      let countOffers = await fetch('http://localhost/igrader/wp-json/wp/v2/mainthemes/1980')
       let r = rand(0, countOffers.count - 3)
-      let specialoffers = await fetch('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1980&per_page=3&offset=' + r)
+      let specialoffers = await fetch('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=1980&per_page=3&offset=' + r)
       specialoffers = await specialoffers.json()
 
       commit('setSpecialoffers', specialoffers)

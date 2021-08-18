@@ -46,7 +46,7 @@ export default {
       formData.append('username', this.login)
       formData.append('password', this.password)
 
-      let response = await fetch('https://igrader.ru/wp-json/jwt-auth/v1/token', {
+      let response = await fetch('http://localhost/igrader/wp-json/jwt-auth/v1/token', {
         method: 'POST',
         body: formData
       });

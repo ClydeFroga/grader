@@ -2,7 +2,7 @@ module.exports = {
   mode: "universal",
   target: "server",
   sitemap: {
-    hostname: "https://igrader.ru/",
+    hostname: "http://localhost/igrader/",
     gzip: true,
     exclude: ["/draft"],
   },

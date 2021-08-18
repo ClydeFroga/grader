@@ -10,7 +10,7 @@ export const mutations = {
 
 export const actions = {
   async fetch({commit}) {
-    let unsorted = await fetch('https://igrader.ru/wp-json/wp/v2/magazins?orderby=slug&order=desc&per_page=12')
+    let unsorted = await fetch('http://localhost/igrader/wp-json/wp/v2/magazins?orderby=slug&order=desc&per_page=12')
     unsorted = await unsorted.json()
     let sorted = unsorted.sort(function (a, b) {
       if (a.acf.reliz_jrnl > b.acf.reliz_jrnl) {

@@ -36,25 +36,25 @@
                 Статья опубликована в журнале <nuxt-link :to="{name: 'magazins-slug', params: {slug: post.magMy[1]}}">{{post.magMy[0]}}</nuxt-link>
               </div>
               <div v-if="disq === 1599" class="sharing__wrapper static">
-                <a :href="'http://vk.com/share.php?url=https://igrader.ru' + $route.path + '&title=' + articles[ind] + '&description=' + cleanText(post.excerpt.rendered) + '&image=' + post.x_featured_media" class="sharing__item vk">
+                <a :href="'http://vk.com/share.php?url=http://localhost/igrader' + $route.path + '&title=' + articles[ind] + '&description=' + cleanText(post.excerpt.rendered) + '&image=' + post.x_featured_media" class="sharing__item vk">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#vk_logo"></use>
                   </svg>
                 </a>
 
-                <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=https://igrader.ru' + $route.path + '&p[title]=' + articles[ind] + '&p[summary]=' + cleanText(post.excerpt.rendered) + '&p[images][0]=' + post.x_featured_media" class="sharing__item fb">
+                <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=http://localhost/igrader' + $route.path + '&p[title]=' + articles[ind] + '&p[summary]=' + cleanText(post.excerpt.rendered) + '&p[images][0]=' + post.x_featured_media" class="sharing__item fb">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#fb_logo"></use>
                   </svg>
                 </a>
 
-                <a :href="'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=https://igrader.ru'+ $route.path +'&st.comments=' + articles[ind]" class="sharing__item od">
+                <a :href="'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=http://localhost/igrader'+ $route.path +'&st.comments=' + articles[ind]" class="sharing__item od">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#classmates_logo"></use>
                   </svg>
                 </a>
 
-                <a :href="'https://telegram.me/share/url?url=https://igrader.ru'+  $route.path +'&amp;text=' + articles[ind]" class="sharing__item telegram">
+                <a :href="'https://telegram.me/share/url?url=http://localhost/igrader'+  $route.path +'&amp;text=' + articles[ind]" class="sharing__item telegram">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#pocket_logo"></use>
                   </svg>
@@ -66,7 +66,7 @@
                   </svg>
                 </a>
 
-                <a :href="'whatsapp://send?text=https://igrader.ru' + $route.path" class="sharing__item wApp">
+                <a :href="'whatsapp://send?text=http://localhost/igrader' + $route.path" class="sharing__item wApp">
                   <svg width="25" height="25" fill="white">
                     <use xlink:href="@/static/svgsprite.svg#wApp_logo"></use>
                   </svg>
@@ -133,25 +133,25 @@
       <div class="col-12 col-md-1 col-lg-2">
         <div v-if="this.disq !== 1599" class="sharing__wrapper">
 
-          <a :href="'http://vk.com/share.php?url=https://igrader.ru' + $route.path + '&title=' + this.titles[0].title.rendered + '&description=' + cleanText(this.titles[0].excerpt.rendered) + '&image=' + this.titles[0].x_featured_media" class="sharing__item vk">
+          <a :href="'http://vk.com/share.php?url=http://localhost/igrader' + $route.path + '&title=' + this.titles[0].title.rendered + '&description=' + cleanText(this.titles[0].excerpt.rendered) + '&image=' + this.titles[0].x_featured_media" class="sharing__item vk">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#vk_logo"></use>
             </svg>
           </a>
 
-          <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=https://igrader.ru' + $route.path + '&p[title]=' + this.titles[0].title.rendered + '&p[summary]=' + cleanText(this.titles[0].excerpt.rendered) + '&p[images][0]=' + this.titles[0].x_featured_media" class="sharing__item fb">
+          <a :href="'http://www.facebook.com/sharer.php?s=100&p[url]=http://localhost/igrader' + $route.path + '&p[title]=' + this.titles[0].title.rendered + '&p[summary]=' + cleanText(this.titles[0].excerpt.rendered) + '&p[images][0]=' + this.titles[0].x_featured_media" class="sharing__item fb">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#fb_logo"></use>
             </svg>
           </a>
 
-          <a :href="'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=https://igrader.ru'+ $route.path +'&st.comments=' + this.titles[0].title.rendered" class="sharing__item od">
+          <a :href="'http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=http://localhost/igrader'+ $route.path +'&st.comments=' + this.titles[0].title.rendered" class="sharing__item od">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#classmates_logo"></use>
             </svg>
           </a>
 
-          <a :href="'https://telegram.me/share/url?url=https://igrader.ru'+  $route.path +'&amp;text=' + this.titles[0].title.rendered" class="sharing__item telegram">
+          <a :href="'https://telegram.me/share/url?url=http://localhost/igrader'+  $route.path +'&amp;text=' + this.titles[0].title.rendered" class="sharing__item telegram">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#pocket_logo"></use>
             </svg>
@@ -163,7 +163,7 @@
             </svg>
           </a>
 
-          <a :href="'whatsapp://send?text=https://igrader.ru' + $route.path" class="sharing__item wApp">
+          <a :href="'whatsapp://send?text=http://localhost/igrader' + $route.path" class="sharing__item wApp">
             <svg width="25" height="25" fill="white">
               <use xlink:href="@/static/svgsprite.svg#wApp_logo"></use>
             </svg>
@@ -423,7 +423,7 @@ export default {
     }
     let titles = ''
     if(params.jwt !== undefined && params.draft) {
-      titles = await fetch('https://igrader.ru/wp-json/wp/v2/posts?status=draft,future&slug=' + params.slug, {
+      titles = await fetch('http://localhost/igrader/wp-json/wp/v2/posts?status=draft,future&slug=' + params.slug, {
         headers: {
           'Authorization': 'Bearer ' + params.jwt
         }
@@ -433,17 +433,17 @@ export default {
       let id  = await fetch('http://igrader.ru/wp-json/last_news/v1/prototip?slug=' + params.slug)
       id = await id.json()
       id = id.id
-      let post =  await fetch('https://igrader.ru/wp-json/wp/v2/posts/' + id)
+      let post =  await fetch('http://localhost/igrader/wp-json/wp/v2/posts/' + id)
       titles = [await post.json()]
       } else {
-      titles = await fetch('https://igrader.ru/wp-json/wp/v2/posts?slug=' + params.slug)
+      titles = await fetch('http://localhost/igrader/wp-json/wp/v2/posts?slug=' + params.slug)
       titles = await titles.json()
     }
     if(titles.length === 0) {
       redirect(301, `/404`)
     }
     let category = params.post;
-    let urls = ['https://igrader.ru/' + category + '/' + params.slug]   //заменить!!!!!!
+    let urls = ['http://localhost/igrader/' + category + '/' + params.slug]   //заменить!!!!!!
     let articles = [titles[0].title.rendered.replace(/&#\d+;/g, '')]
     let ids = [titles[0].id]
     let robots = 'all'
@@ -498,14 +498,14 @@ export default {
         if(!this.body.classList.contains('loading')) {
           this.body.classList.add('loading')
           this.offset++
-          this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=1599' + '&offset=' + this.offset + '&per_page=1&exclude=' + this.titles[0].id)
+          this.$axios.$get('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=1599' + '&offset=' + this.offset + '&per_page=1&exclude=' + this.titles[0].id)
           .then(responce => {
             for(let item of responce) {
               let name = item.title.rendered.replace(/&#\d+;/g, '')
               document.title = name
               this.articles.push(name)
               this.ids.push(item.id)
-              let url = 'https://igrader.ru/' + this.category + '/' + item.slug       //заменить!!!
+              let url = 'http://localhost/igrader/' + this.category + '/' + item.slug       //заменить!!!
               this.urls.push(url)
               history.pushState({page_title: name}, '', url)
               this.titles.push(item)
@@ -615,7 +615,7 @@ export default {
       window.addEventListener('mouseup', function (e) {
         if(e.target == vote) {
           if (gg !== null) {
-            fetch('https://igrader.ru/wp-json/wp/v2/add_vote?id=' + id + '&vote_id=' + gg, {
+            fetch('http://localhost/igrader/wp-json/wp/v2/add_vote?id=' + id + '&vote_id=' + gg, {
               method: 'POST'
             }).then(() => {
               vote.outerHTML = 'Спасибо за ваш голос'
@@ -643,7 +643,7 @@ export default {
       let b = ''
       if (a !== null) {
         b = a.id.match(/\d+/)
-        fetch('https://igrader.ru/wp-json/wp/v2/poll?id=' + b)
+        fetch('http://localhost/igrader/wp-json/wp/v2/poll?id=' + b)
         .then(responce => responce.json())
         .then(result => {
           this.oprosFunc(b, result)
@@ -667,7 +667,7 @@ export default {
         case 2110:
         default:a = '1599';break;
       };
-      this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=3&exclude=' + this.titles[0].id + '&offset=' + r)
+      this.$axios.$get('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=3&exclude=' + this.titles[0].id + '&offset=' + r)
       .then(responce => {
         this.postsRight = responce
       })
@@ -695,11 +695,11 @@ export default {
         case 1604: b='1604'; a='1601'; break;
         default:a='1601'; break;
       }
-      this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=' + b + '&per_page=4&exclude=' + this.titles[0].id)
+      this.$axios.$get('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=' + b + '&per_page=4&exclude=' + this.titles[0].id)
       .then(responce => {
         this.postsSame = responce
       })
-      this.$axios.$get('https://igrader.ru/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=4&exclude=' + this.titles[0].id)
+      this.$axios.$get('http://localhost/igrader/wp-json/wp/v2/posts?mainthemes=' + a + '&per_page=4&exclude=' + this.titles[0].id)
       .then(responce => {
         this.postsBot = responce
       })
@@ -708,7 +708,7 @@ export default {
       let butt = document.querySelector('.sp-button')
       let res = document.querySelector('#result')
 
-      fetch('https://igrader.ru/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email + '&id=88981846')
+      fetch('http://localhost/igrader/wp-json/last_news/v1/send-pulse?name=' + this.pname + '&email=' + this.email + '&id=88981846')
       .then(responce => responce.json())
       .then(result => {
         if(result.result === true) {

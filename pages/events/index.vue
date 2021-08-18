@@ -76,7 +76,7 @@
     },
     async asyncData({redirect}) {
       let events = []
-      let url = 'https://igrader.ru/wp-json/wp/v2/activity'
+      let url = 'http://localhost/igrader/wp-json/wp/v2/activity'
       await fetch(url)
       .then(responce => responce.json())
       .then(result => {
@@ -121,7 +121,7 @@
         let urls = []
         let link_url = []
         let links = []
-        fetch('https://igrader.ru/wp-json/wp/v2/sidebar/events-gif')
+        fetch('http://localhost/igrader/wp-json/wp/v2/sidebar/events-gif')
         .then(responce => responce.json())
         .then(result => {
           let gifs = result._links.widgets

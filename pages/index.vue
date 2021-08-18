@@ -254,13 +254,13 @@
           <div class="col-3">
             <div class="foxy">
               <nuxt-link v-if="golos === 0" :to="{ name: 'post-slug', params: {post:'vybor-professionalov',  slug: 'luchshij-avtogrejder' } }">
-                <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/03/golosuem_2-01.jpg">
+                <img class="wrapper__adImg" src="http://localhost/igrader/wp-content/uploads/2020/03/golosuem_2-01.jpg">
               </nuxt-link>
               <nuxt-link v-else-if="golos === 1" :to="{ name: 'post-slug', params: {post:'vybor-professionalov',  slug: 'luchshij-ekskavator-pogruzchik-vybor-professionalov' } }">
-                <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/05/golosuem_1-01.jpg">
+                <img class="wrapper__adImg" src="http://localhost/igrader/wp-content/uploads/2020/05/golosuem_1-01.jpg">
               </nuxt-link>
               <nuxt-link v-else-if="golos === 2" :to="{ name: 'post-slug', params: {post:'vybor-professionalov',  slug: 'luchshij-teleskopicheskij-pogruzchik' } }">
-                <img class="wrapper__adImg" src="https://igrader.ru/wp-content/uploads/2020/05/golosuem_3-01.jpg">
+                <img class="wrapper__adImg" src="http://localhost/igrader/wp-content/uploads/2020/05/golosuem_3-01.jpg">
               </nuxt-link>
             </div>
           </div>
@@ -488,7 +488,7 @@ export default {
     },
     async preview(id) {
       let titles = ''
-      titles = await fetch('https://igrader.ru/wp-json/wp/v2/posts/' + id, {
+      titles = await fetch('http://localhost/igrader/wp-json/wp/v2/posts/' + id, {
         headers: {
           'Authorization': 'Bearer ' + this.cookies
         }

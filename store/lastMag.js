@@ -11,7 +11,7 @@ export const mutations = {
 export const actions = {
   async fetch({commit}) {
     let journal = []
-    fetch('https://igrader.ru/wp-json/wp/v2/magazins?orderby=slug&order=desc&per_page=2')
+    fetch('http://localhost/igrader/wp-json/wp/v2/magazins?orderby=slug&order=desc&per_page=2')
     .then(responce => responce.json())
     .then(result => {
       let journals = result.sort(function (a, b) {
